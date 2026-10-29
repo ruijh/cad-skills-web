@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAD Skills 图鉴 · cad-skills-web</title>
+<meta name="description" content="收录 GitHub 上让 AI Agent 真正能用的 CAD skill / MCP server：按形态、宿主软件、许可、能力对比，附一键复制的接入配方。">
+<meta property="og:title" content="CAD Skills 图鉴 · cad-skills-web">
+<meta property="og:description" content="CAD × Agent 的开源图鉴：MCP server、SKILL.md、内置 MCP 的 CAD 应用，一页挑对。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='1' y='1' width='14' height='14' rx='3' fill='%230e1216' stroke='%235eead4'/><path d='M4 10.5 8 4l4 6.5' stroke='%235eead4' fill='none' stroke-width='1.4'/></svg>">
+<style>
+/* ---------- 设计令牌 ---------- */
+:root{
+  --bg:#0b0e11; --bg-soft:#111518; --panel:#141a1f; --panel-2:#181f25;
+  --line:#232c33; --line-soft:#1b2329;
+  --fg:#e6edf3; --fg-dim:#9aa7b2; --fg-faint:#6b7885;
+  --accent:#5eead4; --accent-2:#38bdf8; --warn:#fbbf24; --danger:#f87171;
+  --ok:#4ade80; --violet:#a78bfa;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --r:14px; --r-sm:9px;
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 18px 40px -24px rgba(0,0,0,.9);
+  --maxw:1180px;
+}
+html[data-theme="light"]{
+  --bg:#f7f9fa; --bg-soft:#ffffff; --panel:#ffffff; --panel-2:#f2f5f7;
+  --line:#dfe6ea; --line-soft:#eaf0f3;
+  --fg:#101a20; --fg-dim:#54636e; --fg-faint:#8595a1;
+  --accent:#0d9488; --accent-2:#0284c7; --warn:#b45309; --danger:#dc2626;
+  --ok:#16a34a; --violet:#7c3aed;
+  --shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 14px 30px -22px rgba(16,26,32,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--fg); font-family:var(--sans);
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(900px 420px at 12% -8%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
+    radial-gradient(760px 380px at 92% -4%, color-mix(in srgb, var(--accent-2) 8%, transparent), transparent 72%);
+  background-repeat:no-repeat;
+}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,pre{font-family:var(--mono)}
+kbd{
+  font-size:11px; padding:1px 5px; border:1px solid var(--line); border-radius:5px;
+  background:var(--panel-2); color:var(--fg-dim)
+}
+::selection{background:color-mix(in srgb, var(--accent) 30%, transparent)}
+
+/* ---------- 顶栏 ---------- */
+.skip{position:absolute; left:-9999px}
+.skip:focus{left:12px; top:12px; z-index:99; background:var(--panel); padding:8px 12px; border-radius:8px}
+.top{
+  position:sticky; top:0; z-index:40; backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--line-soft);
+}
+.top-in{
+  max-width:var(--maxw); margin:0 auto; padding:10px 20px;
+  display:flex; align-items:center; gap:16px;
+}
+.brand{display:flex; align-items:center; gap:9px; font-weight:650; letter-spacing:-.01em; white-space:nowrap}
+.brand svg{width:20px; height:20px; flex:none}
+.brand .beta{
+  font:600 10px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); border:1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding:3px 5px; border-radius:5px;
+}
+.tabs{display:flex; gap:2px; margin-left:8px}
+.tab{
+  appearance:none; border:0; background:transparent; color:var(--fg-dim);
+  font:inherit; font-size:14px; padding:7px 12px; border-radius:8px; cursor:pointer;
+}
+.tab:hover{color:var(--fg); background:var(--panel-2)}
+.tab[aria-selected="true"]{color:var(--fg); background:var(--panel-2); box-shadow:0 0 0 1px var(--line) inset}
+.top-right{margin-left:auto; display:flex; align-items:center; gap:8px}
+.searchbtn{
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  background:var(--panel); color:var(--fg-faint); font:inherit; font-size:13px;
+  border:1px solid var(--line); border-radius:9px; padding:7px 10px; min-width:230px;
+}
+.searchbtn:hover{border-color:color-mix(in srgb, var(--accent) 35%, var(--line)); color:var(--fg-dim)}
+.searchbtn kbd{margin-left:auto}
+.iconbtn{
+  background:var(--panel); border:1px solid var(--line); color:var(--fg-dim);
+  width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:15px; display:grid; place-items:center;
+}
+.iconbtn:hover{color:var(--fg); border-color:color-mix(in srgb, var(--accent) 35%, var(--line))}
+.syncdot{
+  display:inline-flex; align-items:center; gap:6px; font:500 11.5px/1 var(--mono);
+  color:var(--fg-faint); border:1px solid var(--line); border-radius:99px; padding:5px 9px;
+  background:var(--panel); cursor:default; white-space:nowrap;
+}
+.syncdot i{width:6px; height:6px; border-radius:99px; background:var(--fg-faint); display:inline-block}
+.syncdot[data-state="ok"] i{background:var(--ok)}
+.syncdot[data-state="err"]{cursor:pointer}
+.syncdot[data-state="err"] i{background:var(--warn)}
+
+/* ---------- 布局 ---------- */
+main{max-width:var(--maxw); margin:0 auto; padding:0 20px 80px}
+.view{display:none; animation:fade .22s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+section{scroll-margin-top:80px}
+h1,h2,h3{letter-spacing:-.02em; line-height:1.25; margin:0}
+.eyebrow{
+  font:600 11px/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
+  display:flex; align-items:center; gap:8px; margin:0 0 14px;
+}
+.eyebrow::before{content:""; width:22px; height:1px; background:currentColor; opacity:.6}
+.lede{color:var(--fg-dim); font-size:15.5px; max-width:62ch}
+
+/* ---------- Hero ---------- */
+.hero{padding:56px 0 34px; border-bottom:1px solid var(--line-soft)}
+.hero h1{font-size:clamp(30px, 4.6vw, 47px); font-weight:700; max-width:19ch}
+.hero h1 em{font-style:normal; color:var(--accent)}
+.hero .lede{margin:18px 0 0; font-size:16.5px}
+.stats{
+  display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:1px;
+  background:var(--line-soft); border:1px solid var(--line-soft); border-radius:var(--r);
+  overflow:hidden; margin:30px 0 0;
+}
+.stat{background:var(--bg-soft); padding:15px 16px}
+.stat b{display:block; font:650 24px/1.15 var(--mono); letter-spacing:-.02em}
+.stat span{font-size:12px; color:var(--fg-faint)}
+.pills{display:flex; gap:8px; flex-wrap:wrap; margin-top:20px}
+.pill{
+  font:inherit; font-size:13px; cursor:pointer; color:var(--fg-dim);
+  background:var(--panel); border:1px solid var(--line); border-radius:99px; padding:6px 12px;
+}
+.pill:hover{color:var(--fg); border-color:color-mix(in srgb, var(--accent) 40%, var(--line))}
+.pill b{color:var(--fg); font-weight:600}
+
+/* ---------- 通用区块 ---------- */
+.block{padding:46px 0; border-bottom:1px solid var(--line-soft)}
+.block-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:22px}
+.block-head h2{font-size:clamp(20px,2.4vw,26px); font-weight:680}
+.block-head p{margin:0; color:var(--fg-faint); font-size:13.5px}
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--shadow);
+}
+
+/* 路线 */
+.route-q{font-size:clamp(19px,2.6vw,25px); font-weight:660; max-width:34ch; margin:0 0 8px}
+.route-q b{color:var(--warn)}
+.route-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px}
+.route-card{padding:20px; position:relative; overflow:hidden}
+.route-card h3{font-size:17px; display:flex; align-items:center; gap:9px}
+.route-card .badge-form{font:600 10.5px/1 var(--mono); letter-spacing:.06em; padding:4px 7px; border-radius:6px}
+.route-card[data-route="mcp"] .badge-form{background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent)}
+.route-card[data-route="code"] .badge-form{background:color-mix(in srgb, var(--violet) 16%, transparent); color:var(--violet)}
+.route-card ul{margin:12px 0 0; padding-left:18px; color:var(--fg-dim); font-size:14px}
+.route-card li{margin:5px 0}
+.route-card .cost{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font-size:13px; color:var(--fg-faint)}
+.route-card .cost b{color:var(--warn); font-weight:600}
+.tree{margin-top:26px; padding:20px; border-radius:var(--r); border:1px dashed var(--line); background:var(--bg-soft)}
+.tree ol{margin:10px 0 0; padding-left:20px; color:var(--fg-dim); font-size:14px}
+.tree li{margin:7px 0}
+.tree li b{color:var(--fg)}
+
+/* Top 6 */
+.top6{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+.mini{padding:16px; display:flex; flex-direction:column; gap:9px; cursor:pointer; transition:border-color .15s, transform .15s}
+.mini:hover{border-color:color-mix(in srgb, var(--accent) 40%, var(--line)); transform:translateY(-2px)}
+.mini .row1{display:flex; align-items:center; gap:8px}
+.mini .rank{font:700 11px/1 var(--mono); color:var(--fg-faint)}
+.mini .nm{font:600 15px/1.2 var(--mono); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.mini .sc{margin-left:auto; font:700 12px/1 var(--mono); color:var(--accent)}
+.mini .ds{font-size:13px; color:var(--fg-dim); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.9em}
+.mini .meta{display:flex; gap:10px; align-items:center; font:500 11.5px/1 var(--mono); color:var(--fg-faint); margin-top:auto}
+.badge{
+  font:600 10.5px/1 var(--mono); letter-spacing:.04em; padding:4px 6px; border-radius:5px;
+  border:1px solid var(--line); color:var(--fg-dim); background:var(--panel-2); white-space:nowrap;
+}
+.badge[data-form="mcp"]{color:var(--accent); border-color:color-mix(in srgb, var(--accent) 35%, var(--line))}
+.badge[data-form="skill"]{color:var(--violet); border-color:color-mix(in srgb, var(--violet) 35%, var(--line))}
+.badge[data-form="app"]{color:var(--accent-2); border-color:color-mix(in srgb, var(--accent-2) 35%, var(--line))}
+.badge[data-form="engine"]{color:var(--warn); border-color:color-mix(in srgb, var(--warn) 35%, var(--line))}
+
+/* ---------- 技能页 ---------- */
+.toolbar{
+  position:sticky; top:56px; z-index:20; background:color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter:blur(12px); padding:14px 0 12px; border-bottom:1px solid var(--line-soft);
+  display:flex; gap:9px; flex-wrap:wrap; align-items:center;
+}
+.sel, .txt{
+  appearance:none; background:var(--panel); color:var(--fg); font:inherit; font-size:13px;
+  border:1px solid var(--line); border-radius:9px; padding:7px 10px; cursor:pointer;
+}
+.txt{cursor:text; min-width:180px}
+.sel:focus-visible,.txt:focus-visible,.iconbtn:focus-visible,.tab:focus-visible,.pill:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.count{font:500 12px/1 var(--mono); color:var(--fg-faint); margin-left:auto}
+.clear{background:transparent; border:1px dashed var(--line); color:var(--fg-faint); font:inherit; font-size:12.5px; padding:6px 10px; border-radius:99px; cursor:pointer}
+.clear:hover{color:var(--danger); border-color:var(--danger)}
+.grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:13px; padding:20px 0}
+.skill{padding:16px; display:flex; flex-direction:column; gap:10px; cursor:pointer; transition:border-color .15s, transform .15s}
+.skill:hover{border-color:color-mix(in srgb, var(--accent) 40%, var(--line)); transform:translateY(-2px)}
+.skill .hd{display:flex; align-items:flex-start; gap:10px}
+.skill .t{min-width:0}
+.skill .nm{font:640 15px/1.25 var(--mono); letter-spacing:-.01em; word-break:break-word}
+.skill .ow{font:500 11.5px/1 var(--mono); color:var(--fg-faint); margin-top:3px}
+.skill .ds{font-size:13px; color:var(--fg-dim); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.skill .ft{display:flex; align-items:center; gap:8px; flex-wrap:wrap; font:500 11.5px/1 var(--mono); color:var(--fg-faint); margin-top:auto}
+.caps{display:flex; gap:4px; flex-wrap:wrap}
+.cap{font:500 10.5px/1 var(--mono); padding:3px 5px; border-radius:4px; background:var(--panel-2); color:var(--fg-dim); border:1px solid var(--line-soft)}
+.ring{width:44px; height:44px; flex:none; position:relative; display:grid; place-items:center}
+.ring svg{position:absolute; inset:0; transform:rotate(-90deg)}
+.ring b{font:700 11.5px/1 var(--mono)}
+.audited{color:var(--ok); font:600 10.5px/1 var(--mono)}
+.notaudited{color:var(--fg-faint); font:500 10.5px/1 var(--mono)}
+.empty{grid-column:1/-1; text-align:center; color:var(--fg-faint); padding:50px 0; font-size:14px}
+
+/* ---------- 配方库 ---------- */
+.recipe{padding:0; overflow:hidden; margin-bottom:14px}
+.recipe .top-row{display:flex; align-items:center; gap:10px; padding:15px 18px; flex-wrap:wrap}
+.recipe .rid{font:600 13px/1 var(--mono); color:var(--accent); background:color-mix(in srgb, var(--accent) 12%, transparent); padding:5px 8px; border-radius:6px}
+.recipe h3{font-size:16px}
+.recipe .when{padding:0 18px 14px; color:var(--fg-dim); font-size:13.5px}
+.recipe .body{padding:0 18px 18px; display:grid; gap:12px}
+.io{background:var(--bg-soft); border:1px solid var(--line-soft); border-radius:var(--r-sm); overflow:hidden}
+.io-h{display:flex; align-items:center; gap:8px; padding:7px 11px; border-bottom:1px solid var(--line-soft); font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--fg-faint)}
+.io pre{margin:0; padding:12px; overflow-x:auto; font-size:12.5px; line-height:1.55; color:var(--fg)}
+.io .note{padding:0 12px 10px; font-size:12px; color:var(--fg-faint)}
+.copy{
+  margin-left:auto; background:var(--panel); border:1px solid var(--line); color:var(--fg-dim);
+  font:500 11px/1 var(--mono); padding:4px 7px; border-radius:5px; cursor:pointer;
+}
+.copy:hover{color:var(--accent); border-color:color-mix(in srgb, var(--accent) 40%, var(--line))}
+.copy[data-done="1"]{color:var(--ok); border-color:var(--ok)}
+
+/* ---------- 指南 ---------- */
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:26px}
+.guide h3{font-size:15px; margin:0 0 10px; display:flex; align-items:center; gap:8px}
+.guide h3 span{font:700 11px/1 var(--mono); color:var(--accent); border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); border-radius:5px; padding:3px 5px}
+.guide ol,.guide ul{margin:0; padding-left:19px; color:var(--fg-dim); font-size:13.8px}
+.guide li{margin:6px 0}
+.guide code{font-size:12.5px; background:var(--panel-2); padding:1px 5px; border-radius:4px; border:1px solid var(--line-soft)}
+.honest{padding:18px; border-radius:var(--r); border:1px solid color-mix(in srgb, var(--warn) 26%, var(--line)); background:color-mix(in srgb, var(--warn) 5%, var(--panel))}
+.honest h3{color:var(--warn); margin-bottom:8px}
+.honest ul{padding-left:18px; color:var(--fg-dim); font-size:13.5px; margin:0}
+.honest li{margin:6px 0}
+
+/* ---------- 抽屉 ---------- */
+.scrim{position:fixed; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(2px); z-index:50; display:none}
+.scrim.open{display:block}
+.drawer{
+  position:fixed; top:0; right:0; bottom:0; width:min(560px, 100%); z-index:60;
+  background:var(--bg-soft); border-left:1px solid var(--line);
+  transform:translateX(102%); transition:transform .24s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto; overscroll-behavior:contain;
+}
+.drawer.open{transform:none}
+.drawer .dhead{position:sticky; top:0; background:color-mix(in srgb, var(--bg-soft) 94%, transparent); backdrop-filter:blur(10px); padding:16px 20px; border-bottom:1px solid var(--line-soft); display:flex; gap:12px; align-items:flex-start; z-index:2}
+.drawer .dbody{padding:18px 20px 40px; display:grid; gap:18px}
+.dsec h4{margin:0 0 9px; font:600 11px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--fg-faint)}
+.bars{display:grid; gap:7px}
+.bar{display:grid; grid-template-columns:64px 1fr 46px; gap:9px; align-items:center; font:500 11.5px/1 var(--mono); color:var(--fg-dim)}
+.bar .track{height:6px; border-radius:99px; background:var(--panel-2); overflow:hidden}
+.bar .fill{height:100%; border-radius:99px; background:linear-gradient(90deg, var(--accent), var(--accent-2))}
+.kv{display:grid; grid-template-columns:88px 1fr; gap:7px 12px; font-size:13px}
+.kv dt{color:var(--fg-faint); font:500 12px/1.5 var(--mono)}
+.kv dd{margin:0; color:var(--fg)}
+.dclose{margin-left:auto}
+
+/* ---------- 命令面板 ---------- */
+.palette{position:fixed; inset:0; z-index:70; display:none; padding-top:12vh; justify-content:center; align-items:flex-start; background:rgba(0,0,0,.5); backdrop-filter:blur(3px)}
+.palette.open{display:flex}
+.pbox{width:min(620px, 92vw); background:var(--panel); border:1px solid var(--line); border-radius:var(--r); box-shadow:0 40px 80px -30px rgba(0,0,0,.8); overflow:hidden}
+.pbox input{width:100%; border:0; background:transparent; color:var(--fg); font:inherit; font-size:15px; padding:16px 18px; border-bottom:1px solid var(--line-soft)}
+.pbox input:focus{outline:0}
+.plist{max-height:52vh; overflow-y:auto; padding:7px}
+.pitem{display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:8px; cursor:pointer; font-size:13.5px}
+.pitem[aria-selected="true"]{background:var(--panel-2); box-shadow:0 0 0 1px var(--line) inset}
+.pitem .k{font:600 10px/1 var(--mono); color:var(--fg-faint); border:1px solid var(--line); border-radius:4px; padding:3px 5px; text-transform:uppercase}
+.pitem .s{color:var(--fg-faint); font:500 11.5px/1 var(--mono); margin-left:auto}
+.pempty{padding:24px; text-align:center; color:var(--fg-faint); font-size:13px}
+
+footer{border-top:1px solid var(--line-soft); padding:26px 20px 40px; color:var(--fg-faint); font-size:12.5px}
+.foot-in{max-width:var(--maxw); margin:0 auto; display:flex; gap:16px; flex-wrap:wrap; align-items:center}
+.foot-in .sep{width:1px; height:12px; background:var(--line)}
+
+@media (max-width:860px){
+  .route-grid, .cols, .top6{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .searchbtn{min-width:0}
+  .searchbtn span{display:none}
+  .tabs{order:3; width:100%; margin-left:0; overflow-x:auto}
+  .top-in{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到内容</a>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" stroke="currentColor" stroke-width="1.4" opacity=".55"/>
+        <path d="M6.5 16.5 12 6l5.5 10.5" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M9 14h6" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      CAD Skills 图鉴
+      <span class="beta">cad-skills-web</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="分页">
+      <button class="tab" role="tab" data-view="home" aria-selected="true">首页</button>
+      <button class="tab" role="tab" data-view="skills" aria-selected="false">技能</button>
+      <button class="tab" role="tab" data-view="stacks" aria-selected="false">配方库</button>
+    </nav>
+    <div class="top-right">
+      <button class="searchbtn" id="openPalette" aria-label="打开搜索">
+        <span>搜索 skill、宿主 ID…</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="iconbtn" id="themeBtn" title="切换深浅色（T）" aria-label="切换主题">◑</button>
+      <span class="syncdot" id="syncDot" title="页面加载后会尝试从 GitHub 拉最新数据"><i></i><span>内嵌数据</span></span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ========== 首页 ========== -->
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <p class="eyebrow">CAD × AGENT 图鉴</p>
+      <h1>把 CAD 交给 Agent 之前，<br>先挑对<em>那条路线</em>。</h1>
+      <p class="lede" id="heroLede">收录 GitHub 上能让 AI Agent 真正干活的 CAD 项目：MCP server、SKILL.md 技能包、以及自带 MCP 的 CAD 应用。按真正决定成败的点对比——能不能动几何、跑在哪个宿主、许可能不能商用、出的是图纸还是网格。</p>
+      <div class="stats" id="stats"></div>
+      <div class="pills">
+        <button class="pill" data-jump="form=mcp">只看 <b>MCP server</b></button>
+        <button class="pill" data-jump="form=skill">只看 <b>Skill 技能包</b></button>
+        <button class="pill" data-jump="tier=S">Tier S · <b>5k+ star</b></button>
+        <button class="pill" data-jump="host=FreeCAD">宿主 <b>FreeCAD</b></button>
+        <button class="pill" data-jump="view=stacks">直接看 <b>接入配方 ↓</b></button>
+      </div>
+    </div>
+
+    <div class="block">
+      <p class="eyebrow">唯一重要的决策</p>
+      <h2 class="route-q">你要 AI <b>真的去操作别人的 CAD 软件</b>，还是让它<b>自己写出可编辑的模型文件</b>？</h2>
+      <p class="lede">这和模型强弱无关——先定路线，再谈选型。走错路线，再好的 agent 也只能给你一堆没法交付的截图。</p>
+
+      <div class="route-grid">
+        <div class="card route-card" data-route="mcp">
+          <h3>MCP 路线 <span class="badge-form">能改几何</span></h3>
+          <ul>
+            <li>AI 直接调用宿主软件的 API/UI：改参数、装配、跑检查</li>
+            <li>交付物是宿主原生文件（.FCStd / .SLDPRT / .kicad_pcb）</li>
+            <li>适合：老模型要改、团队规范在某个软件里、电子 CAD</li>
+          </ul>
+          <div class="cost">代价：<b>依赖宿主软件版本与授权</b>，桌面会话通常要开着；headless 支持参差</div>
+        </div>
+        <div class="card route-card" data-route="code">
+          <h3>Code 路线 <span class="badge-form">可复现</span></h3>
+          <ul>
+            <li>AI 写出 OpenSCAD / CadQuery / build123d 脚本，再编译成 STEP/STL</li>
+            <li>交付物是源码 + 模型，天然可 diff、可参数化、可进 CI</li>
+            <li>适合：新零件、参数化家族、3D 打印件、要复现的设计</li>
+          </ul>
+          <div class="cost">代价：<b>复杂曲面与装配表达力有限</b>；设计师不一定会读代码</div>
+        </div>
+      </div>
+
+      <div class="tree">
+        <strong>四步筛出候选</strong>
+        <ol>
+          <li><b>定路线：</b>交付物必须在某个商业软件里被人接着改 → MCP 路线；否则 → Code 路线（往往更快、更可控）。</li>
+          <li><b>看宿主：</b>FreeCAD / OpenSCAD / CadQuery / AutoCAD / SolidWorks / Fusion / Onshape / Inventor / SketchUp / KiCad / AEC，配方库里每个宿主都有现成接法。</li>
+          <li><b>对能力：</b>要「导出 STEP / 出 DXF 图纸 / 渲染预览 / 干涉校验 / 直接打印」就点亮对应筛选；<span class="cap">未提及</span> 只代表文档没写，不等于不支持。</li>
+          <li><b>查许可：</b>商用与闭源场景优先 MIT / Apache-2.0；GPL / AGPL 的先看协议再决定。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h2>综合分 Top 6</h2>
+        <p>按公开数据算出来的前六名 —— 口径与局限见下方「诚实的局限」。</p>
+      </div>
+      <div class="top6" id="top6"></div>
+      <p style="margin:16px 0 0"><button class="pill" data-jump="view=skills">查看全部技能 →</button></p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h2>拿到手之后</h2><p>怎么筛 · 怎么装 · 怎么在 Agent 里用</p></div>
+      <div class="cols guide">
+        <div>
+          <h3><span>1</span>MCP server 怎么接</h3>
+          <ol>
+            <li>克隆仓库、按 README 装依赖（多为 Python / Node）。</li>
+            <li>把 server 写进客户端的 <code>mcp.json</code>；本页每套配方都给了可复制的片段。</li>
+            <li>先在宿主软件里手动跑通一次，再让 Agent 上手——否则报错会被误判成模型笨。</li>
+          </ol>
+          <h3 style="margin-top:18px"><span>2</span>Skill 怎么装</h3>
+          <ol>
+            <li>skill = 一个含 <code>SKILL.md</code> 的目录，放进 Agent 的 skills 目录（Claude Code 是 <code>~/.claude/skills/</code>）。</li>
+            <li>认目录不认命令，无需改 mcp.json。</li>
+            <li>装完直接说需求 + 宿主 ID，Agent 会按 SKILL.md 执行。</li>
+          </ol>
+        </div>
+        <div>
+          <h3><span>3</span>用自然语言点名</h3>
+          <p style="color:var(--fg-dim); font-size:13.8px; margin:0 0 8px">配方库里的「宿主 ID」不是命令行参数，是人话的一部分：</p>
+          <div class="io"><div class="io-h">提示词模板</div><pre id="samplePrompt">用 freecad-local 这套接法，打开我当前的 FreeCAD 文档，
+把底板厚度从 3mm 改到 5mm，四个 M4 孔保持同心，
+改完导出 STEP 和 STL 到 ./out/。先说明要调用哪些工具，等我确认。</pre></div>
+          <h3 style="margin-top:18px"><span>4</span>八条经验</h3>
+          <ul>
+            <li>能锁定宿主版本就锁，桌面自动化对版本最敏感。</li>
+            <li>让 Agent 先出参数表、再执行，返工成本低一个量级。</li>
+            <li>几何正确性要外部校验（体积、包围盒、干涉），别信模型自述。</li>
+            <li>同名仓库极多（openscad-mcp 有 5 个），认 star + 最近 push + 是否 headless。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="honest" style="margin-top:24px">
+        <h3>诚实的局限</h3>
+        <ul>
+          <li>star 衡量关注度，不是质量；本页综合分是<b>公开数据的计算结果</b>，不是实测排名。</li>
+          <li>能力矩阵读自各项目 README / description，<b>未核读</b>的项目只按描述归类，可能与实际不符。</li>
+          <li>数据来自 GitHub Search API（未认证抓取，star 为快照）；项目会改名、归档、停止维护。</li>
+          <li>本页没有逐个实跑任何 server：安装命令与片段是<b>形态示例</b>，以各仓库 README 为准。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 技能页 ========== -->
+  <section class="view" id="view-skills">
+    <div class="toolbar">
+      <input class="txt" id="q" type="search" placeholder="搜索名称 / 简介 / repo…" aria-label="搜索技能">
+      <select class="sel" id="fForm" aria-label="按形态筛选"><option value="">全部形态</option></select>
+      <select class="sel" id="fHost" aria-label="按宿主筛选"><option value="">全部宿主</option></select>
+      <select class="sel" id="fCap" aria-label="按能力筛选"><option value="">全部能力</option></select>
+      <select class="sel" id="fLic" aria-label="按许可筛选"><option value="">全部许可</option></select>
+      <select class="sel" id="fSort" aria-label="排序">
+        <option value="score">按综合分</option>
+        <option value="stars">按 star 数</option>
+        <option value="pushed">按最近活跃</option>
+        <option value="name">按名称</option>
+      </select>
+      <button class="clear" id="clearFilters">清除筛选</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="grid" id="skillGrid"></div>
+  </section>
+
+  <!-- ========== 配方库 ========== -->
+  <section class="view" id="view-stacks">
+    <div class="block" style="padding-top:34px">
+      <p class="eyebrow">接入配方 · 宿主 ID</p>
+      <h2 style="font-size:clamp(22px,2.8vw,30px)">一条路线一套接法，复制就能用。</h2>
+      <p class="lede" style="margin-top:12px">每套配方给三样东西：<b>安装命令</b>、<b>客户端配置片段</b>、<b>提示词模板</b>。<br>宿主 ID（如 <code style="font-family:var(--mono); color:var(--accent)">freecad-local</code>）写进提示词即可点名，Agent 会按该配方执行。</p>
+      <div class="pills" id="recipeNav" style="margin-top:18px"></div>
+    </div>
+    <div id="recipeList" style="padding-top:20px"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <span>CAD Skills 图鉴 · <span id="footCount">—</span></span>
+    <span class="sep"></span>
+    <span>数据：GitHub Search API 快照 <span id="footTime">—</span></span>
+    <span class="sep"></span>
+    <a href="https://github.com/" id="footRepo">源码 / 提 PR</a>
+    <span class="sep"></span>
+    <span>代码 MIT · 数据 CC BY 4.0</span>
+    <span style="margin-left:auto">发现漏收或错标？欢迎开 issue。</span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="技能详情"></aside>
+
+<div class="palette" id="palette">
+  <div class="pbox">
+    <input id="paletteInput" placeholder="搜 skill、宿主 ID、页面…" aria-label="命令面板">
+    <div class="plist" id="paletteList"></div>
+  </div>
+</div>
+
+<script>
+/* 数据由 scripts/build-data.mjs 内嵌；页面加载后会尝试从 GitHub 拉最新版覆盖。 */
+const REG = /*__REG_JSON__*/{"generated_at":"2026-10-29T05:32:18.776Z","source":"GitHub Search API（未认证），star 为抓取时快照","scoring":{"star":45,"active":15,"license":15,"audit":10,"caps":15,"note":"star 45 · 活跃 15 · 许可 15 · 人工核读 10 · 能力覆盖 15；是公开数据的计算结果，不是实测质量分"},"counts":{"skills":66,"stars":50937,"audited":19,"hosts":21,"recipes":16,"tierS":2,"forms":{"mcp":34,"skill":20,"app":6,"engine":6}},"facets":{"hosts":["3D打印","科学","浏览器","评测","通用","AEC","AutoCAD","build123d","CadQuery","CATIA/NX","FreeCAD","Fusion360","Inventor","KiCad","KOMPAS3D","Onshape","OpenSCAD","OpenUSD","Shapr3D","SketchUp","SolidWorks"],"caps":["建模","脚本","导出","渲染","检查","图纸","打印","云端","校验","装配"],"licenses":["MIT","Apache-2.0","NOASSERTION","LGPL-2.1","未标注","AGPL-3.0","MIT-0","GPL-2.0"]},"skills":[{"id":"neka-nat--freecad-mcp","repo":"neka-nat/freecad-mcp","name":"freecad-mcp","owner":"neka-nat","url":"https://github.com/neka-nat/freecad-mcp","stars":3106,"lang":"Python","license":"MIT","pushed":"2026-10-25","desc":"FreeCAD MCP(Model Context Protocol) server","note":"FreeCAD MCP 的参照实现，生态里被引用最多","form":"mcp","host":"FreeCAD","caps":["建模","脚本","导出","渲染","检查"],"tier":"A","archived":false,"topics":["claude","freecad","mcp"],"audited":true,"auditNote":"创建/编辑模型、跑 Python 脚本、检视文档，还能跑 FEM 分析；文档站有法兰、玩具车、从 2D 图纸建模等示例。","install":"git clone https://github.com/neka-nat/freecad-mcp.git","score":{"star":32.9,"active":15,"license":15,"audit":10,"caps":7.5},"total":80.4},{"id":"mixelpixx--kicad-mcp-server","repo":"mixelpixx/KiCAD-MCP-Server","name":"KiCAD-MCP-Server","owner":"mixelpixx","url":"https://github.com/mixelpixx/KiCAD-MCP-Server","stars":3005,"lang":"Python","license":"MIT","pushed":"2026-10-26","desc":"KiCAD MCP is a Model Context Protocol (MCP) implementation that enables Large Language Models (LLMs) like Claude to directly interact with KiCAD for printed circuit board design.","note":"电子 CAD 方向最成熟的 MCP，能直接改原理图与 PCB","form":"mcp","host":"KiCad","caps":["建模","检查","导出","渲染"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"带 Freerouting 自动布线集成（Java/Docker/Podman）；README 顶部已指向重写版 Konnect（Rust、KiCad 10 IPC、171 工具、AGPL-3.0）——想上新项目先看那个。","install":"git clone https://github.com/mixelpixx/KiCAD-MCP-Server && pip install -r requirements.txt","score":{"star":32.8,"active":15,"license":15,"audit":10,"caps":6},"total":78.8},{"id":"wzyn20051216--solidworks-automation-skill","repo":"wzyn20051216/solidworks-automation-skill","name":"solidworks-automation-skill","owner":"wzyn20051216","url":"https://github.com/wzyn20051216/solidworks-automation-skill","stars":1578,"lang":"Python","license":"MIT","pushed":"2026-10-29","desc":"Reliable AI Skill + MCP toolkit for agent-driven desktop CAD automation.","note":"Skill + MCP 双形态，主攻桌面 CAD 自动化与 DWG/DXF","form":"skill","host":"SolidWorks","caps":["建模","脚本","图纸","导出","检查"],"tier":"A","archived":false,"topics":["agent-tools","ai-agent","autocad","cad","cad-automation","claude","codex","desktop-automation","dwg","dxf","engineering-automation","mcp","mechanical-design","model-context-protocol","python","solidworks","tool-calling"],"audited":true,"auditNote":"自带「结果验证层」：原文写明「工具调用成功，不代表任务真的完成」，Review 类任务会先验证结果再交付；支持 Codex / Claude / Cursor，Python 3.10+。","install":"npx github:wzyn20051216/solidworks-automation-skill --target claude","score":{"star":30.1,"active":15,"license":15,"audit":10,"caps":7.5},"total":77.6},{"id":"pascalorg--editor","repo":"pascalorg/editor","name":"editor","owner":"pascalorg","url":"https://github.com/pascalorg/editor","stars":25178,"lang":"TypeScript","license":"MIT","pushed":"2026-10-28","desc":"Open-source 3D architectural editor with a local CLI, MCP tools, and practical workflows for humans and AI agents.","note":"3D 建筑编辑器，自带本地 CLI 与 MCP 工具，人和 Agent 同一套工作流","form":"app","host":"AEC","caps":["建模","渲染","导出"],"tier":"S","archived":false,"topics":["3d","agent-skills","ai-agents","architecture","bim","cad","editor","floorplan","gemini-cli-extension","local-first","mcp","mcp-server","model-context-protocol","nextjs","parametric-design","react-three-fiber","threejs","typescript"],"audited":false,"auditNote":"","install":"","score":{"star":41.4,"active":15,"license":15,"audit":0,"caps":0},"total":71.4},{"id":"daobataotie--cad-mcp","repo":"daobataotie/CAD-MCP","name":"CAD-MCP","owner":"daobataotie","url":"https://github.com/daobataotie/CAD-MCP","stars":650,"lang":"Python","license":"MIT","pushed":"2026-10-27","desc":"CAD MCP Server","note":"通用 CAD MCP Server，工具面较宽","form":"mcp","host":"通用","caps":["建模","检查"],"tier":"A","archived":false,"topics":["ai","cad","cadmcp","mcp","model-context-protocol"],"audited":true,"auditNote":"v2 基于 FastMCP（结构化输出、工具注解、进度通知、Streamable HTTP），支持 AutoCAD、浩辰 GstarCAD、中望 ZWCAD，30+ 绘图工具；README 有中/英/泰三语。","install":"pip install -e .  # 见 README 的客户端配置","score":{"star":26.5,"active":15,"license":15,"audit":10,"caps":3},"total":69.5},{"id":"tangency-labs--solidcraft","repo":"tangency-labs/solidcraft","name":"solidcraft","owner":"tangency-labs","url":"https://github.com/tangency-labs/solidcraft","stars":11718,"lang":"Rust","license":"Apache-2.0","pushed":"2026-10-29","desc":"SolidCraft: an open-source parametric 3D CAD application built in pure Rust. Desktop, web, and automation through MCP.","note":"纯 Rust 参数化 3D CAD，桌面 / Web 双端，通过 MCP 暴露自动化接口","form":"app","host":"通用","caps":["建模","脚本","导出","渲染"],"tier":"S","archived":false,"topics":["3d-modeling","brep","cad","egui","mcp","parametric-cad","rust","step","wasm"],"audited":false,"auditNote":"","install":"","score":{"star":38.3,"active":15,"license":15,"audit":0,"caps":0},"total":68.3},{"id":"jhacksman--openscad-mcp-server","repo":"jhacksman/OpenSCAD-MCP-Server","name":"OpenSCAD-MCP-Server","owner":"jhacksman","url":"https://github.com/jhacksman/OpenSCAD-MCP-Server","stars":210,"lang":"Python","license":"MIT","pushed":"2026-09-07","desc":"Devin's attempt at creating an OpenSCAD MCP Server that takes a user prompt and generates a preview image and 3d file.","note":"自然语言 → OpenSCAD 脚本","form":"mcp","host":"OpenSCAD","caps":["建模","脚本","渲染"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"把 SCAD 源码或显式尺寸编译成可编辑 SCAD、STL 与 4 张 PNG 预览，调用本机 OpenSCAD 可执行文件；Python 3.11+、无需 API key/CUDA；旧的图像重建与打印代码已归档到 legacy/，不算在安装包内。","install":"git clone https://github.com/jhacksman/OpenSCAD-MCP-Server.git && python -m pip install .","score":{"star":21.9,"active":15,"license":15,"audit":10,"caps":4.5},"total":66.4},{"id":"u-c4n--autocad-mcp","repo":"U-C4N/Autocad-MCP","name":"Autocad-MCP","owner":"U-C4N","url":"https://github.com/U-C4N/Autocad-MCP","stars":196,"lang":"Python","license":"MIT","pushed":"2026-10-27","desc":"AutoCAD MCP server for AI agents (Claude, Cursor, any MCP client): 240+ tools to draw, edit and read DWG/DXF drawings. Live AutoCAD via COM, or headless with ezdxf — no AutoCAD needed. Mechanical sheets with ISO GD&T and tolerances, P&ID (ISA-5.1), floor plans, pipe and cable takeoffs.","note":"号称 240+ 工具，面向 Claude / Cursor 等任意 MCP 客户端","form":"mcp","host":"AutoCAD","caps":["建模","图纸","检查"],"tier":"A","archived":false,"topics":["ai-agents","autocad","autolisp","cad","cad-automation","claude","claude-code","cursor","dwg","dxf","ezdxf","floor-plan","gdt","mcp","mcp-server","mechanical-engineering","model-context-protocol","p-and-id","technical-drawing","text-to-cad"],"audited":true,"auditNote":"同一套工具契约、两种引擎：Windows 走 COM 实时驱动，任意平台可 headless 走 ezdxf；发布在 PyPI（autocad-mcp-pro）并附 Claude 插件。","install":"pip install autocad-mcp-pro   # 或 uvx autocad-mcp-pro","score":{"star":21.6,"active":15,"license":15,"audit":10,"caps":4.5},"total":66.1},{"id":"flowful-ai--cad-skill","repo":"flowful-ai/cad-skill","name":"cad-skill","owner":"flowful-ai","url":"https://github.com/flowful-ai/cad-skill","stars":704,"lang":"Python","license":"NOASSERTION","pushed":"2026-10-25","desc":"Claude Code skill for parametric 3D-printable model generation with CadQuery","note":"Claude Code skill：用 CadQuery 产出参数化、可 3D 打印的模型","form":"skill","host":"CadQuery","caps":["建模","脚本","导出","打印"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"CadQuery 生成可 3D 打印件，产出 4 视角预览图；示例（MagSafe 支架、手机壳、Gridfinity 收纳盒）已发布在 MakerWorld，作者写过完整方法文。","install":"git clone https://github.com/flowful-ai/cad-skill ~/.claude/skills/parametric-3d-printing","score":{"star":26.8,"active":15,"license":8,"audit":10,"caps":6},"total":65.8},{"id":"spkane--freecad-addon-robust-mcp-server","repo":"spkane/freecad-addon-robust-mcp-server","name":"freecad-addon-robust-mcp-server","owner":"spkane","url":"https://github.com/spkane/freecad-addon-robust-mcp-server","stars":259,"lang":"Python","license":"Apache-2.0","pushed":"2026-10-29","desc":"The FreeCAD Robust MCP server and MCP Bridge Workbench/Addon","note":"强调健壮性的 FreeCAD MCP + Bridge 工作台","form":"mcp","host":"FreeCAD","caps":["建模","检查"],"tier":"A","archived":false,"topics":["addons","ai","freecad","mcp-server","workbench"],"audited":true,"auditNote":"发在 PyPI（freecad-robust-mcp）且官方带 Docker 镜像，配独立文档站与 CI/CodeQL/Docker 构建流水线。","install":"pip install freecad-robust-mcp   # 或 docker pull spkane/freecad-robust-mcp","score":{"star":22.7,"active":15,"license":15,"audit":10,"caps":3},"total":65.7},{"id":"jdilla1277--agentcad","repo":"jdilla1277/agentcad","name":"agentcad","owner":"jdilla1277","url":"https://github.com/jdilla1277/agentcad","stars":178,"lang":"Python","license":"Apache-2.0","pushed":"2026-10-28","desc":"CAD CLI and MCP server for AI agents","note":"CAD CLI + MCP server，面向 agent 工作流","form":"mcp","host":"通用","caps":["建模","脚本","导出"],"tier":"A","archived":false,"topics":["ai-agents","build123d","cad","cadquery","mcp"],"audited":true,"auditNote":"默认让 agent 写 build123d 脚本，自己负责执行、STEP 导出、PNG 渲染、网格导出（STL/GLB/OBJ）、几何度量与校验；stdout 出 JSON、stderr 出进度，便于程序解析；自报在 CADGenBench 上 CAD Score +48%、模型成本 −21.8%。","install":"","score":{"star":21.2,"active":15,"license":15,"audit":10,"caps":4.5},"total":65.7},{"id":"robertcoop--openscad-mcp","repo":"RobertCoop/openscad-mcp","name":"openscad-mcp","owner":"RobertCoop","url":"https://github.com/RobertCoop/openscad-mcp","stars":167,"lang":"Python","license":"MIT","pushed":"2026-09-10","desc":"A Model Context Protocol (MCP) server for OpenSCAD 3D modeling and rendering","note":"OpenSCAD 建模 + 渲染","form":"mcp","host":"OpenSCAD","caps":["建模","脚本","渲染"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"uvx 免克隆免虚拟环境即可跑；能力面写得很细：按声明比例渲染、精确测量几何、装配干涉与间隙检查、孔/特征提取、可打印性判断、导出。","install":"claude mcp add openscad --transport stdio -- uvx openscad-mcp","score":{"star":21,"active":15,"license":15,"audit":10,"caps":4.5},"total":65.5},{"id":"pzfreo--build123d-mcp","repo":"pzfreo/build123d-mcp","name":"build123d-mcp","owner":"pzfreo","url":"https://github.com/pzfreo/build123d-mcp","stars":135,"lang":"Python","license":"Apache-2.0","pushed":"2026-10-15","desc":"MCP server for build123d to improve AI cognition when creating 3D CAD models","note":"专治 LLM 写 build123d 的 API 幻觉","form":"mcp","host":"build123d","caps":["建模","脚本","导出"],"tier":"A","archived":false,"topics":["ai-tools","build123d","cad","mcp","mcp-server","python3"],"audited":true,"auditNote":"自述「给 AI 装上 CAD 的眼睛」：建 build123d 模型、渲染预览、测量几何、自己纠错、导出 STEP/STL/SVG；已进 MCP Registry，README 带 VS Code / Cursor 一键安装徽章。","install":"pip install build123d-mcp","score":{"star":20.1,"active":15,"license":15,"audit":10,"caps":4.5},"total":64.6},{"id":"andymai--brepjs","repo":"andymai/brepjs","name":"brepjs","owner":"andymai","url":"https://github.com/andymai/brepjs","stars":126,"lang":"TypeScript","license":"Apache-2.0","pushed":"2026-10-29","desc":"Exact B-Rep CAD in TypeScript, with a Claude Code plugin that lets agents write parts and check them on OpenCascade.","note":"TypeScript 精确 B-Rep，附 Claude Code 插件","form":"engine","host":"浏览器","caps":["建模","导出"],"tier":"A","archived":false,"topics":["3d-printing","ai-agents","bim","boundary-representation","brep","cad","claude-code","csg","geometry-kernel","ifc","mcp","nurbs","opencascade","parametric-modeling","sheet-metal","solid-modeling","step","stl","typescript","wasm"],"audited":true,"auditNote":"精确 B-Rep（真数学边界而非三角网格），布尔精确、测量真实、可导 STEP；有在线 playground 与 brepjs-cad CLI 做 --check 校验并输出 JSON 报告。","install":"npm install brepjs occt-wasm","score":{"star":19.8,"active":15,"license":15,"audit":10,"caps":3},"total":62.8},{"id":"delancy827--cad-skills","repo":"delancy827/cad-skills","name":"cad-skills","owner":"delancy827","url":"https://github.com/delancy827/cad-skills","stars":101,"lang":"—","license":"MIT","pushed":"2026-10-07","desc":"CAD 自动化设计技能包 — 让 AI Agent 真正学会用 AutoCAD","note":"中文 CAD 自动化技能包，教 Agent 用 AutoCAD","form":"skill","host":"AutoCAD","caps":["图纸","建模"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"中文 AutoCAD 技能包，从自然语言到工程图纸；Python 自动化依赖 pyautocad + pywin32。","install":"git clone https://github.com/delancy827/cad-skills.git && pip install pyautocad pywin32","score":{"star":18.9,"active":15,"license":15,"audit":10,"caps":3},"total":61.9},{"id":"kanjieteam--kjdraw","repo":"KanJieTeam/kjdraw","name":"kjdraw","owner":"KanJieTeam","url":"https://github.com/KanJieTeam/kjdraw","stars":62,"lang":"JavaScript","license":"Apache-2.0","pushed":"2026-10-27","desc":"The open-source CAD engine for AI agents. One-line MCP setup for Kimi Code, TraeCode, WorkBuddy and ZCode. Stable object IDs, undoable transactions, DXF/KJD output. TypeScript + Rust/WASM.","note":"面向 AI agent 的开源 CAD 引擎，一行 MCP 接入","form":"engine","host":"浏览器","caps":["建模","图纸","渲染"],"tier":"B","archived":false,"topics":["aiagents","cad","dxf","engineering","mcp","rust","typescript","wasm"],"audited":true,"auditNote":"把「工程意图」编译成可编辑、可校验、可撤销、可重开的真实 CAD 图纸；有在线编辑器与 AI 试用页，技能以 npx skills 分发。","install":"npx skills add KanJieTeam/kjdraw -g","score":{"star":16.9,"active":15,"license":15,"audit":10,"caps":4.5},"total":61.4},{"id":"ancode666--multicad-mcp","repo":"AnCode666/multiCAD-mcp","name":"multiCAD-mcp","owner":"AnCode666","url":"https://github.com/AnCode666/multiCAD-mcp","stars":151,"lang":"Python","license":"Apache-2.0","pushed":"2026-06-27","desc":"MCP server for use CAD software through AI assistants like Claude for Desktop or Cursor ","note":"一个 server 覆盖多种 CAD 软件","form":"mcp","host":"通用","caps":["建模","脚本"],"tier":"A","archived":false,"topics":["ai-tools","autocad","mcp-server","python","zwcad"],"audited":true,"auditNote":"一个 server 覆盖多种 CAD 应用，有独立文档站；Windows 侧依赖 pywin32（uv run + pip 安装）。","install":"git clone https://github.com/AnCode666/multiCAD-mcp.git && uv run python -m pip install --upgrade pywin32","score":{"star":20.5,"active":12,"license":15,"audit":10,"caps":3},"total":60.5},{"id":"neonglay--inventor-mcp","repo":"NeonGlay/inventor-mcp","name":"inventor-mcp","owner":"NeonGlay","url":"https://github.com/NeonGlay/inventor-mcp","stars":48,"lang":"Python","license":"MIT","pushed":"2026-06-10","desc":"MCP server for parametric 3D modeling in Autodesk Inventor - drive Inventor with AI in natural language. Includes Agent Skills and undocumented Inventor 2026 COM API knowledge.","note":"驱动 Autodesk Inventor 做参数化建模","form":"mcp","host":"Inventor","caps":["建模","脚本"],"tier":"B","archived":false,"topics":["ai-agent","antroic","autodesk-inventor","cad","cad-modeling","claude","com-api","inventor","mcp","mcp-server","parametric-modeling"],"audited":true,"auditNote":"封装 Inventor COM API 的高层毫米级工具（法兰、轴、螺母、钣金壳体），内置 Inventor 2026 API 的未公开坑位知识。","install":"pip install \"mcp[cli]\" pywin32 && git clone https://github.com/NeonGlay/inventor-mcp.git","score":{"star":15.9,"active":12,"license":15,"audit":10,"caps":3},"total":55.9},{"id":"rawwerks--vibecad","repo":"rawwerks/VibeCAD","name":"VibeCAD","owner":"rawwerks","url":"https://github.com/rawwerks/VibeCAD","stars":124,"lang":"Python","license":"MIT","pushed":"2026-01-05","desc":"A library of Claude Code skills for teaching coding agents how to use various CAD tools","note":"Claude Code skills 合集，教 agent 用 CAD","form":"skill","host":"通用","caps":["建模","脚本"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"以 Claude Code 插件市场形式分发的一组 CAD skills，安装即 /plugin marketplace add。","install":"/plugin marketplace add raymondweitekamp/VibeCAD","score":{"star":19.7,"active":8,"license":15,"audit":10,"caps":3},"total":55.7},{"id":"heyixuan2--bambu-studio-ai","repo":"heyixuan2/bambu-studio-ai","name":"bambu-studio-ai","owner":"heyixuan2","url":"https://github.com/heyixuan2/bambu-studio-ai","stars":240,"lang":"Python","license":"MIT","pushed":"2026-09-19","desc":"Bambu Lab AI (Bambu Studio AI): agent skill for 3D printing on Bambu Lab. Finds models on MakerWorld & Printables, generates or designs them in CAD, checks printability, hands them to Bambu Studio and reads printer/AMS status. For Claude Code, Codex, Cursor, Gemini CLI and any SKILL.md agent. Featured in 我的拓竹 Skill 大赏.","note":"Bambu Studio 切片与打印工作流的 agent skill","form":"skill","host":"3D打印","caps":["打印","渲染"],"tier":"A","archived":false,"topics":["3d-models","3d-printing","3mf","agent-skills","ai-agents","bambu-lab","bambu-lab-ai","bambu-studio","claude-code","claude-skills","codex","cursor","gemini-cli","image-to-3d","makerworld","parametric-cad","printables","skill-md","stl","text-to-3d"],"audited":false,"auditNote":"","install":"","score":{"star":22.4,"active":15,"license":15,"audit":0,"caps":0},"total":52.4},{"id":"reshefelisha--jarvis-onshape-mcp","repo":"ReshefElisha/jarvis-onshape-mcp","name":"jarvis-onshape-mcp","owner":"ReshefElisha","url":"https://github.com/ReshefElisha/jarvis-onshape-mcp","stars":175,"lang":"Python","license":"NOASSERTION","pushed":"2026-04-22","desc":"Jarvis Onshape MCP — Claude Code plugin for driving real Onshape CAD. Vision-decomposition skill + truth-telling + parametric iteration + FeatureScript.","note":"Claude Code 插件形态，驱动云端 Onshape","form":"skill","host":"Onshape","caps":["建模","云端"],"tier":"A","archived":false,"topics":[],"audited":true,"auditNote":"驱动真实 Onshape：草图、拉伸、圆角、配合、变量表参数迭代、自定义 FeatureScript；每个变更类工具都返回结构化真值（改了什么、再生警告、下一步提示）+ 多视图 PNG。","install":"git clone https://github.com/ReshefElisha/jarvis-onshape-mcp   # 按 README 配 API Key","score":{"star":21.1,"active":8,"license":8,"audit":10,"caps":3},"total":50.1},{"id":"k-telux--opticalmodeler","repo":"k-telux/OpticalModeler","name":"OpticalModeler","owner":"k-telux","url":"https://github.com/k-telux/OpticalModeler","stars":135,"lang":"Python","license":"MIT","pushed":"2026-10-07","desc":"Evidence-gated Agent Skill for reconstructing 2D photonics schematics as physically auditable Blender optical tables with CAD, beam-path, mechanics, and render proof.","note":"带证据门控的 Agent Skill：重建 2D 光子学版图","form":"skill","host":"科学","caps":["建模","校验"],"tier":"A","archived":false,"topics":["agent-skills","blender","optical-design","optical-engineering","photonics","scientific-visualization","thorlabs"],"audited":false,"auditNote":"","install":"","score":{"star":20.1,"active":15,"license":15,"audit":0,"caps":0},"total":50.1},{"id":"nvidia-omniverse--usd-convert-cad","repo":"NVIDIA-Omniverse/usd-convert-cad","name":"usd-convert-cad","owner":"NVIDIA-Omniverse","url":"https://github.com/NVIDIA-Omniverse/usd-convert-cad","stars":39,"lang":"—","license":"NOASSERTION","pushed":"2026-09-16","desc":"AI Agent Skill for converting CAD models to OpenUSD. Enables autonomous agents to translate 3D CAD assets into USD/USDA/USDC by leveraging the usd-convert-cad PyPI package","note":"NVIDIA 官方出品：CAD 模型转 OpenUSD","form":"skill","host":"OpenUSD","caps":["导出"],"tier":"B","archived":false,"topics":[],"audited":true,"auditNote":"官方 Agent Skill 仓库，转换器本体是独立的 usd-convert-cad wheel（pip 装）；文档按 0.3.0 / Python 3.12 标定，新版本行为可能变化。","install":"python -m pip install usd-convert-cad","score":{"star":15.1,"active":15,"license":8,"audit":10,"caps":1.5},"total":49.6},{"id":"cai-aa--cad-agent-hub","repo":"Cai-aa/CAD-Agent-Hub","name":"CAD-Agent-Hub","owner":"Cai-aa","url":"https://github.com/Cai-aa/CAD-Agent-Hub","stars":118,"lang":"Python","license":"MIT","pushed":"2026-10-25","desc":"MCP servers and automation bridges for CATIA, SolidWorks, Siemens NX, and Autodesk Fusion","note":"CATIA / SolidWorks / Siemens NX 的 MCP 与自动化桥接集合","form":"mcp","host":"CATIA/NX","caps":["建模","脚本"],"tier":"A","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":19.5,"active":15,"license":15,"audit":0,"caps":0},"total":49.5},{"id":"armpro24-blip--cad-cae-copilot","repo":"armpro24-blip/cad-cae-copilot","name":"cad-cae-copilot","owner":"armpro24-blip","url":"https://github.com/armpro24-blip/cad-cae-copilot","stars":82,"lang":"Python","license":"MIT","pushed":"2026-10-27","desc":"CAD/CAE Copilot — an AI-native CAD/CAE/CAX workbench for AI agents. Text-to-CAD, text-to-CAE, real build123d/OpenCASCADE geometry, editable parameters, stable topology pointers, deterministic critique, and MCP server tools.","note":"AI 原生 CAD/CAE/CAX 工作台，面向 agent 的工具层","form":"app","host":"通用","caps":["建模","校验"],"tier":"B","archived":false,"topics":["3d-modeling","ai-cad","ai-cae","ai-cax","ai-engineering","build123d","cad","cae","calculix","generative-design","mcp","mechanical-engineering","opencascade","parametric-design","simulation","text-to-cad","text-to-cae","text-to-cax","topology-optimization"],"audited":false,"auditNote":"","install":"","score":{"star":18.1,"active":15,"license":15,"audit":0,"caps":0},"total":48.1},{"id":"ghbalf--freecad-ai","repo":"ghbalf/freecad-ai","name":"freecad-ai","owner":"ghbalf","url":"https://github.com/ghbalf/freecad-ai","stars":594,"lang":"Python","license":"LGPL-2.1","pushed":"2026-10-16","desc":"AI-powered assistant workbench for FreeCAD — generate 3D models from natural language","note":"FreeCAD 内的 AI 工作台，可接 OpenAI / Anthropic / Ollama","form":"app","host":"FreeCAD","caps":["建模","脚本","导出","渲染"],"tier":"A","archived":false,"topics":["addon","ai","anthropic","cad","freecad","freecad-addon","freecad-workbench","llm","mcp","ollama","openai","python"],"audited":false,"auditNote":"","install":"","score":{"star":26.1,"active":15,"license":6,"audit":0,"caps":0},"total":47.1},{"id":"zinin--sketchup-mcp2","repo":"zinin/sketchup-mcp2","name":"sketchup-mcp2","owner":"zinin","url":"https://github.com/zinin/sketchup-mcp2","stars":54,"lang":"Ruby","license":"MIT","pushed":"2026-10-29","desc":"MCP Server for SketchUp","note":"Ruby 写的 SketchUp MCP","form":"mcp","host":"SketchUp","caps":["建模","渲染"],"tier":"B","archived":false,"topics":["3d-modeling","cad","claude","claude-code","claude-desktop","llm","mcp","mcp-server","model-context-protocol","python","ruby","sketchup","sketchup-extension","sketchup-plugin","woodworking"],"audited":false,"auditNote":"","install":"","score":{"star":16.4,"active":15,"license":15,"audit":0,"caps":0},"total":46.4},{"id":"atoi-ming--freecad-mcp","repo":"ATOI-Ming/FreeCAD-MCP","name":"FreeCAD-MCP","owner":"ATOI-Ming","url":"https://github.com/ATOI-Ming/FreeCAD-MCP","stars":102,"lang":"Python","license":"MIT","pushed":"2026-06-17","desc":"FreeCAD plugin for automating model creation and control via Model Contro Protocol (MCP). Provides a MCP server,GUl panel, and client for running macros,managing documents, and adjusting views.","note":"FreeCAD 插件形态的 MCP","form":"mcp","host":"FreeCAD","caps":["建模","脚本"],"tier":"A","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":19,"active":12,"license":15,"audit":0,"caps":0},"total":46},{"id":"zh19980811--easy-mcp-autocad","repo":"zh19980811/Easy-MCP-AutoCad","name":"Easy-MCP-AutoCad","owner":"zh19980811","url":"https://github.com/zh19980811/Easy-MCP-AutoCad","stars":266,"lang":"Python","license":null,"pushed":"2026-10-15","desc":"这个项目是一个基于Model Context Protocol (MCP)的AutoCAD集成服务器，它允许通过自然语言与AutoCAD进行交互。通过这个服务器，用户可以使用Claude等大型语言模型来创建、修改和分析AutoCAD图纸，同时还可以存储和查询CAD元素的相关数据。目前制作参考学习，仅实现端到端之间的通信，具体工具函数尚未晚上","note":"中文生态的 AutoCAD MCP 集成，自然语言驱动绘图","form":"mcp","host":"AutoCAD","caps":["建模","图纸","检查"],"tier":"A","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":22.9,"active":15,"license":8,"audit":0,"caps":0},"total":45.9},{"id":"sandraschi--freecad-mcp","repo":"sandraschi/freecad-mcp","name":"freecad-mcp","owner":"sandraschi","url":"https://github.com/sandraschi/freecad-mcp","stars":32,"lang":"Python","license":"MIT","pushed":"2026-10-28","desc":"FreeCAD 3D CAD automation via FastMCP — headless document/export plus FluidX3D/OpenFOAM CFD extensions. For Cursor / Claude Desktop. Webapp.","note":"FastMCP 实现，headless 文档与导出","form":"mcp","host":"FreeCAD","caps":["脚本","导出"],"tier":"B","archived":false,"topics":["cad-3d","cfd","computational-fluid-dynamics","fastmcp-3","freecad","headless","mcp","mcp-server","model-context-protocol","openfoam","webapp"],"audited":false,"auditNote":"","install":"","score":{"star":14.3,"active":15,"license":15,"audit":0,"caps":0},"total":44.3},{"id":"fatasia--deepmonkey-studio","repo":"fatasia/DeepMonkey-Studio","name":"DeepMonkey-Studio","owner":"fatasia","url":"https://github.com/fatasia/DeepMonkey-Studio","stars":173,"lang":"TypeScript","license":"NOASSERTION","pushed":"2026-10-23","desc":"从 Vibe Coding 到 Vibe World：AI原生的可编程三维世界，面向元宇宙、Science、世界模型的开源底座","note":"AI 原生的可编程三维世界，偏元宇宙 / 世界模型方向","form":"app","host":"通用","caps":["建模","渲染"],"tier":"A","archived":false,"topics":["3d","ai-agents","bim","cad","digital-twin","industrial-automation","iot","mcp","metaverse","plc","react","rust","scada","simulation","threejs","typescript","webassembly","webgpu","world-model"],"audited":false,"auditNote":"","install":"","score":{"star":21.1,"active":15,"license":8,"audit":0,"caps":0},"total":44.1},{"id":"makeitezzz555--gridline","repo":"MakeItEzzz555/Gridline","name":"Gridline","owner":"MakeItEzzz555","url":"https://github.com/MakeItEzzz555/Gridline","stars":30,"lang":"Python","license":"MIT","pushed":"2026-10-28","desc":"Portable AI agent skills, subagents, and plugins for architecture/AEC workflows across Codex, Claude Code, Gemini CLI, and other compatible agents.","note":"建筑 / 工程方向可移植的 skills + subagents + plugins","form":"skill","host":"AEC","caps":["建模","图纸"],"tier":"B","archived":false,"topics":["aec","agent-skills","ai-agents","architecture","autocad","bim","cad","civil-engineering","claude-code","codex","gemini-cli","gemini-cli-extension","grasshopper","ifc","openbim","revit"],"audited":false,"auditNote":"","install":"","score":{"star":14,"active":15,"license":15,"audit":0,"caps":0},"total":44},{"id":"ciberjohn--hermes-skills","repo":"ciberjohn/Hermes-Skills","name":"Hermes-Skills","owner":"ciberjohn","url":"https://github.com/ciberjohn/Hermes-Skills","stars":21,"lang":"Python","license":"MIT","pushed":"2026-10-07","desc":"Agent skills for Hermes Agent — content pipelines, 3D printing and CAD, diagrams, security ops, social posting, transcription, and self-hosted agent infrastructure (paperclip-creator, proxmox-estate)","note":"Hermes Agent 的技能集，含 3D 打印与 CAD","form":"skill","host":"通用","caps":["建模","打印"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":12.6,"active":15,"license":15,"audit":0,"caps":0},"total":42.6},{"id":"alfredoalv13--shapr3d-mcp","repo":"Alfredoalv13/shapr3d-mcp","name":"shapr3d-mcp","owner":"Alfredoalv13","url":"https://github.com/Alfredoalv13/shapr3d-mcp","stars":43,"lang":"Python","license":"MIT","pushed":"2026-06-12","desc":"MCP server for Shapr3D — AI-driven CAD modeling with build123d (OpenCascade) and STEP file exchange","note":"Shapr3D 的 MCP，底层走 build123d/OCCT","form":"mcp","host":"Shapr3D","caps":["建模"],"tier":"B","archived":false,"topics":["build123d","cad","mcp","model-context-protocol","opencascade","shapr3d","step"],"audited":false,"auditNote":"","install":"","score":{"star":15.5,"active":12,"license":15,"audit":0,"caps":0},"total":42.5},{"id":"beiming183-cloud--autocad-mcp","repo":"beiming183-cloud/AutoCAD-MCP","name":"AutoCAD-MCP","owner":"beiming183-cloud","url":"https://github.com/beiming183-cloud/AutoCAD-MCP","stars":39,"lang":"Python","license":"MIT","pushed":"2026-07-19","desc":"Client-neutral MCP server for AutoCAD automation, checked 2D/3D geometry, native previews, and headless DXF delivery.","note":"客户端中立的 AutoCAD MCP，带 2D/3D 几何校验","form":"mcp","host":"AutoCAD","caps":["建模","图纸","检查"],"tier":"B","archived":false,"topics":["autocad","autocad-api","autolisp","cad-automation","claude-code","codex","cursor","engineering","ezdxf","mcp","model-context-protocol","python"],"audited":false,"auditNote":"","install":"","score":{"star":15.1,"active":12,"license":15,"audit":0,"caps":0},"total":42.1},{"id":"codeofaxel--kiln","repo":"codeofaxel/Kiln","name":"Kiln","owner":"codeofaxel","url":"https://github.com/codeofaxel/Kiln","stars":227,"lang":"Python","license":"AGPL-3.0","pushed":"2026-10-28","desc":"From idea to object, and every version in between. Kiln is the open-source MCP server for 3D printing: AI agents (ChatGPT, Claude, Codex, Cursor, Gemini, Grok, or any MCP client) design, slice and print on Bambu Lab, Creality, Prusa, Elegoo, Klipper, OctoPrint and more. Git for 3D lets you branch, merge and undo your designs.","note":"从想法到实物的版本化流水线，AGPL","form":"app","host":"通用","caps":["建模","导出","打印"],"tier":"A","archived":false,"topics":["3d-printing","ai-agents","bambu-lab","chatgpt","claude","creality","elegoo","gemini","image-to-3d","klipper","mcp","mcp-server","model-context-protocol","moonraker","octoprint","openclaw","openscad","prusa","text-to-3d","version-control"],"audited":false,"auditNote":"","install":"","score":{"star":22.2,"active":15,"license":4,"audit":0,"caps":0},"total":41.2},{"id":"bonninr--freecad_mcp","repo":"bonninr/freecad_mcp","name":"freecad_mcp","owner":"bonninr","url":"https://github.com/bonninr/freecad_mcp","stars":226,"lang":"Python","license":"MIT","pushed":"2025-03-20","desc":"FreecadMCP connects Freecad to Claude AI and other MCP-ready tools like Cursor through the Model Context Protocol (MCP), allowing Claude to directly interact with and control Freecad. This integration enables prompt assisted CAD 3d Design.","note":"把 FreeCAD 接到 Claude 等 MCP 客户端的老牌实现","form":"mcp","host":"FreeCAD","caps":["建模","脚本","导出"],"tier":"A","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":22.2,"active":4,"license":15,"audit":0,"caps":0},"total":41.2},{"id":"alchaincyf--huashu-cad","repo":"alchaincyf/huashu-cad","name":"huashu-cad","owner":"alchaincyf","url":"https://github.com/alchaincyf/huashu-cad","stars":12,"lang":"Python","license":"MIT","pushed":"2026-10-20","desc":"用自然语言出可编辑CAD：户型与平面布置（DXF）、齿轮减速器关节模组等机械装配（STEP），自动校验干涉与啮合，出交互爆炸图、运转视频和装配工程图。Agent skill.","note":"自然语言出可编辑 CAD：户型 DXF 与机械装配 STEP，带干涉校验","form":"skill","host":"AEC","caps":["建模","图纸","校验","渲染"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":10.5,"active":15,"license":15,"audit":0,"caps":0},"total":40.5},{"id":"fboldo--openscad-mcp-server","repo":"fboldo/openscad-mcp-server","name":"openscad-mcp-server","owner":"fboldo","url":"https://github.com/fboldo/openscad-mcp-server","stars":8,"lang":"TypeScript","license":"MIT","pushed":"2026-09-24","desc":"An MCP server for rendering STL and PNG from OpenSCAD code.","note":"TypeScript 实现，从 OpenSCAD 代码渲染 STL / PNG","form":"mcp","host":"OpenSCAD","caps":["渲染","导出"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":9,"active":15,"license":15,"audit":0,"caps":0},"total":39},{"id":"dwnmf--kompas-3d-mcp-bin","repo":"dwnmf/KOMPAS-3D-MCP-bin","name":"KOMPAS-3D-MCP-bin","owner":"dwnmf","url":"https://github.com/dwnmf/KOMPAS-3D-MCP-bin","stars":39,"lang":"Python","license":null,"pushed":"2026-08-22","desc":"Ready-to-use Windows client for connecting KOMPAS-3D to MCP.","note":"KOMPAS-3D 接 MCP 的 Windows 预打包客户端","form":"mcp","host":"KOMPAS3D","caps":["建模"],"tier":"B","archived":false,"topics":["ai-agent","automation","cad","engineering","kompas-3d","mcp","model-context-protocol","windows"],"audited":false,"auditNote":"","install":"","score":{"star":15.1,"active":15,"license":8,"audit":0,"caps":0},"total":38.1},{"id":"blwfish--freecad-mcp","repo":"blwfish/freecad-mcp","name":"freecad-mcp","owner":"blwfish","url":"https://github.com/blwfish/freecad-mcp","stars":62,"lang":"Python","license":"LGPL-2.1","pushed":"2026-10-26","desc":"MCP server for FreeCAD — 32 tools for AI-assisted 3D CAD modeling","note":"32 个工具的 FreeCAD MCP","form":"mcp","host":"FreeCAD","caps":["建模","脚本"],"tier":"B","archived":false,"topics":["ai","cad","claude","cnc","freecad","mcp","parametric-cad"],"audited":false,"auditNote":"","install":"","score":{"star":16.9,"active":15,"license":6,"audit":0,"caps":0},"total":37.9},{"id":"cavanjb--openclaw-pdf-to-cad-agent-skill","repo":"CavanJB/openclaw-pdf-to-cad-agent-skill","name":"openclaw-pdf-to-cad-agent-skill","owner":"CavanJB","url":"https://github.com/CavanJB/openclaw-pdf-to-cad-agent-skill","stars":13,"lang":"Python","license":"MIT","pushed":"2026-05-20","desc":"OpenClaw agent skill for converting PDF engineering drawings into CAD delivery packages","note":"把工程图纸 PDF 转成 CAD 的 agent skill","form":"skill","host":"通用","caps":["建模","图纸"],"tier":"B","archived":false,"topics":["agent-skill","automation","cad","codex-skill","dxf","engineering-drawings","openclaw","pdf-to-cad"],"audited":false,"auditNote":"","install":"","score":{"star":10.8,"active":12,"license":15,"audit":0,"caps":0},"total":37.8},{"id":"0okevino0--claude-cad","repo":"0oKevino0/claude-cad","name":"claude-cad","owner":"0oKevino0","url":"https://github.com/0oKevino0/claude-cad","stars":5,"lang":"Python","license":"MIT","pushed":"2026-10-05","desc":"The verification layer for AI-generated CAD. Make Claude Code prove a CadQuery part is valid before it fails in SolidWorks.","note":"给 AI 生成 CAD 加校验层：让 Claude Code 自证几何正确","form":"skill","host":"通用","caps":["校验"],"tier":"B","archived":false,"topics":["3d-modeling","ai-tools","cad","cadquery","claude","claude-code","mcp","opencascade","parametric-design","python","skill-md","solidworks","step-files"],"audited":false,"auditNote":"","install":"","score":{"star":7.3,"active":15,"license":15,"audit":0,"caps":0},"total":37.3},{"id":"jzjzzzzzzz--intentforge","repo":"jzjzzzzzzz/IntentForge","name":"IntentForge","owner":"jzjzzzzzzz","url":"https://github.com/jzjzzzzzzz/IntentForge","stars":5,"lang":"Python","license":"Apache-2.0","pushed":"2026-08-11","desc":"Intent-preserving deterministic CAD pipeline for editable, validated CadQuery models.","note":"保意图的确定性 CAD 流水线，产出可编辑、可校验的模型","form":"engine","host":"通用","caps":["建模","校验"],"tier":"B","archived":false,"topics":["benchmark","cad","cadquery","design-intent","engineering","mcp","parametric-cad","pytest","python","text-to-cad"],"audited":false,"auditNote":"","install":"","score":{"star":7.3,"active":15,"license":15,"audit":0,"caps":0},"total":37.3},{"id":"jango-blockchained--mcp-freecad","repo":"jango-blockchained/mcp-freecad","name":"mcp-freecad","owner":"jango-blockchained","url":"https://github.com/jango-blockchained/mcp-freecad","stars":27,"lang":"Python","license":"MIT","pushed":"2025-11-06","desc":"","note":"FreeCAD MCP 的又一个实现","form":"mcp","host":"FreeCAD","caps":["建模"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":13.6,"active":8,"license":15,"audit":0,"caps":0},"total":36.6},{"id":"trillyd13--3d-printing-skill","repo":"TrillyD13/3d-printing-skill","name":"3d-printing-skill","owner":"TrillyD13","url":"https://github.com/TrillyD13/3d-printing-skill","stars":4,"lang":"Python","license":"MIT","pushed":"2026-08-19","desc":"Claude skill for the Bambu Lab 3D printing loop: scaling that preserves hardware fits and magnet holes, print prep and slicing, parametric design, and a queryable print log.","note":"Bambu Lab 打印闭环：保鲜度的缩放与摆盘","form":"skill","host":"3D打印","caps":["打印"],"tier":"B","archived":false,"topics":["3d-printing","3dprinting","3mf","ai-agent","bambu-lab","bambulab","build123d","cad","claude","claude-skill","gridfinity","slicer","stl","trimesh"],"audited":false,"auditNote":"","install":"","score":{"star":6.6,"active":15,"license":15,"audit":0,"caps":0},"total":36.6},{"id":"aurafriday--fusion-360-mcp-server","repo":"AuraFriday/Fusion-360-MCP-Server","name":"Fusion-360-MCP-Server","owner":"AuraFriday","url":"https://github.com/AuraFriday/Fusion-360-MCP-Server","stars":127,"lang":"Python","license":"NOASSERTION","pushed":"2026-01-28","desc":"Control Fusion 360 with any AI through Model Context Protocol (MCP)","note":"任意 AI 客户端控制 Fusion 360","form":"mcp","host":"Fusion360","caps":["建模","脚本"],"tier":"A","archived":false,"topics":["ai","cad","cam","fusion360","mcp","mcp-server","mcp-servers"],"audited":false,"auditNote":"","install":"","score":{"star":19.8,"active":8,"license":8,"audit":0,"caps":0},"total":35.8},{"id":"lau-mars--cadorange","repo":"LAU-MARS/cadorange","name":"cadorange","owner":"LAU-MARS","url":"https://github.com/LAU-MARS/cadorange","stars":2,"lang":"TypeScript","license":"MIT","pushed":"2026-10-27","desc":"Agent-native CAD runtime in TypeScript, powered by occt.ts (OCCT/WASM). Headless, embeddable, in-process: snapshots & rollback, structured errors, headless rendering. Zero Python, just npm i. Plugs into Claude Code, Codex, dsh and any MCP agent.","note":"TypeScript + occt.ts(OCCT/WASM) 的 agent-native 运行时","form":"engine","host":"浏览器","caps":["建模","导出"],"tier":"B","archived":false,"topics":["aicad","build123d","cad","cadquery","claude-code","deepseek-harness","occt","typescript"],"audited":false,"auditNote":"","install":"","score":{"star":4.5,"active":15,"license":15,"audit":0,"caps":0},"total":34.5},{"id":"joseguiaces--autocad-dotnet-claude-skill","repo":"joseguiaCES/autocad-dotnet-claude-skill","name":"autocad-dotnet-claude-skill","owner":"joseguiaCES","url":"https://github.com/joseguiaCES/autocad-dotnet-claude-skill","stars":14,"lang":"C#","license":"MIT","pushed":"2026-03-28","desc":"Comprehensive AutoCAD .NET API reference, patterns, and gotchas for Claude Code plugin development. Covers AutoCAD 2025 and 2026.","note":"AutoCAD .NET API 参考 + 模式 + 踩坑，给 Claude 读","form":"skill","host":"AutoCAD","caps":["脚本"],"tier":"B","archived":false,"topics":["api-reference","autocad","autodesk","cad","claude-code","dotnet","objectarx","plugin"],"audited":false,"auditNote":"","install":"","score":{"star":11.1,"active":8,"license":15,"audit":0,"caps":0},"total":34.1},{"id":"pthompson8594--openscad-skill","repo":"pthompson8594/openscad-skill","name":"openscad-skill","owner":"pthompson8594","url":"https://github.com/pthompson8594/openscad-skill","stars":1,"lang":"Python","license":"MIT-0","pushed":"2026-10-22","desc":"Claude skill for OpenSCAD: parametric parts and multi-part assemblies built around off-the-shelf hardware (real screw lengths, nuts, bearings, gears, NEMA motors, BOM), verified with numbers instead of pictures. Clash, clearance and motion checks, print-ready STL/3MF, laser-cut DXF and bent-sheet STEP.","note":"单个 SKILL.md 驱动 OpenSCAD 做参数化零件与装配","form":"skill","host":"OpenSCAD","caps":["建模","脚本","装配"],"tier":"B","archived":false,"topics":["3d-printing","3mf","3mf-file","agent-skills","cad","claude","claude-skills","laser-cutting","openscad","parametric-design","sheet-metal","stl"],"audited":false,"auditNote":"","install":"","score":{"star":2.8,"active":15,"license":15,"audit":0,"caps":0},"total":32.8},{"id":"softnetics--cad-bench-claude-skill","repo":"softnetics/CAD-Bench-Claude-Skill","name":"CAD-Bench-Claude-Skill","owner":"softnetics","url":"https://github.com/softnetics/CAD-Bench-Claude-Skill","stars":1,"lang":"Python","license":"MIT","pushed":"2026-10-18","desc":"","note":"配套 CAD-Bench 的评测型 skill","form":"skill","host":"评测","caps":["校验"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":2.8,"active":15,"license":15,"audit":0,"caps":0},"total":32.8},{"id":"vinciux99--cadcraft-claude-skill","repo":"Vinciux99/cadcraft-claude-skill","name":"cadcraft-claude-skill","owner":"Vinciux99","url":"https://github.com/Vinciux99/cadcraft-claude-skill","stars":0,"lang":"Shell","license":"MIT","pushed":"2026-10-14","desc":"","note":"CAD 建模用 Claude skill（无描述）","form":"skill","host":"通用","caps":["建模"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":2.8,"active":15,"license":15,"audit":0,"caps":0},"total":32.8},{"id":"svetlana-dao-llc--cad-agent","repo":"Svetlana-DAO-LLC/cad-agent","name":"cad-agent","owner":"Svetlana-DAO-LLC","url":"https://github.com/Svetlana-DAO-LLC/cad-agent","stars":54,"lang":"Python","license":"NOASSERTION","pushed":"2026-02-17","desc":"AI-driven CAD modeling for 3D printing (build123d + MCP)","note":"build123d + MCP，面向 3D 打印的 AI 建模","form":"mcp","host":"build123d","caps":["建模","打印"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":16.4,"active":8,"license":8,"audit":0,"caps":0},"total":32.4},{"id":"contextform--freecad-mcp","repo":"contextform/freecad-mcp","name":"freecad-mcp","owner":"contextform","url":"https://github.com/contextform/freecad-mcp","stars":139,"lang":"Python","license":null,"pushed":"2025-08-15","desc":"FreeCAD MCP - Open-source Model Context Protocol server for FreeCAD automation","note":"开源 FreeCAD 自动化 MCP","form":"mcp","host":"FreeCAD","caps":["建模","脚本"],"tier":"A","archived":false,"topics":["cad-automation","claude","claude-code","cursor","freecad","freecad-api","mcp","model-context-protocol"],"audited":false,"auditNote":"","install":"","score":{"star":20.2,"active":4,"license":8,"audit":0,"caps":0},"total":32.2},{"id":"hamzaabduljabbar--autoconst-cad-to-excel-claude","repo":"hamzaabduljabbar/autoconst-cad-to-excel-claude","name":"autoconst-cad-to-excel-claude","owner":"hamzaabduljabbar","url":"https://github.com/hamzaabduljabbar/autoconst-cad-to-excel-claude","stars":7,"lang":"Python","license":"NOASSERTION","pushed":"2026-08-02","desc":"Turn a construction CAD file (DWG/DXF) into a structured Excel takeoff. A Claude skill: block counts grouped into line items, layer-based classification, annotation quarantine, MEP nearest-text specs, HIGH/LOW confidence.","note":"施工 CAD（DWG/DXF）转结构化 Excel 工程量清单","form":"skill","host":"AEC","caps":["图纸","导出"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":8.5,"active":15,"license":8,"audit":0,"caps":0},"total":31.5},{"id":"sergiudanstan--openscad-mcp","repo":"sergiudanstan/openscad-mcp","name":"openscad-mcp","owner":"sergiudanstan","url":"https://github.com/sergiudanstan/openscad-mcp","stars":7,"lang":"Python","license":null,"pushed":"2026-09-23","desc":"OpenSCAD MCP server for Claude Code - create, preview, and export 3D models","note":"Claude Code 专用的 OpenSCAD MCP","form":"mcp","host":"OpenSCAD","caps":["建模","渲染","导出"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":8.5,"active":15,"license":8,"audit":0,"caps":0},"total":31.5},{"id":"theosib--freecad-mcp-server","repo":"theosib/FreeCAD-MCP-Server","name":"FreeCAD-MCP-Server","owner":"theosib","url":"https://github.com/theosib/FreeCAD-MCP-Server","stars":36,"lang":"Python","license":null,"pushed":"2026-03-05","desc":"MCP server that allows Claude Code to talk directly to FreeCAD to inspect and modify state","note":"让 Claude Code 直连 FreeCAD 检视模型","form":"mcp","host":"FreeCAD","caps":["检查"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":14.8,"active":8,"license":8,"audit":0,"caps":0},"total":30.8},{"id":"senthil185--cadquery-mcp","repo":"Senthil185/cadquery-mcp","name":"cadquery-mcp","owner":"Senthil185","url":"https://github.com/Senthil185/cadquery-mcp","stars":5,"lang":"Python","license":"MIT","pushed":"2025-11-05","desc":"","note":"CadQuery MCP（无描述）","form":"mcp","host":"CadQuery","caps":["建模"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":7.3,"active":8,"license":15,"audit":0,"caps":0},"total":30.3},{"id":"fa-mc--vibe-cading","repo":"fa-mc/vibe-cading","name":"vibe-cading","owner":"fa-mc","url":"https://github.com/fa-mc/vibe-cading","stars":8,"lang":"Python","license":"AGPL-3.0","pushed":"2026-10-13","desc":"3D model generators with CadQuery for humans and LLM agents","note":"面向人和 LLM 的 CadQuery 模型生成器","form":"engine","host":"CadQuery","caps":["建模","脚本"],"tier":"B","archived":false,"topics":["3d-printing","ai-agents","cad","cadquery","code-cad","generative-design","lego-technic","llm","mcp","mechanical-engineering","parametric-cad","python","step","stl"],"audited":false,"auditNote":"","install":"","score":{"star":9,"active":15,"license":4,"audit":0,"caps":0},"total":28},{"id":"mikekuniavsky--mcp-cadquery-server-public","repo":"mikekuniavsky/mcp-cadquery-server-public","name":"mcp-cadquery-server-public","owner":"mikekuniavsky","url":"https://github.com/mikekuniavsky/mcp-cadquery-server-public","stars":2,"lang":"Python","license":"MIT","pushed":"2026-04-10","desc":"An MCP server for CadQuery -- takes in cq, returns 3MF, PNG, GLB ","note":"CadQuery 进、3MF / PNG / GLB 出","form":"mcp","host":"CadQuery","caps":["建模","导出"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":4.5,"active":8,"license":15,"audit":0,"caps":0},"total":27.5},{"id":"neoscad--neoscad","repo":"neoscad/neoscad","name":"neoscad","owner":"neoscad","url":"https://github.com/neoscad/neoscad","stars":5,"lang":"Rust","license":"GPL-2.0","pushed":"2026-10-17","desc":"A fast, OpenSCAD-compatible CAD engine for people and AI agents. Supported by @the-ned-workshop.","note":"Rust 写的 OpenSCAD 兼容引擎，原生面向人 + Agent","form":"engine","host":"OpenSCAD","caps":["建模","脚本"],"tier":"B","archived":false,"topics":["3d","3d-graphics","3d-models","3d-printing","cad","linux","macos","mcp","openscad","rust","webassembly","wgpu","windows"],"audited":false,"auditNote":"","install":"","score":{"star":7.3,"active":15,"license":4,"audit":0,"caps":0},"total":26.3},{"id":"rishigundakaram--cadquery-mcp-server","repo":"rishigundakaram/cadquery-mcp-server","name":"cadquery-mcp-server","owner":"rishigundakaram","url":"https://github.com/rishigundakaram/cadquery-mcp-server","stars":20,"lang":"Python","license":null,"pushed":"2025-06-29","desc":"MCP server providing CAD generation and verification tools using CAD-Query","note":"CadQuery 生成 + 校验工具","form":"mcp","host":"CadQuery","caps":["建模","校验"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":12.5,"active":4,"license":8,"audit":0,"caps":0},"total":24.5},{"id":"bertvanbrakel--mcp-cadquery","repo":"bertvanbrakel/mcp-cadquery","name":"mcp-cadquery","owner":"bertvanbrakel","url":"https://github.com/bertvanbrakel/mcp-cadquery","stars":19,"lang":"Python","license":null,"pushed":"2025-04-07","desc":"","note":"CadQuery MCP（无描述，按名字与工具面归入）","form":"mcp","host":"CadQuery","caps":["建模"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":12.3,"active":4,"license":8,"audit":0,"caps":0},"total":24.3},{"id":"format37--openscad-mcp","repo":"format37/openscad-mcp","name":"openscad-mcp","owner":"format37","url":"https://github.com/format37/openscad-mcp","stars":13,"lang":"Python","license":"NOASSERTION","pushed":"2025-10-11","desc":"The openscad MCP server to compose openscad scripts and render them by LLM","note":"组织 OpenSCAD 脚本并渲染","form":"mcp","host":"OpenSCAD","caps":["建模","渲染"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":10.8,"active":4,"license":8,"audit":0,"caps":0},"total":22.8},{"id":"vladthecto--hermes-3d-print","repo":"vladthecto/hermes-3d-print","name":"hermes-3d-print","owner":"vladthecto","url":"https://github.com/vladthecto/hermes-3d-print","stars":1,"lang":"Python","license":null,"pushed":"2026-07-09","desc":"3D modeling + print-prep skill for Hermes Agent: CadQuery MCP, Blender previews, Bambu Studio slicing for A1 mini","note":"建模 + 打印准备（CadQuery MCP + Blender）","form":"skill","host":"3D打印","caps":["建模","打印"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":2.8,"active":12,"license":8,"audit":0,"caps":0},"total":22.8},{"id":"rahulgarg123--openscad-mcp","repo":"rahulgarg123/openscad-mcp","name":"openscad-mcp","owner":"rahulgarg123","url":"https://github.com/rahulgarg123/openscad-mcp","stars":9,"lang":"JavaScript","license":null,"pushed":"2025-08-13","desc":"MCP server for OpenSCAD rendering","note":"OpenSCAD 渲染 MCP（JS 实现）","form":"mcp","host":"OpenSCAD","caps":["渲染"],"tier":"B","archived":false,"topics":[],"audited":false,"auditNote":"","install":"","score":{"star":9.4,"active":4,"license":8,"audit":0,"caps":0},"total":21.4}],"recipes":[{"id":"freecad-local","title":"FreeCAD 本地驱动","route":"mcp","host":"FreeCAD","repo":"neka-nat/freecad-mcp","when":"要 AI 真的在你的 FreeCAD 里建体、改参数、导出 STEP/STL，而不是只写一段代码给你手动跑。","install":"git clone https://github.com/neka-nat/freecad-mcp && 按 README 装依赖与 FreeCAD addon","snippet":"{\n  \"mcpServers\": {\n    \"freecad\": {\n      \"command\": \"uvx\",\n      \"args\": [\"freecad-mcp\"]\n    }\n  }\n}","snippetNote":"命令形态以仓库 README 为准；FreeCAD 需先运行并开启对应 addon，MCP 才能连上文档。","prompt":"用 freecad-local 这套接法，打开我当前的 FreeCAD 文档，把底板厚度从 3mm 改到 5mm，\n四个 M4 安装孔保持同心，改完导出 STEP 和 STL 到 ./out/。\n每步先说明你要调用哪个工具，等我确认再执行。"},{"id":"freecad-workbench","title":"FreeCAD 内 AI 工作台","route":"app","host":"FreeCAD","repo":"ghbalf/freecad-ai","when":"不想配 MCP，想直接在 FreeCAD 界面里开一个 AI 面板，接本地 Ollama 或云 API 都行。","install":"git clone https://github.com/ghbalf/freecad-ai && 按 README 装成 FreeCAD 工作台（Addon Manager / 手动放 Mod 目录）","snippet":"{\n  \"mcpServers\": {}\n}","snippetNote":"此路线不走 MCP，装的是 FreeCAD 工作台（addon），在软件内部调用模型。","prompt":"在 FreeCAD 里用 freecad-workbench 的 AI 面板，帮我把这个支架的加强筋加上去：\n两侧各 3 条，厚度 2mm，圆角 R3。先给出参数方案，再让我一键执行。"},{"id":"openscad-code","title":"OpenSCAD 代码即模型","route":"code","host":"OpenSCAD","repo":"jhacksman/OpenSCAD-MCP-Server","when":"零件适合参数化、可打印、形状规整；你要的是「可复现的脚本」，不是 GUI 里的历史树。","install":"git clone https://github.com/jhacksman/OpenSCAD-MCP-Server","snippet":"{\n  \"mcpServers\": {\n    \"openscad\": {\n      \"command\": \"python\",\n      \"args\": [\"-m\", \"openscad_mcp_server\"]\n    }\n  }\n}","snippetNote":"OpenSCAD 的 MCP 实现有五六个，命令各不相同，一律以所选仓库 README 为准；本机需装 OpenSCAD CLI。","prompt":"用 openscad-code 这套，生成一个可 3D 打印的线缆夹：\n内径 6mm、壁厚 2.4mm、长度 18mm，底部带 M3 沉头孔。\n输出 .scad 源码 + 渲染出的 STL，并把可调参数放在文件头部。"},{"id":"cadquery-print","title":"CadQuery 打印件","route":"code","host":"CadQuery","repo":"flowful-ai/cad-skill","when":"你要的是一份能进打印机的参数化模型，且愿意让 Agent 用它固定的建模套路（skill 里写好了）。","install":"git clone https://github.com/flowful-ai/cad-skill ~/.claude/skills/cad-skill","snippet":"{\n  \"skills\": [\"~/.claude/skills/cad-skill\"]\n}","snippetNote":"skill 是目录不是服务：放进 Agent 的 skills 目录即生效，无需 mcpServers 配置。","prompt":"用 cadquery-print 这个 skill，做一个 18650 电池双槽支架：\n槽间距 19.5mm、壁厚 3mm、带 4 个 M3 通孔，整体能一次打印不用支撑。\n先给参数表，确认后再出 STEP 与 STL。"},{"id":"build123d-api","title":"build123d 防幻觉","route":"code","host":"build123d","repo":"pzfreo/build123d-mcp","when":"模型是 Python 代码生成，但模型老是写错 build123d 的 API；这个 MCP 专门纠正。","install":"git clone https://github.com/pzfreo/build123d-mcp && pip install -r requirements.txt","snippet":"{\n  \"mcpServers\": {\n    \"build123d\": {\n      \"command\": \"python\",\n      \"args\": [\"server.py\"]\n    }\n  }\n}","snippetNote":"以仓库 README 的启动方式为准；本机需 Python 环境与 build123d 依赖。","prompt":"用 build123d-api 这套，把这个法兰盘写成 build123d 代码：6 个 M5 螺栓孔均布在 R40 圆上，\n中心通孔 φ30，厚 8mm，倒角 C1。写完请自己跑一遍并报告体积，别只给我代码。"},{"id":"autocad-dwg","title":"AutoCAD 图纸线","route":"mcp","host":"AutoCAD","repo":"wzyn20051216/solidworks-automation-skill","when":"交付物是 DWG/DXF 图纸，甲方要在 AutoCAD 里打开并改图——先定这条线，再谈好看。","install":"git clone https://github.com/wzyn20051216/solidworks-automation-skill && 按 README 装 Python 侧依赖与宿主软件","snippet":"{\n  \"mcpServers\": {\n    \"autocad\": {\n      \"command\": \"python\",\n      \"args\": [\"-m\", \"cad_automation\"]\n    }\n  }\n}","snippetNote":"桌面自动化依赖宿主软件版本与 COM 接口，README 里给了兼容矩阵；生产环境请锁版本。","prompt":"用 autocad-dwg 这套，读取我给的这张平面图 DXF，做三件事：\n1) 统计所有图层的实体数量；2) 找出重叠/重合的墙线；3) 生成一份改动清单 Excel。\n不要直接改原文件，先出清单让我确认。"},{"id":"solidworks-desktop","title":"SolidWorks 桌面自动化","route":"mcp","host":"SolidWorks","repo":"wzyn20051216/solidworks-automation-skill","when":"公司标准件和装配都在 SolidWorks 里，AI 只需要替你点完那 200 次重复操作。","install":"git clone https://github.com/wzyn20051216/solidworks-automation-skill && 按 README 装宿主侧插件","snippet":"{\n  \"mcpServers\": {\n    \"solidworks\": {\n      \"command\": \"python\",\n      \"args\": [\"-m\", \"cad_automation\", \"--host\", \"solidworks\"]\n    }\n  }\n}","snippetNote":"需要 SolidWorks 正版授权与桌面会话；headless 不可用。","prompt":"用 solidworks-desktop 这套，把装配体里所有 M4 内六角螺钉换成 M5，\n同步更新配合与明细表，最后导出一份 PDF 装配图。每改一个零件先列出来等我确认。"},{"id":"kicad-pcb","title":"KiCad 原理图 / PCB","route":"mcp","host":"KiCad","repo":"mixelpixx/KiCAD-MCP-Server","when":"电子 CAD 场景：要让 AI 动网表、封装、走线，而不是只给你画个大概的框图。","install":"git clone https://github.com/mixelpixx/KiCAD-MCP-Server && pip install -r requirements.txt","snippet":"{\n  \"mcpServers\": {\n    \"kicad\": {\n      \"command\": \"python\",\n      \"args\": [\"server.py\"]\n    }\n  }\n}","snippetNote":"KiCad 需开启 IPC/API 插件；版本差异较大，按 README 对齐。","prompt":"用 kicad-pcb 这套，帮我在现有工程里加一颗 LDO（3.3V/500mA）：\n选型给出 2 个候选，改原理图、跑 ERC、把 BOM 更新，并列出所有改动的元件位号。"},{"id":"fusion360","title":"Fusion 360 云端","route":"mcp","host":"Fusion360","repo":"AuraFriday/Fusion-360-MCP-Server","when":"设计在 Fusion 里、要跑参数化变体或批量出图，且能接受桌面端常开。","install":"git clone https://github.com/AuraFriday/Fusion-360-MCP-Server && 按 README 装成 Fusion 插件","snippet":"{\n  \"mcpServers\": {\n    \"fusion360\": {\n      \"command\": \"python\",\n      \"args\": [\"fusion_mcp.py\"]\n    }\n  }\n}","snippetNote":"Fusion 个人版/教育版接口能力不同，商用前先确认许可。","prompt":"用 fusion360 这套，把我这个零件的长度参数做 4 个梯度（80/100/120/140mm），\n每个梯度导出一份 STEP 和一个带尺寸标注的预览图，放同一个文件夹并给索引。"},{"id":"onshape-cloud","title":"Onshape 云端改模型","route":"mcp","host":"Onshape","repo":"ReshefElisha/jarvis-onshape-mcp","when":"团队模型在 Onshape 云端，没有本地桌面软件，但需要在浏览器里被 AI 驱动。","install":"git clone https://github.com/ReshefElisha/jarvis-onshape-mcp && 按 README 配 API Key","snippet":"{\n  \"mcpServers\": {\n    \"onshape\": {\n      \"command\": \"node\",\n      \"args\": [\"dist/index.js\"],\n      \"env\": { \"ONSHAPE_API_KEY\": \"<your-key>\" }\n    }\n  }\n}","snippetNote":"需要 Onshape 账号 API Key，注意文档权限范围；示例 env 名以 README 为准。","prompt":"用 onshape-cloud 这套，在文档 WORKS-123 的 Part Studio 里把支架厚度加 2mm，\n创建一个新版本并写明变更说明，别覆盖原版本。"},{"id":"inventor-param","title":"Inventor 参数驱动","route":"mcp","host":"Inventor","repo":"NeonGlay/inventor-mcp","when":"参数表驱动的系列化零件，AI 负责改表、跑配置、出 ipt/iam。","install":"git clone https://github.com/NeonGlay/inventor-mcp && 按 README 装依赖","snippet":"{\n  \"mcpServers\": {\n    \"inventor\": {\n      \"command\": \"python\",\n      \"args\": [\"server.py\"]\n    }\n  }\n}","snippetNote":"依赖 Inventor 桌面会话与 .NET/COM 环境。","prompt":"用 inventor-param 这套，读取我给的参数表 CSV，批量更新零件的 5 个用户参数，\n每行生成一个 ipt 并导出 STL，最后汇报哪几行参数越界。"},{"id":"sketchup","title":"SketchUp 体块","route":"mcp","host":"SketchUp","repo":"zinin/sketchup-mcp2","when":"建筑体块、室内方案阶段，要在 SketchUp 里快速拉体量和构件。","install":"git clone https://github.com/zinin/sketchup-mcp2 && 按 README 装 Ruby 扩展","snippet":"{\n  \"mcpServers\": {\n    \"sketchup\": {\n      \"command\": \"ruby\",\n      \"args\": [\"server.rb\"]\n    }\n  }\n}","snippetNote":"Ruby 实现，宿主内需装对应扩展；示例启动方式以 README 为准。","prompt":"用 sketchup 这套，按我给的房间尺寸表批量拉墙体与门窗洞口，\n每个房间打上面积标签，最后汇报总面积与各房间净面积。"},{"id":"web-brep","title":"浏览器里精确 B-Rep","route":"code","host":"浏览器","repo":"andymai/brepjs","when":"不要桌面软件，模型要在网页里生成、预览、下载——用 OCCT/WASM 走真 B-Rep 而不是网格近似。","install":"npm install brepjs（或克隆仓库看 examples）","snippet":"{\n  \"mcpServers\": {\n    \"brepjs\": {\n      \"command\": \"npx\",\n      \"args\": [\"brepjs-mcp\"]\n    }\n  }\n}","snippetNote":"该仓库同时提供库与 Claude Code 插件，接入方式二选一，命令以 README 为准。","prompt":"用 web-brep 这套，在网页里生成一个可参数化的齿轮：齿数 20、模数 1.5、厚 10mm，\n实时预览，并提供 STEP 下载按钮。别用网格近似糊弄，要真 B-Rep。"},{"id":"print-loop","title":"从模型到打印机","route":"skill","host":"3D打印","repo":"heyixuan2/bambu-studio-ai","when":"模型已经 OK，接下来是切片、摆盘、支撑、材料选择这一整条琐碎链路。","install":"git clone https://github.com/heyixuan2/bambu-studio-ai ~/.claude/skills/bambu-studio-ai","snippet":"{\n  \"skills\": [\"~/.claude/skills/bambu-studio-ai\"]\n}","snippetNote":"skill 形态，放进 skills 目录即可；Bambu Studio 需本机安装。","prompt":"用 print-loop 这套，帮我判断这个模型该不该加支撑：\n先给悬垂角度分析，再给两套切片参数（省时 / 省料），最后说明选哪套以及为什么。"},{"id":"aec-plan","title":"建筑平面出图","route":"skill","host":"AEC","repo":"alchaincyf/huashu-cad","when":"户型、平面布置这类图，要的是可编辑 DXF 而不是一张图；顺带校验门窗尺寸。","install":"git clone https://github.com/alchaincyf/huashu-cad ~/.claude/skills/huashu-cad","snippet":"{\n  \"skills\": [\"~/.claude/skills/huashu-cad\"]\n}","snippetNote":"中文 skill，输出 DXF/STEP；依赖本地 CAD 库与绘图环境。","prompt":"用 aec-plan 这套，把这份 89㎡ 三居的平面需求做成 DXF：\n主卧朝南、厨房靠外墙、卫生间干湿分离，家具用标准尺寸块。\n出图后列出所有小于 900mm 的走廊宽度让我确认。"},{"id":"usd-pipeline","title":"CAD 进 OpenUSD 流水线","route":"skill","host":"OpenUSD","repo":"NVIDIA-Omniverse/usd-convert-cad","when":"模型要进 Omniverse / 数字孪生做渲染与仿真，格式必须是 USD。","install":"pip install usd-convert-cad","snippet":"{\n  \"skills\": [\"usd-convert-cad\"]\n}","snippetNote":"NVIDIA 官方 skill，README 给出 pip 安装命令；转换能力随版本变化。","prompt":"用 usd-pipeline 这套，把我这批 STEP 文件批量转成 USD，\n保留装配层级与材质命名，输出到 ./usd/，最后给我一份转换报告（失败项与原因）。"}],"repo_url":""}/*__END_REG__*/;
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const nf = (n) => new Intl.NumberFormat('en-US').format(n);
+const formLabel = { mcp: 'MCP', skill: 'SKILL', app: 'APP', engine: 'ENGINE' };
+const formName = { mcp: 'MCP server', skill: 'Skill 技能包', app: '自带 MCP 的应用', engine: '引擎 / 库' };
+const routeName = { mcp: 'MCP 路线', code: 'Code 路线', app: '应用路线', skill: 'Skill 路线' };
+
+let DATA = REG;
+let state = { view: 'home', q: '', form: '', host: '', cap: '', lic: '', tier: '', sort: 'score' };
+
+/* ---------- 主题 ---------- */
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem('cadskins-theme', t); } catch {}
+}
+(function initTheme() {
+  let t = null;
+  try { t = localStorage.getItem('cadskins-theme'); } catch {}
+  if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  applyTheme(t);
+})();
+$('#themeBtn').onclick = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+
+/* ---------- 顶栏统计 ---------- */
+function renderStats() {
+  const c = DATA.counts;
+  $('#stats').innerHTML = [
+    [nf(c.skills), '收录 skill / server'],
+    [nf(c.stars), '合计 star'],
+    [nf(c.audited), '人工核读'],
+    [nf(c.hosts), '个宿主软件'],
+    [nf(c.recipes), '套接入配方'],
+  ].map(([v, k]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('');
+  $('#footCount').textContent = `${c.skills} 个 skill · ${c.recipes} 套配方`;
+  $('#footTime').textContent = (DATA.generated_at || '').slice(0, 10);
+}
+
+/* ---------- 评分环 ---------- */
+function ring(total) {
+  const r = 18, c = 2 * Math.PI * r, pct = Math.max(0, Math.min(100, total)) / 100;
+  return `<div class="ring" title="综合分 ${total}">
+    <svg width="44" height="44" aria-hidden="true">
+      <circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--line)" stroke-width="3"></circle>
+      <circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--accent)" stroke-width="3"
+        stroke-linecap="round" stroke-dasharray="${c * pct} ${c}"></circle>
+    </svg><b>${Math.round(total)}</b></div>`;
+}
+
+/* ---------- 卡片 ---------- */
+function skillCard(s, rank) {
+  const caps = s.caps.slice(0, 4).map((c) => `<span class="cap">${esc(c)}</span>`).join('');
+  return `<article class="card skill" data-id="${esc(s.id)}" tabindex="0" role="button" aria-label="${esc(s.name)}">
+    <div class="hd">
+      <div class="t">
+        <div class="nm">${esc(s.name)}</div>
+        <div class="ow">${esc(s.owner)} · <span class="badge" data-form="${s.form}">${formLabel[s.form] ?? s.form}</span></div>
+      </div>
+      ${ring(s.total)}
+    </div>
+    <div class="ds">${esc(s.note || s.desc || '（无描述）')}</div>
+    <div class="caps">${caps}</div>
+    <div class="ft">
+      <span>★ ${nf(s.stars)}</span>
+      <span>${esc(s.host)}</span>
+      <span class="${s.audited ? 'audited' : 'notaudited'}">${s.audited ? '✓ 已核读' : '· 未核读'}</span>
+    </div>
+  </article>`;
+}
+
+function renderTop6() {
+  $('#top6').innerHTML = DATA.skills.slice(0, 6).map((s, i) => `
+    <article class="card mini" data-id="${esc(s.id)}" tabindex="0" role="button">
+      <div class="row1"><span class="rank">#${i + 1}</span><span class="nm">${esc(s.name)}</span><span class="sc">${Math.round(s.total)}</span></div>
+      <div class="ds">${esc(s.note || s.desc || '')}</div>
+      <div class="meta"><span class="badge" data-form="${s.form}">${formLabel[s.form] ?? s.form}</span><span>${esc(s.host)}</span><span>★ ${nf(s.stars)}</span></div>
+    </article>`).join('');
+}
+
+/* ---------- 筛选 ---------- */
+function options(el, values, allLabel) {
+  el.innerHTML = `<option value="">${allLabel}</option>` + values.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+}
+function initFilters() {
+  const hosts = DATA.facets.hosts;
+  const forms = [...new Set(DATA.skills.map((s) => s.form))];
+  $('#fForm').innerHTML = '<option value="">全部形态</option>' + forms.map((f) => `<option value="${esc(f)}">${esc(formName[f] ?? f)}</option>`).join('');
+  options($('#fHost'), hosts, '全部宿主');
+  options($('#fCap'), DATA.facets.caps, '全部能力');
+  options($('#fLic'), DATA.facets.licenses, '全部许可');
+}
+
+function filtered() {
+  const q = state.q.trim().toLowerCase();
+  let list = DATA.skills.filter((s) => {
+    if (state.form && s.form !== state.form) return false;
+    if (state.host && s.host !== state.host) return false;
+    if (state.cap && !s.caps.includes(state.cap)) return false;
+    if (state.lic && (s.license ?? '未标注') !== state.lic) return false;
+    if (state.tier && s.tier !== state.tier) return false;
+    if (!q) return true;
+    return [s.name, s.owner, s.repo, s.desc, s.note, s.host, ...(s.caps || []), ...(s.topics || [])]
+      .join(' ').toLowerCase().includes(q);
+  });
+  const by = state.sort;
+  list.sort((a, b) => by === 'stars' ? b.stars - a.stars
+    : by === 'pushed' ? (b.pushed || '').localeCompare(a.pushed || '')
+    : by === 'name' ? a.name.localeCompare(b.name)
+    : b.total - a.total || b.stars - a.stars);
+  return list;
+}
+
+function renderGrid() {
+  const list = filtered();
+  $('#count').textContent = `${list.length} / ${DATA.skills.length}`;
+  $('#skillGrid').innerHTML = list.length
+    ? list.map(skillCard).join('')
+    : '<div class="empty">没有匹配的 skill —— 试试清除筛选，或换个关键词。</div>';
+}
+
+/* ---------- 抽屉 ---------- */
+function scoreBars(s) {
+  const rows = [['star 热度', s.score.star, 45], ['近期活跃', s.score.active, 15], ['许可友好', s.score.license, 15], ['人工核读', s.score.audit, 10], ['能力覆盖', s.score.caps, 15]];
+  return `<div class="bars">${rows.map(([k, v, max]) => `
+    <div class="bar"><span>${k}</span>
+      <span class="track"><span class="fill" style="width:${(v / max * 100).toFixed(1)}%"></span></span>
+      <span>${v}/${max}</span></div>`).join('')}</div>`;
+}
+
+function promptFor(s) {
+  const rec = DATA.recipes.find((r) => r.host === s.host) || DATA.recipes.find((r) => r.repo === s.repo);
+  if (rec) return rec.prompt;
+  return `用 ${s.name}（${s.repo}）这套，帮我完成一个具体的 CAD 任务：\n我会先给出几何要求与交付格式（STEP / STL / DXF）。\n请先列参数表与操作步骤，等我确认后再执行，并给出可校验的结果（体积、包围盒、干涉）。`;
+}
+
+function openDrawer(id) {
+  const s = DATA.skills.find((x) => x.id === id);
+  if (!s) return;
+  const rec = DATA.recipes.find((r) => r.host === s.host);
+  const prompt = promptFor(s);
+  $('#drawer').innerHTML = `
+    <div class="dhead">
+      <div style="min-width:0">
+        <div style="font:640 17px/1.3 var(--mono)">${esc(s.name)}</div>
+        <div style="color:var(--fg-faint); font:500 12px/1 var(--mono); margin-top:5px">${esc(s.repo)}</div>
+      </div>
+      ${ring(s.total)}
+      <button class="iconbtn dclose" id="drawerClose" aria-label="关闭">✕</button>
+    </div>
+    <div class="dbody">
+      <p style="margin:0; color:var(--fg-dim)">${esc(s.note || s.desc || '')}</p>
+      <div class="dsec"><h4>综合分拆解 · ${s.total}</h4>${scoreBars(s)}</div>
+      <div class="dsec"><h4>档案</h4>
+        <dl class="kv">
+          <dt>形态</dt><dd>${formName[s.form] ?? s.form}</dd>
+          <dt>宿主</dt><dd>${esc(s.host)}</dd>
+          <dt>star</dt><dd>${nf(s.stars)} · Tier ${s.tier}</dd>
+          <dt>语言</dt><dd>${esc(s.lang)}</dd>
+          <dt>许可</dt><dd>${esc(s.license ?? '未标注')}</dd>
+          <dt>最近 push</dt><dd>${esc(s.pushed || '—')}</dd>
+          <dt>核读</dt><dd>${s.audited ? `<span class="audited">✓ 已读 README</span> ${esc(s.auditNote)}` : '<span class="notaudited">· 未核读（仅按描述归类）</span>'}</dd>
+        </dl>
+      </div>
+      <div class="dsec"><h4>能力</h4><div class="caps">${s.caps.map((c) => `<span class="cap">${esc(c)}</span>`).join('') || '<span class="cap">未标注</span>'}</div></div>
+      ${s.install ? `<div class="dsec"><h4>安装</h4><div class="io"><div class="io-h">shell<button class="copy" data-copy="${esc(s.install)}">复制</button></div><pre>${esc(s.install)}</pre></div></div>` : ''}
+      <div class="dsec"><h4>提示词模板（点名宿主 ID 即可）</h4>
+        <div class="io"><div class="io-h">prompt<button class="copy" data-copy="${esc(prompt)}">复制</button></div><pre>${esc(prompt)}</pre></div>
+      </div>
+      ${rec ? `<div class="dsec"><h4>相关配方</h4><button class="pill" data-goto-recipe="${esc(rec.id)}">${esc(rec.id)} · ${esc(rec.title)} →</button></div>` : ''}
+      <div class="dsec"><h4>仓库</h4><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)} ↗</a></div>
+    </div>`;
+  $('#drawer').classList.add('open');
+  $('#scrim').classList.add('open');
+  $('#drawerClose').onclick = closeDrawer;
+  bindCopies($('#drawer'));
+  $$('[data-goto-recipe]', $('#drawer')).forEach((b) => b.onclick = () => { closeDrawer(); go('stacks'); location.hash = '#' + b.dataset.gotoRecipe; });
+}
+function closeDrawer() {
+  $('#drawer').classList.remove('open');
+  $('#scrim').classList.remove('open');
+}
+$('#scrim').onclick = closeDrawer;
+
+/* ---------- 复制 ---------- */
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch {
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch {}
+    ta.remove(); return ok;
+  }
+}
+function bindCopies(root) {
+  $$('.copy', root).forEach((b) => {
+    b.onclick = async (e) => {
+      e.stopPropagation();
+      const ok = await copyText(b.dataset.copy ?? '');
+      b.dataset.done = ok ? '1' : '0';
+      const t = b.textContent; b.textContent = ok ? '已复制' : '失败';
+      setTimeout(() => { b.textContent = t; b.dataset.done = '0'; }, 1400);
+    };
+  });
+}
+
+/* ---------- 配方库 ---------- */
+function renderRecipes() {
+  const nav = DATA.recipes.map((r) => `<button class="pill" data-recipe-jump="${esc(r.id)}"><code style="font-family:var(--mono)">${esc(r.id)}</code></button>`).join('');
+  $('#recipeNav').innerHTML = nav;
+  $$('[data-recipe-jump]').forEach((b) => b.onclick = () => {
+    const el = document.getElementById('r-' + b.dataset.recipeJump);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el?.animate?.([{ boxShadow: '0 0 0 2px var(--accent)' }, { boxShadow: '0 0 0 0 transparent' }], { duration: 1400 });
+  });
+
+  $('#recipeList').innerHTML = DATA.recipes.map((r) => {
+    const skill = DATA.skills.find((s) => s.repo === r.repo);
+    const routeCls = r.route === 'code' || r.route === 'skill' ? 'skill' : 'mcp';
+    return `<article class="card recipe" id="r-${esc(r.id)}">
+      <div class="top-row">
+        <span class="rid">${esc(r.id)}</span>
+        <h3>${esc(r.title)}</h3>
+        <span class="badge" data-form="${routeCls}">${esc(routeName[r.route] ?? r.route)}</span>
+        <span class="badge">${esc(r.host)}</span>
+        ${skill ? `<span class="badge">★ ${nf(skill.stars)}</span>` : ''}
+        ${skill ? `<button class="pill" style="margin-left:auto" data-open-skill="${esc(skill.id)}">看这个 skill →</button>` : '<span style="margin-left:auto"></span>'}
+      </div>
+      <p class="when">${esc(r.when)}</p>
+      <div class="body">
+        <div class="io">
+          <div class="io-h">安装<button class="copy" data-copy="${esc(r.install)}">复制</button></div>
+          <pre>${esc(r.install)}</pre>
+        </div>
+        <div class="io">
+          <div class="io-h">客户端配置片段<button class="copy" data-copy="${esc(r.snippet)}">复制</button></div>
+          <pre>${esc(r.snippet)}</pre>
+          <div class="note">${esc(r.snippetNote || '')}</div>
+        </div>
+        <div class="io">
+          <div class="io-h">提示词模板<button class="copy" data-copy="${esc(r.prompt)}">复制</button></div>
+          <pre>${esc(r.prompt)}</pre>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  bindCopies($('#recipeList'));
+  $$('[data-open-skill]').forEach((b) => b.onclick = () => openDrawer(b.dataset.openSkill));
+}
+
+/* ---------- 路由 ---------- */
+function go(view, opts = {}) {
+  state.view = view;
+  $$('.view').forEach((v) => v.classList.toggle('active', v.id === 'view-' + view));
+  $$('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === view)));
+  if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: 'auto' });
+  if (location.hash.slice(1) !== view) {
+    try { history.replaceState(null, '', '#' + view); } catch { location.hash = view; }
+  }
+}
+$$('.tab').forEach((t) => t.onclick = () => go(t.dataset.view));
+
+function jump(spec) {
+  const parts = Object.fromEntries(spec.split('&').map((kv) => kv.split('=')));
+  if (parts.view === 'stacks') return go('stacks');
+  state.form = ''; state.host = ''; state.cap = ''; state.lic = ''; state.tier = ''; state.q = '';
+  if (parts.form) state.form = parts.form;
+  if (parts.host) state.host = parts.host;
+  if (parts.cap) state.cap = parts.cap;
+  if (parts.lic) state.lic = parts.lic;
+  if (parts.tier) state.tier = parts.tier;
+  syncControls(); renderGrid(); go('skills');
+}
+function syncControls() {
+  $('#q').value = state.q;
+  $('#fForm').value = state.form;
+  $('#fHost').value = state.host;
+  $('#fCap').value = state.cap;
+  $('#fLic').value = state.lic;
+  $('#fSort').value = state.sort;
+}
+$$('[data-jump]').forEach((b) => b.onclick = () => jump(b.dataset.jump));
+
+$('#q').oninput = (e) => { state.q = e.target.value; renderGrid(); };
+[['#fForm', 'form'], ['#fHost', 'host'], ['#fCap', 'cap'], ['#fLic', 'lic'], ['#fSort', 'sort']].forEach(([sel, key]) => {
+  $(sel).onchange = (e) => { state[key] = e.target.value; renderGrid(); };
+});
+$('#clearFilters').onclick = () => {
+  state = { ...state, q: '', form: '', host: '', cap: '', lic: '', tier: '' };
+  syncControls(); renderGrid();
+};
+
+/* ---------- 事件委托 ---------- */
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('.skill, .mini');
+  if (card) openDrawer(card.dataset.id);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeDrawer(); closePalette(); }
+  if (e.key === '/' && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); openPalette(); }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openPalette(); }
+  if (e.key.toLowerCase() === 't' && !/input|textarea|select/i.test(document.activeElement.tagName)) {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  }
+  if (e.key === 'Enter' && document.activeElement?.matches?.('.skill, .mini')) openDrawer(document.activeElement.dataset.id);
+});
+
+/* ---------- 命令面板 ---------- */
+let pIndex = 0, pItems = [];
+function openPalette() { $('#palette').classList.add('open'); $('#paletteInput').value = ''; $('#paletteInput').focus(); renderPalette(''); }
+function closePalette() { $('#palette').classList.remove('open'); }
+$('#openPalette').onclick = openPalette;
+$('#palette').onclick = (e) => { if (e.target.id === 'palette') closePalette(); };
+
+function renderPalette(q) {
+  const s = q.trim().toLowerCase();
+  const items = [];
+  ['home', 'skills', 'stacks'].forEach((v) => items.push({ k: '页面', label: { home: '首页', skills: '技能', stacks: '配方库' }[v], run: () => go(v) }));
+  items.push({ k: '动作', label: '切换深浅色主题', run: () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark') });
+  items.push({ k: '动作', label: '清除全部筛选', run: () => $('#clearFilters').click() });
+  DATA.recipes.forEach((r) => items.push({
+    k: '配方', label: `${r.id} · ${r.title}`, s: r.host,
+    run: () => { go('stacks'); requestAnimationFrame(() => document.getElementById('r-' + r.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })); },
+  }));
+  DATA.skills.forEach((k) => items.push({ k: '技能', label: `${k.name} · ${k.host}`, s: '★ ' + nf(k.stars), run: () => { go('skills'); openDrawer(k.id); } }));
+
+  const list = s ? items.filter((i) => (i.label + ' ' + (i.s ?? '') + ' ' + i.k).toLowerCase().includes(s)) : items.slice(0, 12);
+  pItems = list.slice(0, 40); pIndex = 0;
+  $('#paletteList').innerHTML = pItems.length ? pItems.map((i, n) => `
+    <div class="pitem" data-n="${n}" role="option" aria-selected="${n === 0}">
+      <span class="k">${esc(i.k)}</span><span>${esc(i.label)}</span><span class="s">${esc(i.s ?? '')}</span>
+    </div>`).join('') : '<div class="pempty">没有结果</div>';
+  $$('.pitem').forEach((el) => {
+    el.onclick = () => { pItems[+el.dataset.n].run(); closePalette(); };
+    el.onmouseenter = () => { pIndex = +el.dataset.n; paintPalette(); };
+  });
+}
+function paintPalette() {
+  $$('.pitem').forEach((el) => el.setAttribute('aria-selected', String(+el.dataset.n === pIndex)));
+  $$('.pitem')[pIndex]?.scrollIntoView({ block: 'nearest' });
+}
+$('#paletteInput').oninput = (e) => renderPalette(e.target.value);
+$('#paletteInput').onkeydown = (e) => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); pIndex = Math.min(pIndex + 1, pItems.length - 1); paintPalette(); }
+  if (e.key === 'ArrowUp') { e.preventDefault(); pIndex = Math.max(pIndex - 1, 0); paintPalette(); }
+  if (e.key === 'Enter' && pItems[pIndex]) { pItems[pIndex].run(); closePalette(); }
+};
+
+/* ---------- 运行时同步 ---------- */
+async function syncFromGitHub() {
+  const dot = $('#syncDot');
+  const label = $('#syncDot span:last-child');
+  const urls = [
+    'data/skills.json',
+    'https://raw.githubusercontent.com/REPO_PLACEHOLDER/main/data/skills.json',
+    'https://cdn.jsdelivr.net/gh/REPO_PLACEHOLDER@main/data/skills.json',
+  ].filter((u) => !u.includes('REPO_PLACEHOLDER'));
+  for (const u of urls) {
+    try {
+      const res = await fetch(u + (u.startsWith('http') ? '' : `?t=${Date.now()}`), { cache: 'no-cache' });
+      if (!res.ok) continue;
+      const json = await res.json();
+      if (!json?.skills?.length) continue;
+      if (json.counts.skills !== DATA.counts.skills || json.generated_at !== DATA.generated_at) {
+        DATA = json;
+        renderStats(); renderTop6(); initFilters(); renderGrid(); renderRecipes();
+        label.textContent = '已同步 GitHub 最新';
+        dot.dataset.state = 'ok';
+        return;
+      }
+      label.textContent = '数据已是最新';
+      dot.dataset.state = 'ok';
+      return;
+    } catch { /* 继续下一个源 */ }
+  }
+  label.textContent = '离线 · 内嵌数据';
+  dot.dataset.state = 'err';
+}
+
+/* ---------- 启动 ---------- */
+function boot() {
+  renderStats(); renderTop6(); initFilters(); renderGrid(); renderRecipes();
+  const view = (location.hash.slice(1) || 'home').split('?')[0];
+  go(['home', 'skills', 'stacks'].includes(view) ? view : 'home', { keepScroll: true });
+  $('#footRepo').href = DATA.repo_url || 'https://github.com/';
+  if (DATA.generated_at) $('#footTime').textContent = DATA.generated_at.slice(0, 10);
+  setTimeout(syncFromGitHub, 1200);
+}
+if (DATA) boot();
+</script>
+</body>
+</html>

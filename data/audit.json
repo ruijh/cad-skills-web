@@ -1,0 +1,99 @@
+{
+  "_readme": "人工核读记录：read=true 表示逐仓库读过 README 并据此修正了形态/能力/安装命令；note 写的是 README 里能核对的事实，install 是 README 给出的真实命令路径。未出现在这里的仓库一律计为「未核读」。",
+
+  "neka-nat/freecad-mcp": {
+    "read": true,
+    "note": "创建/编辑模型、跑 Python 脚本、检视文档，还能跑 FEM 分析；文档站有法兰、玩具车、从 2D 图纸建模等示例。",
+    "install": "git clone https://github.com/neka-nat/freecad-mcp.git"
+  },
+  "mixelpixx/KiCAD-MCP-Server": {
+    "read": true,
+    "note": "带 Freerouting 自动布线集成（Java/Docker/Podman）；README 顶部已指向重写版 Konnect（Rust、KiCad 10 IPC、171 工具、AGPL-3.0）——想上新项目先看那个。",
+    "install": "git clone https://github.com/mixelpixx/KiCAD-MCP-Server && pip install -r requirements.txt"
+  },
+  "wzyn20051216/solidworks-automation-skill": {
+    "read": true,
+    "note": "自带「结果验证层」：原文写明「工具调用成功，不代表任务真的完成」，Review 类任务会先验证结果再交付；支持 Codex / Claude / Cursor，Python 3.10+。",
+    "install": "npx github:wzyn20051216/solidworks-automation-skill --target claude"
+  },
+  "flowful-ai/cad-skill": {
+    "read": true,
+    "note": "CadQuery 生成可 3D 打印件，产出 4 视角预览图；示例（MagSafe 支架、手机壳、Gridfinity 收纳盒）已发布在 MakerWorld，作者写过完整方法文。",
+    "install": "git clone https://github.com/flowful-ai/cad-skill ~/.claude/skills/parametric-3d-printing"
+  },
+  "daobataotie/CAD-MCP": {
+    "read": true,
+    "note": "v2 基于 FastMCP（结构化输出、工具注解、进度通知、Streamable HTTP），支持 AutoCAD、浩辰 GstarCAD、中望 ZWCAD，30+ 绘图工具；README 有中/英/泰三语。",
+    "install": "pip install -e .  # 见 README 的客户端配置"
+  },
+  "spkane/freecad-addon-robust-mcp-server": {
+    "read": true,
+    "note": "发在 PyPI（freecad-robust-mcp）且官方带 Docker 镜像，配独立文档站与 CI/CodeQL/Docker 构建流水线。",
+    "install": "pip install freecad-robust-mcp   # 或 docker pull spkane/freecad-robust-mcp"
+  },
+  "jhacksman/OpenSCAD-MCP-Server": {
+    "read": true,
+    "note": "把 SCAD 源码或显式尺寸编译成可编辑 SCAD、STL 与 4 张 PNG 预览，调用本机 OpenSCAD 可执行文件；Python 3.11+、无需 API key/CUDA；旧的图像重建与打印代码已归档到 legacy/，不算在安装包内。",
+    "install": "git clone https://github.com/jhacksman/OpenSCAD-MCP-Server.git && python -m pip install ."
+  },
+  "U-C4N/Autocad-MCP": {
+    "read": true,
+    "note": "同一套工具契约、两种引擎：Windows 走 COM 实时驱动，任意平台可 headless 走 ezdxf；发布在 PyPI（autocad-mcp-pro）并附 Claude 插件。",
+    "install": "pip install autocad-mcp-pro   # 或 uvx autocad-mcp-pro"
+  },
+  "pzfreo/build123d-mcp": {
+    "read": true,
+    "note": "自述「给 AI 装上 CAD 的眼睛」：建 build123d 模型、渲染预览、测量几何、自己纠错、导出 STEP/STL/SVG；已进 MCP Registry，README 带 VS Code / Cursor 一键安装徽章。",
+    "install": "pip install build123d-mcp"
+  },
+  "KanJieTeam/kjdraw": {
+    "read": true,
+    "note": "把「工程意图」编译成可编辑、可校验、可撤销、可重开的真实 CAD 图纸；有在线编辑器与 AI 试用页，技能以 npx skills 分发。",
+    "install": "npx skills add KanJieTeam/kjdraw -g"
+  },
+  "ReshefElisha/jarvis-onshape-mcp": {
+    "read": true,
+    "note": "驱动真实 Onshape：草图、拉伸、圆角、配合、变量表参数迭代、自定义 FeatureScript；每个变更类工具都返回结构化真值（改了什么、再生警告、下一步提示）+ 多视图 PNG。",
+    "install": "git clone https://github.com/ReshefElisha/jarvis-onshape-mcp   # 按 README 配 API Key"
+  },
+  "NVIDIA-Omniverse/usd-convert-cad": {
+    "read": true,
+    "note": "官方 Agent Skill 仓库，转换器本体是独立的 usd-convert-cad wheel（pip 装）；文档按 0.3.0 / Python 3.12 标定，新版本行为可能变化。",
+    "install": "python -m pip install usd-convert-cad"
+  },
+  "delancy827/cad-skills": {
+    "read": true,
+    "note": "中文 AutoCAD 技能包，从自然语言到工程图纸；Python 自动化依赖 pyautocad + pywin32。",
+    "install": "git clone https://github.com/delancy827/cad-skills.git && pip install pyautocad pywin32"
+  },
+  "RobertCoop/openscad-mcp": {
+    "read": true,
+    "note": "uvx 免克隆免虚拟环境即可跑；能力面写得很细：按声明比例渲染、精确测量几何、装配干涉与间隙检查、孔/特征提取、可打印性判断、导出。",
+    "install": "claude mcp add openscad --transport stdio -- uvx openscad-mcp"
+  },
+  "AnCode666/multiCAD-mcp": {
+    "read": true,
+    "note": "一个 server 覆盖多种 CAD 应用，有独立文档站；Windows 侧依赖 pywin32（uv run + pip 安装）。",
+    "install": "git clone https://github.com/AnCode666/multiCAD-mcp.git && uv run python -m pip install --upgrade pywin32"
+  },
+  "NeonGlay/inventor-mcp": {
+    "read": true,
+    "note": "封装 Inventor COM API 的高层毫米级工具（法兰、轴、螺母、钣金壳体），内置 Inventor 2026 API 的未公开坑位知识。",
+    "install": "pip install \"mcp[cli]\" pywin32 && git clone https://github.com/NeonGlay/inventor-mcp.git"
+  },
+  "andymai/brepjs": {
+    "read": true,
+    "note": "精确 B-Rep（真数学边界而非三角网格），布尔精确、测量真实、可导 STEP；有在线 playground 与 brepjs-cad CLI 做 --check 校验并输出 JSON 报告。",
+    "install": "npm install brepjs occt-wasm"
+  },
+  "jdilla1277/agentcad": {
+    "read": true,
+    "note": "默认让 agent 写 build123d 脚本，自己负责执行、STEP 导出、PNG 渲染、网格导出（STL/GLB/OBJ）、几何度量与校验；stdout 出 JSON、stderr 出进度，便于程序解析；自报在 CADGenBench 上 CAD Score +48%、模型成本 −21.8%。",
+    "install": ""
+  },
+  "rawwerks/VibeCAD": {
+    "read": true,
+    "note": "以 Claude Code 插件市场形式分发的一组 CAD skills，安装即 /plugin marketplace add。",
+    "install": "/plugin marketplace add raymondweitekamp/VibeCAD"
+  }
+}
