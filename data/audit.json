@@ -1,6 +1,5 @@
 {
   "_readme": "人工核读记录：read=true 表示逐仓库读过 README 并据此修正了形态/能力/安装命令；note 写的是 README 里能核对的事实，install 是 README 给出的真实命令路径。未出现在这里的仓库一律计为「未核读」。",
-
   "neka-nat/freecad-mcp": {
     "read": true,
     "note": "创建/编辑模型、跑 Python 脚本、检视文档，还能跑 FEM 分析；文档站有法兰、玩具车、从 2D 图纸建模等示例。",
@@ -95,5 +94,40 @@
     "read": true,
     "note": "以 Claude Code 插件市场形式分发的一组 CAD skills，安装即 /plugin marketplace add。",
     "install": "/plugin marketplace add raymondweitekamp/VibeCAD"
+  },
+  "eyfel/mcp-server-solidworks": {
+    "read": true,
+    "note": "对外叫 SolidPilot，目标是在「CAD 特征级」而非 API 方法级工作：不把几千个 API 方法塞进上下文，而是让模型思考「我在实现哪个设计意图」；非 Claude 专用，任何 MCP 客户端可接；标定 SolidWorks 2026 SP3；AGPL-3.0。",
+    "install": "pip install -r requirements.txt   # 见 README 的 SolidWorks 侧配置"
+  },
+  "daiemon12/catia-v5-mcp-server": {
+    "read": true,
+    "note": "自称 CATIA V5 的第一个开源 MCP，暴露 98 个工具：文档/装配、2D 草图、Part Design（Pad/Pocket/Fillet/Pattern）、GSD 曲面与工程图导出，走 COM。",
+    "install": "git clone https://github.com/daiemon12/catia-v5-mcp-server.git && pip install -e ."
+  },
+  "faust-machines/fusion360-mcp-server": {
+    "read": true,
+    "note": "架构清晰：任意 MCP 客户端 ←stdio→ 本 server ←TCP:9876→ Fusion add-in ←CustomEvent→ Fusion 主线程；支持连远程机器（--host），README 标注 Beta。",
+    "install": "claude mcp add fusion360 -- uvx fusion360-mcp-server --mode socket"
+  },
+  "AuraFriday/Fusion-360-MCP-Server": {
+    "read": true,
+    "note": "是 Fusion 侧的 add-in，配合 Aura Friday 的 MCP-Link server 把 Fusion 变成远程工具；Python 侧预置 app / ui / design / rootComponent 快捷量与跨操作上下文。",
+    "install": "git clone https://github.com/AuraFriday/Fusion-360-MCP-Server.git   # 装成 Fusion add-in"
+  },
+  "heyixuan2/bambu-studio-ai": {
+    "read": true,
+    "note": "入选拓竹官方「我的拓竹 Skill 大赏」首批精选作品（2026），主张「从想法到成品只差一步」；npx skills 一行安装。",
+    "install": "npx skills add heyixuan2/bambu-studio-ai"
+  },
+  "jzjzzzzzzz/IntentForge": {
+    "read": true,
+    "note": "确定性 CAD 意图流水线：自然语言 → 可编辑/可解释/可验证的参数化模型；带 assurance 三档（static/standard）与 packaged 交付，拓扑注册表含法兰、直齿轮、标准螺栓。",
+    "install": "python -m pip install intentforge"
+  },
+  "pthompson8594/openscad-skill": {
+    "read": true,
+    "note": "用「数字」而不是「图片」自检，省 token 且能抓住渲染看不出的错；建模围绕真实可买的零件（标准螺丝长度、螺母、垫圈、轴承、齿轮、电机）与标准孔径。",
+    "install": "npx skills add pthompson8594/openscad-skill --skill openscad"
   }
 }

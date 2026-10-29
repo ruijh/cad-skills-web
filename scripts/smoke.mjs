@@ -88,6 +88,7 @@ const EXPECT = [
   ['skillGrid', /class="card skill"/],
   ['recipeList', /class="card recipe"/],
   ['recipeNav', /data-recipe-jump/],
+  ['matrix', /<table class="mx">/],
   ['fHost', /<option value="/],
   ['count', /^\d+ \/ \d+$/],
 ];

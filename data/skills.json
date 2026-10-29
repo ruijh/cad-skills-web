@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T06:10:19.081Z",
+  "generated_at": "2026-10-29T06:25:30.262Z",
   "source": "GitHub Search API（未认证），star 为抓取时快照",
   "scoring": {
     "star": 45,
@@ -10,15 +10,15 @@
     "note": "star 45 · 活跃 15 · 许可 15 · 人工核读 10 · 能力覆盖 15；是公开数据的计算结果，不是实测质量分"
   },
   "counts": {
-    "skills": 66,
-    "stars": 50937,
-    "audited": 19,
+    "skills": 80,
+    "stars": 52500,
+    "audited": 26,
     "hosts": 21,
-    "recipes": 16,
+    "recipes": 17,
     "tierS": 2,
     "forms": {
-      "mcp": 34,
-      "skill": 20,
+      "mcp": 46,
+      "skill": 22,
       "app": 6,
       "engine": 6
     }
@@ -55,18 +55,18 @@
       "检查",
       "图纸",
       "打印",
-      "云端",
       "校验",
+      "云端",
       "装配"
     ],
     "licenses": [
       "MIT",
       "Apache-2.0",
       "NOASSERTION",
-      "LGPL-2.1",
-      "未标注",
       "AGPL-3.0",
       "MIT-0",
+      "LGPL-2.1",
+      "未标注",
       "GPL-2.0"
     ]
   },
@@ -575,6 +575,60 @@
       "total": 65.5
     },
     {
+      "id": "heyixuan2--bambu-studio-ai",
+      "repo": "heyixuan2/bambu-studio-ai",
+      "name": "bambu-studio-ai",
+      "owner": "heyixuan2",
+      "url": "https://github.com/heyixuan2/bambu-studio-ai",
+      "stars": 240,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-09-19",
+      "desc": "Bambu Lab AI (Bambu Studio AI): agent skill for 3D printing on Bambu Lab. Finds models on MakerWorld & Printables, generates or designs them in CAD, checks printability, hands them to Bambu Studio and reads printer/AMS status. For Claude Code, Codex, Cursor, Gemini CLI and any SKILL.md agent. Featured in 我的拓竹 Skill 大赏.",
+      "note": "Bambu Studio 切片与打印工作流的 agent skill",
+      "form": "skill",
+      "host": "3D打印",
+      "caps": [
+        "打印",
+        "渲染"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [
+        "3d-models",
+        "3d-printing",
+        "3mf",
+        "agent-skills",
+        "ai-agents",
+        "bambu-lab",
+        "bambu-lab-ai",
+        "bambu-studio",
+        "claude-code",
+        "claude-skills",
+        "codex",
+        "cursor",
+        "gemini-cli",
+        "image-to-3d",
+        "makerworld",
+        "parametric-cad",
+        "printables",
+        "skill-md",
+        "stl",
+        "text-to-3d"
+      ],
+      "audited": true,
+      "auditNote": "入选拓竹官方「我的拓竹 Skill 大赏」首批精选作品（2026），主张「从想法到成品只差一步」；npx skills 一行安装。",
+      "install": "npx skills add heyixuan2/bambu-studio-ai",
+      "score": {
+        "star": 22.4,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 65.4
+    },
+    {
       "id": "pzfreo--build123d-mcp",
       "repo": "pzfreo/build123d-mcp",
       "name": "build123d-mcp",
@@ -614,6 +668,72 @@
         "caps": 4.5
       },
       "total": 64.6
+    },
+    {
+      "id": "daiemon12--catia-v5-mcp-server",
+      "repo": "daiemon12/catia-v5-mcp-server",
+      "name": "catia-v5-mcp-server",
+      "owner": "daiemon12",
+      "url": "https://github.com/daiemon12/catia-v5-mcp-server",
+      "stars": 146,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-28",
+      "desc": "CATIA V5 MCP Server - Control CATIA V5 with AI via Model Context Protocol",
+      "note": "用 MCP 驱动 CATIA V5，填补 CATIA 侧的空缺",
+      "form": "mcp",
+      "host": "CATIA/NX",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [],
+      "audited": true,
+      "auditNote": "自称 CATIA V5 的第一个开源 MCP，暴露 98 个工具：文档/装配、2D 草图、Part Design（Pad/Pocket/Fillet/Pattern）、GSD 曲面与工程图导出，走 COM。",
+      "install": "git clone https://github.com/daiemon12/catia-v5-mcp-server.git && pip install -e .",
+      "score": {
+        "star": 20.4,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 63.4
+    },
+    {
+      "id": "faust-machines--fusion360-mcp-server",
+      "repo": "faust-machines/fusion360-mcp-server",
+      "name": "fusion360-mcp-server",
+      "owner": "faust-machines",
+      "url": "https://github.com/faust-machines/fusion360-mcp-server",
+      "stars": 136,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-06",
+      "desc": "MCP Server for Autodesk Fusion 360",
+      "note": "独立的 Fusion 360 MCP server",
+      "form": "mcp",
+      "host": "Fusion360",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [],
+      "audited": true,
+      "auditNote": "架构清晰：任意 MCP 客户端 ←stdio→ 本 server ←TCP:9876→ Fusion add-in ←CustomEvent→ Fusion 主线程；支持连远程机器（--host），README 标注 Beta。",
+      "install": "claude mcp add fusion360 -- uvx fusion360-mcp-server --mode socket",
+      "score": {
+        "star": 20.1,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 63.1
     },
     {
       "id": "andymai--brepjs",
@@ -785,6 +905,40 @@
       "total": 60.5
     },
     {
+      "id": "eyfel--mcp-server-solidworks",
+      "repo": "eyfel/mcp-server-solidworks",
+      "name": "mcp-server-solidworks",
+      "owner": "eyfel",
+      "url": "https://github.com/eyfel/mcp-server-solidworks",
+      "stars": 436,
+      "lang": "Python",
+      "license": "AGPL-3.0",
+      "pushed": "2026-10-07",
+      "desc": " This MCP server integrates with SolidWorks API and structuring it into Claude-compatible context streams.",
+      "note": "把 SolidWorks API 结构化后暴露给 AI，SolidWorks 系里 star 最高的 MCP；AGPL-3.0，商用需注意",
+      "form": "mcp",
+      "host": "SolidWorks",
+      "caps": [
+        "建模",
+        "脚本",
+        "检查"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [],
+      "audited": true,
+      "auditNote": "对外叫 SolidPilot，目标是在「CAD 特征级」而非 API 方法级工作：不把几千个 API 方法塞进上下文，而是让模型思考「我在实现哪个设计意图」；非 Claude 专用，任何 MCP 客户端可接；标定 SolidWorks 2026 SP3；AGPL-3.0。",
+      "install": "pip install -r requirements.txt   # 见 README 的 SolidWorks 侧配置",
+      "score": {
+        "star": 24.9,
+        "active": 15,
+        "license": 4,
+        "audit": 10,
+        "caps": 4.5
+      },
+      "total": 58.4
+    },
+    {
       "id": "neonglay--inventor-mcp",
       "repo": "NeonGlay/inventor-mcp",
       "name": "inventor-mcp",
@@ -863,58 +1017,81 @@
       "total": 55.7
     },
     {
-      "id": "heyixuan2--bambu-studio-ai",
-      "repo": "heyixuan2/bambu-studio-ai",
-      "name": "bambu-studio-ai",
-      "owner": "heyixuan2",
-      "url": "https://github.com/heyixuan2/bambu-studio-ai",
-      "stars": 240,
-      "lang": "Python",
+      "id": "vespo92--solidworksmcp-ts",
+      "repo": "vespo92/SolidworksMCP-TS",
+      "name": "SolidworksMCP-TS",
+      "owner": "vespo92",
+      "url": "https://github.com/vespo92/SolidworksMCP-TS",
+      "stars": 245,
+      "lang": "TypeScript",
       "license": "MIT",
-      "pushed": "2026-09-19",
-      "desc": "Bambu Lab AI (Bambu Studio AI): agent skill for 3D printing on Bambu Lab. Finds models on MakerWorld & Printables, generates or designs them in CAD, checks printability, hands them to Bambu Studio and reads printer/AMS status. For Claude Code, Codex, Cursor, Gemini CLI and any SKILL.md agent. Featured in 我的拓竹 Skill 大赏.",
-      "note": "Bambu Studio 切片与打印工作流的 agent skill",
-      "form": "skill",
-      "host": "3D打印",
+      "pushed": "2026-09-20",
+      "desc": "Solidworks MCP using Typescript",
+      "note": "TypeScript 实现的 SolidWorks MCP",
+      "form": "mcp",
+      "host": "SolidWorks",
       "caps": [
-        "打印",
-        "渲染"
+        "建模",
+        "脚本"
       ],
       "tier": "A",
       "archived": false,
-      "topics": [
-        "3d-models",
-        "3d-printing",
-        "3mf",
-        "agent-skills",
-        "ai-agents",
-        "bambu-lab",
-        "bambu-lab-ai",
-        "bambu-studio",
-        "claude-code",
-        "claude-skills",
-        "codex",
-        "cursor",
-        "gemini-cli",
-        "image-to-3d",
-        "makerworld",
-        "parametric-cad",
-        "printables",
-        "skill-md",
-        "stl",
-        "text-to-3d"
-      ],
+      "topics": [],
       "audited": false,
       "auditNote": "",
       "install": "",
       "score": {
-        "star": 22.4,
+        "star": 22.5,
         "active": 15,
         "license": 15,
         "audit": 0,
         "caps": 0
       },
-      "total": 52.4
+      "total": 52.5
+    },
+    {
+      "id": "jzjzzzzzzz--intentforge",
+      "repo": "jzjzzzzzzz/IntentForge",
+      "name": "IntentForge",
+      "owner": "jzjzzzzzzz",
+      "url": "https://github.com/jzjzzzzzzz/IntentForge",
+      "stars": 5,
+      "lang": "Python",
+      "license": "Apache-2.0",
+      "pushed": "2026-08-11",
+      "desc": "Intent-preserving deterministic CAD pipeline for editable, validated CadQuery models.",
+      "note": "保意图的确定性 CAD 流水线，产出可编辑、可校验的模型",
+      "form": "engine",
+      "host": "通用",
+      "caps": [
+        "建模",
+        "校验"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "benchmark",
+        "cad",
+        "cadquery",
+        "design-intent",
+        "engineering",
+        "mcp",
+        "parametric-cad",
+        "pytest",
+        "python",
+        "text-to-cad"
+      ],
+      "audited": true,
+      "auditNote": "确定性 CAD 意图流水线：自然语言 → 可编辑/可解释/可验证的参数化模型；带 assurance 三档（static/standard）与 packaged 交付，拓扑注册表含法兰、直齿轮、标准螺栓。",
+      "install": "python -m pip install intentforge",
+      "score": {
+        "star": 7.3,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 50.3
     },
     {
       "id": "reshefelisha--jarvis-onshape-mcp",
@@ -1056,6 +1233,84 @@
       "total": 49.5
     },
     {
+      "id": "aurafriday--fusion-360-mcp-server",
+      "repo": "AuraFriday/Fusion-360-MCP-Server",
+      "name": "Fusion-360-MCP-Server",
+      "owner": "AuraFriday",
+      "url": "https://github.com/AuraFriday/Fusion-360-MCP-Server",
+      "stars": 127,
+      "lang": "Python",
+      "license": "NOASSERTION",
+      "pushed": "2026-01-28",
+      "desc": "Control Fusion 360 with any AI through Model Context Protocol (MCP)",
+      "note": "任意 AI 客户端控制 Fusion 360",
+      "form": "mcp",
+      "host": "Fusion360",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [
+        "ai",
+        "cad",
+        "cam",
+        "fusion360",
+        "mcp",
+        "mcp-server",
+        "mcp-servers"
+      ],
+      "audited": true,
+      "auditNote": "是 Fusion 侧的 add-in，配合 Aura Friday 的 MCP-Link server 把 Fusion 变成远程工具；Python 侧预置 app / ui / design / rootComponent 快捷量与跨操作上下文。",
+      "install": "git clone https://github.com/AuraFriday/Fusion-360-MCP-Server.git   # 装成 Fusion add-in",
+      "score": {
+        "star": 19.8,
+        "active": 8,
+        "license": 8,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 48.8
+    },
+    {
+      "id": "andrewbartels1--solidworksmcp-python",
+      "repo": "andrewbartels1/SolidworksMCP-python",
+      "name": "SolidworksMCP-python",
+      "owner": "andrewbartels1",
+      "url": "https://github.com/andrewbartels1/SolidworksMCP-python",
+      "stars": 86,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-25",
+      "desc": "A comprehensive Model Context Protocol (MCP) server for SolidWorks automation (in python)",
+      "note": "Python 版 SolidWorks 自动化 MCP，工具面较全",
+      "form": "mcp",
+      "host": "SolidWorks",
+      "caps": [
+        "建模",
+        "脚本",
+        "检查"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "mcp",
+        "solidworks"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 18.3,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 48.3
+    },
+    {
       "id": "armpro24-blip--cad-cae-copilot",
       "repo": "armpro24-blip/cad-cae-copilot",
       "name": "cad-cae-copilot",
@@ -1107,6 +1362,53 @@
         "caps": 0
       },
       "total": 48.1
+    },
+    {
+      "id": "pthompson8594--openscad-skill",
+      "repo": "pthompson8594/openscad-skill",
+      "name": "openscad-skill",
+      "owner": "pthompson8594",
+      "url": "https://github.com/pthompson8594/openscad-skill",
+      "stars": 1,
+      "lang": "Python",
+      "license": "MIT-0",
+      "pushed": "2026-10-22",
+      "desc": "Claude skill for OpenSCAD: parametric parts and multi-part assemblies built around off-the-shelf hardware (real screw lengths, nuts, bearings, gears, NEMA motors, BOM), verified with numbers instead of pictures. Clash, clearance and motion checks, print-ready STL/3MF, laser-cut DXF and bent-sheet STEP.",
+      "note": "单个 SKILL.md 驱动 OpenSCAD 做参数化零件与装配",
+      "form": "skill",
+      "host": "OpenSCAD",
+      "caps": [
+        "建模",
+        "脚本",
+        "装配"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "3d-printing",
+        "3mf",
+        "3mf-file",
+        "agent-skills",
+        "cad",
+        "claude",
+        "claude-skills",
+        "laser-cutting",
+        "openscad",
+        "parametric-design",
+        "sheet-metal",
+        "stl"
+      ],
+      "audited": true,
+      "auditNote": "用「数字」而不是「图片」自检，省 token 且能抓住渲染看不出的错；建模围绕真实可买的零件（标准螺丝长度、螺母、垫圈、轴承、齿轮、电机）与标准孔径。",
+      "install": "npx skills add pthompson8594/openscad-skill --skill openscad",
+      "score": {
+        "star": 2.8,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 4.5
+      },
+      "total": 47.3
     },
     {
       "id": "ghbalf--freecad-ai",
@@ -1273,6 +1575,125 @@
       "total": 45.9
     },
     {
+      "id": "archimedescrypto--fusion360-mcp-server",
+      "repo": "ArchimedesCrypto/fusion360-mcp-server",
+      "name": "fusion360-mcp-server",
+      "owner": "ArchimedesCrypto",
+      "url": "https://github.com/ArchimedesCrypto/fusion360-mcp-server",
+      "stars": 82,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-06-19",
+      "desc": "",
+      "note": "Fusion 360 MCP 的另一个实现（无描述，按名字归类）",
+      "form": "mcp",
+      "host": "Fusion360",
+      "caps": [
+        "建模"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 18.1,
+        "active": 12,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 45.1
+    },
+    {
+      "id": "alisamsam--solidworks-mcp",
+      "repo": "alisamsam/Solidworks-MCP",
+      "name": "Solidworks-MCP",
+      "owner": "alisamsam",
+      "url": "https://github.com/alisamsam/Solidworks-MCP",
+      "stars": 184,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-03-23",
+      "desc": "MCP server to automate SolidWorks using Claude AI — 22 tools for parts, sketches & features",
+      "note": "22 个工具，覆盖零件、装配与工程图",
+      "form": "mcp",
+      "host": "SolidWorks",
+      "caps": [
+        "建模",
+        "图纸",
+        "装配"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [
+        "claude-mcp",
+        "com-api",
+        "python",
+        "solidworks",
+        "solidworks-api"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 21.4,
+        "active": 8,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 44.4
+    },
+    {
+      "id": "frankhommers--autodesk-fusion-mcp",
+      "repo": "frankhommers/autodesk-fusion-mcp",
+      "name": "autodesk-fusion-mcp",
+      "owner": "frankhommers",
+      "url": "https://github.com/frankhommers/autodesk-fusion-mcp",
+      "stars": 33,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-09-26",
+      "desc": "MCP server that runs inside Autodesk Fusion (formerly Autodesk Fusion 360) as an add-in, letting AI agents drive your CAD session over Streamable HTTP. Zero external dependencies.",
+      "note": "跑在 Fusion 内部（add-in 形态）的 MCP",
+      "form": "mcp",
+      "host": "Fusion360",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "add-in",
+        "ai-agents",
+        "autodesk-fusion",
+        "autodesk-fusion-360",
+        "automation",
+        "cad",
+        "claude",
+        "fusion360",
+        "llm",
+        "mcp",
+        "model-context-protocol",
+        "python",
+        "streamable-http"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 14.4,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 44.4
+    },
+    {
       "id": "sandraschi--freecad-mcp",
       "repo": "sandraschi/freecad-mcp",
       "name": "freecad-mcp",
@@ -1419,6 +1840,38 @@
         "caps": 0
       },
       "total": 44
+    },
+    {
+      "id": "justusbraitinger--autodesk-fusion-360-mcp-server",
+      "repo": "JustusBraitinger/Autodesk-Fusion-360-MCP-Server",
+      "name": "Autodesk-Fusion-360-MCP-Server",
+      "owner": "JustusBraitinger",
+      "url": "https://github.com/JustusBraitinger/Autodesk-Fusion-360-MCP-Server",
+      "stars": 57,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-07-01",
+      "desc": "",
+      "note": "Autodesk Fusion 360 的 MCP server",
+      "form": "mcp",
+      "host": "Fusion360",
+      "caps": [
+        "建模"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 16.6,
+        "active": 12,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 43.6
     },
     {
       "id": "ciberjohn--hermes-skills",
@@ -1628,6 +2081,53 @@
         "caps": 0
       },
       "total": 41.2
+    },
+    {
+      "id": "almightyshui--mechanical-ai-skill",
+      "repo": "almightyshui/Mechanical-AI-Skill",
+      "name": "Mechanical-AI-Skill",
+      "owner": "almightyshui",
+      "url": "https://github.com/almightyshui/Mechanical-AI-Skill",
+      "stars": 30,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-06-17",
+      "desc": "AI-powered Mechanical Engineering Review Skill for CAD, FEA, DFM, DFA and Assembly Analysis.",
+      "note": "机械工程评审 skill：CAD 模型做 FEA / DFM / DFA 维度的审阅",
+      "form": "skill",
+      "host": "通用",
+      "caps": [
+        "检查",
+        "校验"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "agent",
+        "ai",
+        "cad",
+        "claude-code",
+        "codex",
+        "dfa",
+        "dfm",
+        "engineering-ai",
+        "fea",
+        "mcp",
+        "mechanical-engineering",
+        "simulation",
+        "solidworks"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 14,
+        "active": 12,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 41
     },
     {
       "id": "alchaincyf--huashu-cad",
@@ -1868,50 +2368,6 @@
       "total": 37.3
     },
     {
-      "id": "jzjzzzzzzz--intentforge",
-      "repo": "jzjzzzzzzz/IntentForge",
-      "name": "IntentForge",
-      "owner": "jzjzzzzzzz",
-      "url": "https://github.com/jzjzzzzzzz/IntentForge",
-      "stars": 5,
-      "lang": "Python",
-      "license": "Apache-2.0",
-      "pushed": "2026-08-11",
-      "desc": "Intent-preserving deterministic CAD pipeline for editable, validated CadQuery models.",
-      "note": "保意图的确定性 CAD 流水线，产出可编辑、可校验的模型",
-      "form": "engine",
-      "host": "通用",
-      "caps": [
-        "建模",
-        "校验"
-      ],
-      "tier": "B",
-      "archived": false,
-      "topics": [
-        "benchmark",
-        "cad",
-        "cadquery",
-        "design-intent",
-        "engineering",
-        "mcp",
-        "parametric-cad",
-        "pytest",
-        "python",
-        "text-to-cad"
-      ],
-      "audited": false,
-      "auditNote": "",
-      "install": "",
-      "score": {
-        "star": 7.3,
-        "active": 15,
-        "license": 15,
-        "audit": 0,
-        "caps": 0
-      },
-      "total": 37.3
-    },
-    {
       "id": "jango-blockchained--mcp-freecad",
       "repo": "jango-blockchained/mcp-freecad",
       "name": "mcp-freecad",
@@ -1927,6 +2383,40 @@
       "host": "FreeCAD",
       "caps": [
         "建模"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 13.6,
+        "active": 8,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 36.6
+    },
+    {
+      "id": "ndoo--fusion360-mcp-bridge",
+      "repo": "ndoo/fusion360-mcp-bridge",
+      "name": "fusion360-mcp-bridge",
+      "owner": "ndoo",
+      "url": "https://github.com/ndoo/fusion360-mcp-bridge",
+      "stars": 27,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-03-27",
+      "desc": "Connect Claude Code to Fusion 360 via MCP — read/create/update/delete CAD geometry through natural language",
+      "note": "把 Claude Code 接到 Fusion 360，读/建/改/删 CAD 对象",
+      "form": "mcp",
+      "host": "Fusion360",
+      "caps": [
+        "建模",
+        "脚本",
+        "检查"
       ],
       "tier": "B",
       "archived": false,
@@ -1991,47 +2481,6 @@
       "total": 36.6
     },
     {
-      "id": "aurafriday--fusion-360-mcp-server",
-      "repo": "AuraFriday/Fusion-360-MCP-Server",
-      "name": "Fusion-360-MCP-Server",
-      "owner": "AuraFriday",
-      "url": "https://github.com/AuraFriday/Fusion-360-MCP-Server",
-      "stars": 127,
-      "lang": "Python",
-      "license": "NOASSERTION",
-      "pushed": "2026-01-28",
-      "desc": "Control Fusion 360 with any AI through Model Context Protocol (MCP)",
-      "note": "任意 AI 客户端控制 Fusion 360",
-      "form": "mcp",
-      "host": "Fusion360",
-      "caps": [
-        "建模",
-        "脚本"
-      ],
-      "tier": "A",
-      "archived": false,
-      "topics": [
-        "ai",
-        "cad",
-        "cam",
-        "fusion360",
-        "mcp",
-        "mcp-server",
-        "mcp-servers"
-      ],
-      "audited": false,
-      "auditNote": "",
-      "install": "",
-      "score": {
-        "star": 19.8,
-        "active": 8,
-        "license": 8,
-        "audit": 0,
-        "caps": 0
-      },
-      "total": 35.8
-    },
-    {
       "id": "lau-mars--cadorange",
       "repo": "LAU-MARS/cadorange",
       "name": "cadorange",
@@ -2072,6 +2521,39 @@
         "caps": 0
       },
       "total": 34.5
+    },
+    {
+      "id": "arthurle3210--swapi-pilot-solidworks-mcp",
+      "repo": "arthurle3210/swapi-pilot-solidworks-mcp",
+      "name": "swapi-pilot-solidworks-mcp",
+      "owner": "arthurle3210",
+      "url": "https://github.com/arthurle3210/swapi-pilot-solidworks-mcp",
+      "stars": 32,
+      "lang": "—",
+      "license": null,
+      "pushed": "2026-07-05",
+      "desc": "SolidWorks API MCP server — search API docs, examples, and enums directly from any MCP-compatible AI tool.",
+      "note": "不给几何、给知识：直接检索 SolidWorks API 文档、示例与枚举",
+      "form": "mcp",
+      "host": "SolidWorks",
+      "caps": [
+        "脚本",
+        "检查"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 14.3,
+        "active": 12,
+        "license": 8,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 34.3
     },
     {
       "id": "joseguiaces--autocad-dotnet-claude-skill",
@@ -2115,47 +2597,38 @@
       "total": 34.1
     },
     {
-      "id": "pthompson8594--openscad-skill",
-      "repo": "pthompson8594/openscad-skill",
-      "name": "openscad-skill",
-      "owner": "pthompson8594",
-      "url": "https://github.com/pthompson8594/openscad-skill",
-      "stars": 1,
+      "id": "misterbra--fusion360-claude-ultimate",
+      "repo": "Misterbra/fusion360-claude-ultimate",
+      "name": "fusion360-claude-ultimate",
+      "owner": "Misterbra",
+      "url": "https://github.com/Misterbra/fusion360-claude-ultimate",
+      "stars": 60,
       "lang": "Python",
-      "license": "MIT-0",
-      "pushed": "2026-10-22",
-      "desc": "Claude skill for OpenSCAD: parametric parts and multi-part assemblies built around off-the-shelf hardware (real screw lengths, nuts, bearings, gears, NEMA motors, BOM), verified with numbers instead of pictures. Clash, clearance and motion checks, print-ready STL/3MF, laser-cut DXF and bent-sheet STEP.",
-      "note": "单个 SKILL.md 驱动 OpenSCAD 做参数化零件与装配",
-      "form": "skill",
-      "host": "OpenSCAD",
+      "license": null,
+      "pushed": "2026-04-20",
+      "desc": "🤖 Control Fusion 360 with natural language through Claude Desktop using MCP (Model Context Protocol). Create, manipulate and modify 3D objects by simply describing what you want to do. French-localized adaptation of Kanbara Tomonori's original concept.",
+      "note": "用自然语言经 Claude Desktop 控制 Fusion 360",
+      "form": "mcp",
+      "host": "Fusion360",
       "caps": [
         "建模",
-        "脚本",
-        "装配"
+        "脚本"
       ],
       "tier": "B",
       "archived": false,
       "topics": [
-        "3d-printing",
-        "3mf",
-        "3mf-file",
-        "agent-skills",
-        "cad",
-        "claude",
-        "claude-skills",
-        "laser-cutting",
-        "openscad",
-        "parametric-design",
-        "sheet-metal",
-        "stl"
+        "3d-ai",
+        "auto-autodesk-ai",
+        "fusion360ai",
+        "mcp-fusion360"
       ],
       "audited": false,
       "auditNote": "",
       "install": "",
       "score": {
-        "star": 2.8,
-        "active": 15,
-        "license": 15,
+        "star": 16.8,
+        "active": 8,
+        "license": 8,
         "audit": 0,
         "caps": 0
       },
@@ -2430,6 +2903,60 @@
         "caps": 0
       },
       "total": 30.3
+    },
+    {
+      "id": "idris900323--stepscribe-cad",
+      "repo": "idris900323/stepscribe-cad",
+      "name": "stepscribe-cad",
+      "owner": "idris900323",
+      "url": "https://github.com/idris900323/stepscribe-cad",
+      "stars": 9,
+      "lang": "Python",
+      "license": "AGPL-3.0",
+      "pushed": "2026-10-28",
+      "desc": "Turn STEP CAD files into AI-readable context packs: exact dimensions, holes, cutouts, fasteners, assembly relations, joints, weak spots and labelled images. Runs offline. Works with any AI chat, Claude Code (plugin), Copilot and MCP clients.",
+      "note": "把 STEP 文件变成 AI 可读的上下文包：精确尺寸、孔位与特征，AGPL-3.0",
+      "form": "skill",
+      "host": "通用",
+      "caps": [
+        "图纸",
+        "校验"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "3d",
+        "3d-printing",
+        "ai",
+        "cad",
+        "claude-code",
+        "cli",
+        "context-engineering",
+        "design",
+        "design-review",
+        "fastener",
+        "kinematics",
+        "llm",
+        "mcp-server",
+        "mechanical-engineering",
+        "opencascade",
+        "plugin",
+        "python",
+        "robotics",
+        "step",
+        "stp"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 9.4,
+        "active": 15,
+        "license": 4,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 28.4
     },
     {
       "id": "fa-mc--vibe-cading",
@@ -2825,11 +3352,11 @@
       "title": "Fusion 360 云端",
       "route": "mcp",
       "host": "Fusion360",
-      "repo": "AuraFriday/Fusion-360-MCP-Server",
+      "repo": "faust-machines/fusion360-mcp-server",
       "when": "设计在 Fusion 里、要跑参数化变体或批量出图，且能接受桌面端常开。",
-      "install": "git clone https://github.com/AuraFriday/Fusion-360-MCP-Server && 按 README 装成 Fusion 插件",
-      "snippet": "{\n  \"mcpServers\": {\n    \"fusion360\": {\n      \"command\": \"python\",\n      \"args\": [\"fusion_mcp.py\"]\n    }\n  }\n}",
-      "snippetNote": "Fusion 个人版/教育版接口能力不同，商用前先确认许可。",
+      "install": "uvx fusion360-mcp-server --mode socket   # 另需在 Fusion 里装配套 add-in",
+      "snippet": "{\n  \"mcpServers\": {\n    \"fusion360\": {\n      \"command\": \"uvx\",\n      \"args\": [\"fusion360-mcp-server\", \"--mode\", \"socket\"]\n    }\n  }\n}",
+      "snippetNote": "链路是 client ←stdio→ server ←TCP:9876→ Fusion add-in；远程机器用 --host <ip>。一条命令：claude mcp add fusion360 -- uvx fusion360-mcp-server --mode socket（README 原文，标 Beta）。",
       "prompt": "用 fusion360 这套，把我这个零件的长度参数做 4 个梯度（80/100/120/140mm），\n每个梯度导出一份 STEP 和一个带尺寸标注的预览图，放同一个文件夹并给索引。"
     },
     {
@@ -2843,6 +3370,18 @@
       "snippet": "{\n  \"mcpServers\": {\n    \"onshape\": {\n      \"command\": \"node\",\n      \"args\": [\"dist/index.js\"],\n      \"env\": { \"ONSHAPE_API_KEY\": \"<your-key>\" }\n    }\n  }\n}",
       "snippetNote": "需要 Onshape 账号 API Key，注意文档权限范围；示例 env 名以 README 为准。",
       "prompt": "用 onshape-cloud 这套，在文档 WORKS-123 的 Part Studio 里把支架厚度加 2mm，\n创建一个新版本并写明变更说明，别覆盖原版本。"
+    },
+    {
+      "id": "catia-v5",
+      "title": "CATIA V5 参数化",
+      "route": "mcp",
+      "host": "CATIA/NX",
+      "repo": "daiemon12/catia-v5-mcp-server",
+      "when": "模型在 CATIA V5 里，且需要 AI 动草图、Part Design 特征或 GSD 曲面——COM 自动化，Windows 桌面。",
+      "install": "git clone https://github.com/daiemon12/catia-v5-mcp-server.git && pip install -e .",
+      "snippet": "{\n  \"mcpServers\": {\n    \"catia-v5\": {\n      \"command\": \"python\",\n      \"args\": [\"-m\", \"catia_v5_mcp_server\"]\n    }\n  }\n}",
+      "snippetNote": "README 给出 git clone + pip install -e .；入口模块名以仓库的 pyproject 为准。98 个工具，依赖 CATIA V5 桌面会话与 COM。",
+      "prompt": "用 catia-v5 这套，在 CATIA 里新建一个 Part：先画 R40 圆草图并 Pad 出 8mm 厚法兰，\n再在 R30 圆上均布 6 个 φ5.5 通孔，最后加 C1 倒角。\n每一步先说要调用哪个工具，等我确认再执行。"
     },
     {
       "id": "inventor-param",

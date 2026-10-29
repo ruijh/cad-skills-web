@@ -100,11 +100,11 @@
     "title": "Fusion 360 云端",
     "route": "mcp",
     "host": "Fusion360",
-    "repo": "AuraFriday/Fusion-360-MCP-Server",
+    "repo": "faust-machines/fusion360-mcp-server",
     "when": "设计在 Fusion 里、要跑参数化变体或批量出图，且能接受桌面端常开。",
-    "install": "git clone https://github.com/AuraFriday/Fusion-360-MCP-Server && 按 README 装成 Fusion 插件",
-    "snippet": "{\n  \"mcpServers\": {\n    \"fusion360\": {\n      \"command\": \"python\",\n      \"args\": [\"fusion_mcp.py\"]\n    }\n  }\n}",
-    "snippetNote": "Fusion 个人版/教育版接口能力不同，商用前先确认许可。",
+    "install": "uvx fusion360-mcp-server --mode socket   # 另需在 Fusion 里装配套 add-in",
+    "snippet": "{\n  \"mcpServers\": {\n    \"fusion360\": {\n      \"command\": \"uvx\",\n      \"args\": [\"fusion360-mcp-server\", \"--mode\", \"socket\"]\n    }\n  }\n}",
+    "snippetNote": "链路是 client ←stdio→ server ←TCP:9876→ Fusion add-in；远程机器用 --host <ip>。一条命令：claude mcp add fusion360 -- uvx fusion360-mcp-server --mode socket（README 原文，标 Beta）。",
     "prompt": "用 fusion360 这套，把我这个零件的长度参数做 4 个梯度（80/100/120/140mm），\n每个梯度导出一份 STEP 和一个带尺寸标注的预览图，放同一个文件夹并给索引。"
   },
   {
@@ -118,6 +118,18 @@
     "snippet": "{\n  \"mcpServers\": {\n    \"onshape\": {\n      \"command\": \"node\",\n      \"args\": [\"dist/index.js\"],\n      \"env\": { \"ONSHAPE_API_KEY\": \"<your-key>\" }\n    }\n  }\n}",
     "snippetNote": "需要 Onshape 账号 API Key，注意文档权限范围；示例 env 名以 README 为准。",
     "prompt": "用 onshape-cloud 这套，在文档 WORKS-123 的 Part Studio 里把支架厚度加 2mm，\n创建一个新版本并写明变更说明，别覆盖原版本。"
+  },
+  {
+    "id": "catia-v5",
+    "title": "CATIA V5 参数化",
+    "route": "mcp",
+    "host": "CATIA/NX",
+    "repo": "daiemon12/catia-v5-mcp-server",
+    "when": "模型在 CATIA V5 里，且需要 AI 动草图、Part Design 特征或 GSD 曲面——COM 自动化，Windows 桌面。",
+    "install": "git clone https://github.com/daiemon12/catia-v5-mcp-server.git && pip install -e .",
+    "snippet": "{\n  \"mcpServers\": {\n    \"catia-v5\": {\n      \"command\": \"python\",\n      \"args\": [\"-m\", \"catia_v5_mcp_server\"]\n    }\n  }\n}",
+    "snippetNote": "README 给出 git clone + pip install -e .；入口模块名以仓库的 pyproject 为准。98 个工具，依赖 CATIA V5 桌面会话与 COM。",
+    "prompt": "用 catia-v5 这套，在 CATIA 里新建一个 Part：先画 R40 圆草图并 Pad 出 8mm 厚法兰，\n再在 R30 圆上均布 6 个 φ5.5 通孔，最后加 C1 倒角。\n每一步先说要调用哪个工具，等我确认再执行。"
   },
   {
     "id": "inventor-param",

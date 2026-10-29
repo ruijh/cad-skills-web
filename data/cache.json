@@ -221,6 +221,19 @@
     "open_issues_count": 6
   },
   {
+    "full_name": "eyfel/mcp-server-solidworks",
+    "stargazers_count": 436,
+    "language": "Python",
+    "description": " This MCP server integrates with SolidWorks API and structuring it into Claude-compatible context streams.",
+    "html_url": "https://github.com/eyfel/mcp-server-solidworks",
+    "pushed_at": "2026-10-07T09:46:11Z",
+    "license": "AGPL-3.0",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 1
+  },
+  {
     "full_name": "JiangNanGenius/floe-agent",
     "stargazers_count": 366,
     "language": "Swift",
@@ -319,6 +332,19 @@
       "workbench"
     ],
     "open_issues_count": 8
+  },
+  {
+    "full_name": "vespo92/SolidworksMCP-TS",
+    "stargazers_count": 245,
+    "language": "TypeScript",
+    "description": "Solidworks MCP using Typescript",
+    "html_url": "https://github.com/vespo92/SolidworksMCP-TS",
+    "pushed_at": "2026-09-20T00:41:22Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 1
   },
   {
     "full_name": "heyixuan2/bambu-studio-ai",
@@ -449,6 +475,25 @@
     "open_issues_count": 1
   },
   {
+    "full_name": "alisamsam/Solidworks-MCP",
+    "stargazers_count": 184,
+    "language": "Python",
+    "description": "MCP server to automate SolidWorks using Claude AI — 22 tools for parts, sketches & features",
+    "html_url": "https://github.com/alisamsam/Solidworks-MCP",
+    "pushed_at": "2026-03-23T11:46:46Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "claude-mcp",
+      "com-api",
+      "python",
+      "solidworks",
+      "solidworks-api"
+    ],
+    "open_issues_count": 6
+  },
+  {
     "full_name": "jdilla1277/agentcad",
     "stargazers_count": 178,
     "language": "Python",
@@ -546,6 +591,19 @@
     "open_issues_count": 19
   },
   {
+    "full_name": "daiemon12/catia-v5-mcp-server",
+    "stargazers_count": 146,
+    "language": "Python",
+    "description": "CATIA V5 MCP Server - Control CATIA V5 with AI via Model Context Protocol",
+    "html_url": "https://github.com/daiemon12/catia-v5-mcp-server",
+    "pushed_at": "2026-10-28T09:40:24Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 5
+  },
+  {
     "full_name": "contextform/freecad-mcp",
     "stargazers_count": 139,
     "language": "Python",
@@ -566,6 +624,19 @@
       "model-context-protocol"
     ],
     "open_issues_count": 12
+  },
+  {
+    "full_name": "faust-machines/fusion360-mcp-server",
+    "stargazers_count": 136,
+    "language": "Python",
+    "description": "MCP Server for Autodesk Fusion 360",
+    "html_url": "https://github.com/faust-machines/fusion360-mcp-server",
+    "pushed_at": "2026-10-06T04:52:43Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 10
   },
   {
     "full_name": "k-telux/OpticalModeler",
@@ -738,6 +809,22 @@
     "open_issues_count": 0
   },
   {
+    "full_name": "andrewbartels1/SolidworksMCP-python",
+    "stargazers_count": 86,
+    "language": "Python",
+    "description": "A comprehensive Model Context Protocol (MCP) server for SolidWorks automation (in python)",
+    "html_url": "https://github.com/andrewbartels1/SolidworksMCP-python",
+    "pushed_at": "2026-10-25T17:42:06Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "mcp",
+      "solidworks"
+    ],
+    "open_issues_count": 30
+  },
+  {
     "full_name": "unnir/CadenceSKILL-Python",
     "stargazers_count": 83,
     "language": "Python",
@@ -791,6 +878,19 @@
     "open_issues_count": 8
   },
   {
+    "full_name": "ArchimedesCrypto/fusion360-mcp-server",
+    "stargazers_count": 82,
+    "language": "Python",
+    "description": null,
+    "html_url": "https://github.com/ArchimedesCrypto/fusion360-mcp-server",
+    "pushed_at": "2026-06-19T04:22:36Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 0
+  },
+  {
     "full_name": "KanJieTeam/kjdraw",
     "stargazers_count": 62,
     "language": "JavaScript",
@@ -832,6 +932,37 @@
       "parametric-cad"
     ],
     "open_issues_count": 2
+  },
+  {
+    "full_name": "Misterbra/fusion360-claude-ultimate",
+    "stargazers_count": 60,
+    "language": "Python",
+    "description": "🤖 Control Fusion 360 with natural language through Claude Desktop using MCP (Model Context Protocol). Create, manipulate and modify 3D objects by simply describing what you want to do. French-localized adaptation of Kanbara Tomonori's original concept.",
+    "html_url": "https://github.com/Misterbra/fusion360-claude-ultimate",
+    "pushed_at": "2026-04-20T11:21:10Z",
+    "license": null,
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "3d-ai",
+      "auto-autodesk-ai",
+      "fusion360ai",
+      "mcp-fusion360"
+    ],
+    "open_issues_count": 0
+  },
+  {
+    "full_name": "JustusBraitinger/Autodesk-Fusion-360-MCP-Server",
+    "stargazers_count": 57,
+    "language": "Python",
+    "description": null,
+    "html_url": "https://github.com/JustusBraitinger/Autodesk-Fusion-360-MCP-Server",
+    "pushed_at": "2026-07-01T12:58:56Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 0
   },
   {
     "full_name": "Svetlana-DAO-LLC/cad-agent",
@@ -1043,6 +1174,33 @@
     "open_issues_count": 1
   },
   {
+    "full_name": "frankhommers/autodesk-fusion-mcp",
+    "stargazers_count": 33,
+    "language": "Python",
+    "description": "MCP server that runs inside Autodesk Fusion (formerly Autodesk Fusion 360) as an add-in, letting AI agents drive your CAD session over Streamable HTTP. Zero external dependencies.",
+    "html_url": "https://github.com/frankhommers/autodesk-fusion-mcp",
+    "pushed_at": "2026-09-26T18:02:17Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "add-in",
+      "ai-agents",
+      "autodesk-fusion",
+      "autodesk-fusion-360",
+      "automation",
+      "cad",
+      "claude",
+      "fusion360",
+      "llm",
+      "mcp",
+      "model-context-protocol",
+      "python",
+      "streamable-http"
+    ],
+    "open_issues_count": 1
+  },
+  {
     "full_name": "sandraschi/freecad-mcp",
     "stargazers_count": 32,
     "language": "Python",
@@ -1066,6 +1224,19 @@
       "webapp"
     ],
     "open_issues_count": 0
+  },
+  {
+    "full_name": "arthurle3210/swapi-pilot-solidworks-mcp",
+    "stargazers_count": 32,
+    "language": null,
+    "description": "SolidWorks API MCP server — search API docs, examples, and enums directly from any MCP-compatible AI tool.",
+    "html_url": "https://github.com/arthurle3210/swapi-pilot-solidworks-mcp",
+    "pushed_at": "2026-07-05T02:43:01Z",
+    "license": null,
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 1
   },
   {
     "full_name": "MakeItEzzz555/Gridline",
@@ -1098,6 +1269,33 @@
     "open_issues_count": 8
   },
   {
+    "full_name": "almightyshui/Mechanical-AI-Skill",
+    "stargazers_count": 30,
+    "language": "Python",
+    "description": "AI-powered Mechanical Engineering Review Skill for CAD, FEA, DFM, DFA and Assembly Analysis.",
+    "html_url": "https://github.com/almightyshui/Mechanical-AI-Skill",
+    "pushed_at": "2026-06-17T17:13:03Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "agent",
+      "ai",
+      "cad",
+      "claude-code",
+      "codex",
+      "dfa",
+      "dfm",
+      "engineering-ai",
+      "fea",
+      "mcp",
+      "mechanical-engineering",
+      "simulation",
+      "solidworks"
+    ],
+    "open_issues_count": 1
+  },
+  {
     "full_name": "jango-blockchained/mcp-freecad",
     "stargazers_count": 27,
     "language": "Python",
@@ -1109,6 +1307,19 @@
     "fork": false,
     "topics": [],
     "open_issues_count": 5
+  },
+  {
+    "full_name": "ndoo/fusion360-mcp-bridge",
+    "stargazers_count": 27,
+    "language": "Python",
+    "description": "Connect Claude Code to Fusion 360 via MCP — read/create/update/delete CAD geometry through natural language",
+    "html_url": "https://github.com/ndoo/fusion360-mcp-bridge",
+    "pushed_at": "2026-03-27T10:13:22Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 8
   },
   {
     "full_name": "moellere/WireStudio",
@@ -1311,6 +1522,40 @@
     "fork": false,
     "topics": [],
     "open_issues_count": 1
+  },
+  {
+    "full_name": "idris900323/stepscribe-cad",
+    "stargazers_count": 9,
+    "language": "Python",
+    "description": "Turn STEP CAD files into AI-readable context packs: exact dimensions, holes, cutouts, fasteners, assembly relations, joints, weak spots and labelled images. Runs offline. Works with any AI chat, Claude Code (plugin), Copilot and MCP clients.",
+    "html_url": "https://github.com/idris900323/stepscribe-cad",
+    "pushed_at": "2026-10-28T18:05:32Z",
+    "license": "AGPL-3.0",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "3d",
+      "3d-printing",
+      "ai",
+      "cad",
+      "claude-code",
+      "cli",
+      "context-engineering",
+      "design",
+      "design-review",
+      "fastener",
+      "kinematics",
+      "llm",
+      "mcp-server",
+      "mechanical-engineering",
+      "opencascade",
+      "plugin",
+      "python",
+      "robotics",
+      "step",
+      "stp"
+    ],
+    "open_issues_count": 3
   },
   {
     "full_name": "fa-mc/vibe-cading",
