@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T06:48:35.321Z",
+  "generated_at": "2026-10-29T09:19:39.794Z",
   "source": "GitHub Search API（未认证），star 为抓取时快照",
   "scoring": {
     "star": 45,
@@ -11,7 +11,7 @@
   },
   "counts": {
     "skills": 92,
-    "stars": 54367,
+    "stars": 54471,
     "audited": 30,
     "hosts": 26,
     "recipes": 18,
@@ -83,7 +83,7 @@
       "name": "freecad-mcp",
       "owner": "neka-nat",
       "url": "https://github.com/neka-nat/freecad-mcp",
-      "stars": 3106,
+      "stars": 3107,
       "lang": "Python",
       "license": "MIT",
       "pushed": "2026-10-25",
@@ -123,7 +123,7 @@
       "name": "KiCAD-MCP-Server",
       "owner": "mixelpixx",
       "url": "https://github.com/mixelpixx/KiCAD-MCP-Server",
-      "stars": 3005,
+      "stars": 3011,
       "lang": "Python",
       "license": "MIT",
       "pushed": "2026-10-26",
@@ -158,7 +158,7 @@
       "name": "solidworks-automation-skill",
       "owner": "wzyn20051216",
       "url": "https://github.com/wzyn20051216/solidworks-automation-skill",
-      "stars": 1578,
+      "stars": 1585,
       "lang": "Python",
       "license": "MIT",
       "pushed": "2026-10-29",
@@ -212,7 +212,7 @@
       "name": "editor",
       "owner": "pascalorg",
       "url": "https://github.com/pascalorg/editor",
-      "stars": 25178,
+      "stars": 25186,
       "lang": "TypeScript",
       "license": "MIT",
       "pushed": "2026-10-28",
@@ -265,7 +265,7 @@
       "name": "CAD-MCP",
       "owner": "daobataotie",
       "url": "https://github.com/daobataotie/CAD-MCP",
-      "stars": 650,
+      "stars": 652,
       "lang": "Python",
       "license": "MIT",
       "pushed": "2026-10-27",
@@ -304,7 +304,7 @@
       "name": "solidcraft",
       "owner": "tangency-labs",
       "url": "https://github.com/tangency-labs/solidcraft",
-      "stars": 11718,
+      "stars": 11788,
       "lang": "Rust",
       "license": "Apache-2.0",
       "pushed": "2026-10-29",
@@ -349,7 +349,7 @@
       "name": "RhinoAI",
       "owner": "mcneel",
       "url": "https://github.com/mcneel/RhinoAI",
-      "stars": 384,
+      "stars": 385,
       "lang": "C#",
       "license": "MIT",
       "pushed": "2026-10-28",
@@ -372,13 +372,13 @@
       "auditNote": "仓库自己叫 Rhino MCP Platform，是 McNeel 官方维护的 Rhino MCP 服务端 + 插件，配独立文档站（mcneel.github.io/RhinoAI），最快路径是 Claude Desktop connector。",
       "install": "见 https://mcneel.github.io/RhinoAI/docs/getting-started/ ：装 Rhino 插件 → 配 MCP connector",
       "score": {
-        "star": 24.3,
+        "star": 24.4,
         "active": 15,
         "license": 15,
         "audit": 10,
         "caps": 3
       },
-      "total": 67.3
+      "total": 67.4
     },
     {
       "id": "jhacksman--openscad-mcp-server",
@@ -420,7 +420,7 @@
       "name": "Autocad-MCP",
       "owner": "U-C4N",
       "url": "https://github.com/U-C4N/Autocad-MCP",
-      "stars": 196,
+      "stars": 199,
       "lang": "Python",
       "license": "MIT",
       "pushed": "2026-10-27",
@@ -461,13 +461,13 @@
       "auditNote": "同一套工具契约、两种引擎：Windows 走 COM 实时驱动，任意平台可 headless 走 ezdxf；发布在 PyPI（autocad-mcp-pro）并附 Claude 插件。",
       "install": "pip install autocad-mcp-pro   # 或 uvx autocad-mcp-pro",
       "score": {
-        "star": 21.6,
+        "star": 21.7,
         "active": 15,
         "license": 15,
         "audit": 10,
         "caps": 4.5
       },
-      "total": 66.1
+      "total": 66.2
     },
     {
       "id": "flowful-ai--cad-skill",
@@ -501,6 +501,46 @@
         "license": 8,
         "audit": 10,
         "caps": 6
+      },
+      "total": 65.8
+    },
+    {
+      "id": "jdilla1277--agentcad",
+      "repo": "jdilla1277/agentcad",
+      "name": "agentcad",
+      "owner": "jdilla1277",
+      "url": "https://github.com/jdilla1277/agentcad",
+      "stars": 181,
+      "lang": "Python",
+      "license": "Apache-2.0",
+      "pushed": "2026-10-28",
+      "desc": "CAD CLI and MCP server for AI agents",
+      "note": "CAD CLI + MCP server，面向 agent 工作流",
+      "form": "mcp",
+      "host": "通用",
+      "caps": [
+        "建模",
+        "脚本",
+        "导出"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [
+        "ai-agents",
+        "build123d",
+        "cad",
+        "cadquery",
+        "mcp"
+      ],
+      "audited": true,
+      "auditNote": "默认让 agent 写 build123d 脚本，自己负责执行、STEP 导出、PNG 渲染、网格导出（STL/GLB/OBJ）、几何度量与校验；stdout 出 JSON、stderr 出进度，便于程序解析；自报在 CADGenBench 上 CAD Score +48%、模型成本 −21.8%。",
+      "install": "",
+      "score": {
+        "star": 21.3,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 4.5
       },
       "total": 65.8
     },
@@ -540,46 +580,6 @@
         "license": 15,
         "audit": 10,
         "caps": 3
-      },
-      "total": 65.7
-    },
-    {
-      "id": "jdilla1277--agentcad",
-      "repo": "jdilla1277/agentcad",
-      "name": "agentcad",
-      "owner": "jdilla1277",
-      "url": "https://github.com/jdilla1277/agentcad",
-      "stars": 178,
-      "lang": "Python",
-      "license": "Apache-2.0",
-      "pushed": "2026-10-28",
-      "desc": "CAD CLI and MCP server for AI agents",
-      "note": "CAD CLI + MCP server，面向 agent 工作流",
-      "form": "mcp",
-      "host": "通用",
-      "caps": [
-        "建模",
-        "脚本",
-        "导出"
-      ],
-      "tier": "A",
-      "archived": false,
-      "topics": [
-        "ai-agents",
-        "build123d",
-        "cad",
-        "cadquery",
-        "mcp"
-      ],
-      "audited": true,
-      "auditNote": "默认让 agent 写 build123d 脚本，自己负责执行、STEP 导出、PNG 渲染、网格导出（STL/GLB/OBJ）、几何度量与校验；stdout 出 JSON、stderr 出进度，便于程序解析；自报在 CADGenBench 上 CAD Score +48%、模型成本 −21.8%。",
-      "install": "",
-      "score": {
-        "star": 21.2,
-        "active": 15,
-        "license": 15,
-        "audit": 10,
-        "caps": 4.5
       },
       "total": 65.7
     },
@@ -751,7 +751,7 @@
       "name": "fusion360-mcp-server",
       "owner": "faust-machines",
       "url": "https://github.com/faust-machines/fusion360-mcp-server",
-      "stars": 136,
+      "stars": 135,
       "lang": "Python",
       "license": "MIT",
       "pushed": "2026-10-06",
@@ -838,7 +838,7 @@
       "name": "cad-skills",
       "owner": "delancy827",
       "url": "https://github.com/delancy827/cad-skills",
-      "stars": 101,
+      "stars": 103,
       "lang": "—",
       "license": "MIT",
       "pushed": "2026-10-07",
@@ -857,13 +857,13 @@
       "auditNote": "中文 AutoCAD 技能包，从自然语言到工程图纸；Python 自动化依赖 pyautocad + pywin32。",
       "install": "git clone https://github.com/delancy827/cad-skills.git && pip install pyautocad pywin32",
       "score": {
-        "star": 18.9,
+        "star": 19,
         "active": 15,
         "license": 15,
         "audit": 10,
         "caps": 3
       },
-      "total": 61.9
+      "total": 62
     },
     {
       "id": "kanjieteam--kjdraw",
@@ -1860,6 +1860,51 @@
       "total": 44.4
     },
     {
+      "id": "sandraschi--freecad-mcp",
+      "repo": "sandraschi/freecad-mcp",
+      "name": "freecad-mcp",
+      "owner": "sandraschi",
+      "url": "https://github.com/sandraschi/freecad-mcp",
+      "stars": 33,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-28",
+      "desc": "FreeCAD 3D CAD automation via FastMCP — headless document/export plus FluidX3D/OpenFOAM CFD extensions. For Cursor / Claude Desktop. Webapp.",
+      "note": "FastMCP 实现，headless 文档与导出",
+      "form": "mcp",
+      "host": "FreeCAD",
+      "caps": [
+        "脚本",
+        "导出"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "cad-3d",
+        "cfd",
+        "computational-fluid-dynamics",
+        "fastmcp-3",
+        "freecad",
+        "headless",
+        "mcp",
+        "mcp-server",
+        "model-context-protocol",
+        "openfoam",
+        "webapp"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 14.4,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 44.4
+    },
+    {
       "id": "frankhommers--autodesk-fusion-mcp",
       "repo": "frankhommers/autodesk-fusion-mcp",
       "name": "autodesk-fusion-mcp",
@@ -1905,51 +1950,6 @@
         "caps": 0
       },
       "total": 44.4
-    },
-    {
-      "id": "sandraschi--freecad-mcp",
-      "repo": "sandraschi/freecad-mcp",
-      "name": "freecad-mcp",
-      "owner": "sandraschi",
-      "url": "https://github.com/sandraschi/freecad-mcp",
-      "stars": 32,
-      "lang": "Python",
-      "license": "MIT",
-      "pushed": "2026-10-28",
-      "desc": "FreeCAD 3D CAD automation via FastMCP — headless document/export plus FluidX3D/OpenFOAM CFD extensions. For Cursor / Claude Desktop. Webapp.",
-      "note": "FastMCP 实现，headless 文档与导出",
-      "form": "mcp",
-      "host": "FreeCAD",
-      "caps": [
-        "脚本",
-        "导出"
-      ],
-      "tier": "B",
-      "archived": false,
-      "topics": [
-        "cad-3d",
-        "cfd",
-        "computational-fluid-dynamics",
-        "fastmcp-3",
-        "freecad",
-        "headless",
-        "mcp",
-        "mcp-server",
-        "model-context-protocol",
-        "openfoam",
-        "webapp"
-      ],
-      "audited": false,
-      "auditNote": "",
-      "install": "",
-      "score": {
-        "star": 14.3,
-        "active": 15,
-        "license": 15,
-        "audit": 0,
-        "caps": 0
-      },
-      "total": 44.3
     },
     {
       "id": "fatasia--deepmonkey-studio",
@@ -2013,7 +2013,7 @@
       "stars": 30,
       "lang": "Python",
       "license": "MIT",
-      "pushed": "2026-10-28",
+      "pushed": "2026-10-29",
       "desc": "Portable AI agent skills, subagents, and plugins for architecture/AEC workflows across Codex, Claude Code, Gemini CLI, and other compatible agents.",
       "note": "建筑 / 工程方向可移植的 skills + subagents + plugins",
       "form": "skill",
@@ -2422,6 +2422,41 @@
       "total": 41
     },
     {
+      "id": "alchaincyf--huashu-cad",
+      "repo": "alchaincyf/huashu-cad",
+      "name": "huashu-cad",
+      "owner": "alchaincyf",
+      "url": "https://github.com/alchaincyf/huashu-cad",
+      "stars": 13,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-20",
+      "desc": "用自然语言出可编辑CAD：户型与平面布置（DXF）、齿轮减速器关节模组等机械装配（STEP），自动校验干涉与啮合，出交互爆炸图、运转视频和装配工程图。Agent skill.",
+      "note": "自然语言出可编辑 CAD：户型 DXF 与机械装配 STEP，带干涉校验",
+      "form": "skill",
+      "host": "AEC",
+      "caps": [
+        "建模",
+        "图纸",
+        "校验",
+        "渲染"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 10.8,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 40.8
+    },
+    {
       "id": "wudahua--mcp_creo_mechdog",
       "repo": "wudahua/MCP_CREO_MechDog",
       "name": "MCP_CREO_MechDog",
@@ -2467,41 +2502,6 @@
         "caps": 0
       },
       "total": 40.8
-    },
-    {
-      "id": "alchaincyf--huashu-cad",
-      "repo": "alchaincyf/huashu-cad",
-      "name": "huashu-cad",
-      "owner": "alchaincyf",
-      "url": "https://github.com/alchaincyf/huashu-cad",
-      "stars": 12,
-      "lang": "Python",
-      "license": "MIT",
-      "pushed": "2026-10-20",
-      "desc": "用自然语言出可编辑CAD：户型与平面布置（DXF）、齿轮减速器关节模组等机械装配（STEP），自动校验干涉与啮合，出交互爆炸图、运转视频和装配工程图。Agent skill.",
-      "note": "自然语言出可编辑 CAD：户型 DXF 与机械装配 STEP，带干涉校验",
-      "form": "skill",
-      "host": "AEC",
-      "caps": [
-        "建模",
-        "图纸",
-        "校验",
-        "渲染"
-      ],
-      "tier": "B",
-      "archived": false,
-      "topics": [],
-      "audited": false,
-      "auditNote": "",
-      "install": "",
-      "score": {
-        "star": 10.5,
-        "active": 15,
-        "license": 15,
-        "audit": 0,
-        "caps": 0
-      },
-      "total": 40.5
     },
     {
       "id": "fboldo--openscad-mcp-server",
@@ -2633,7 +2633,7 @@
       "stars": 62,
       "lang": "Python",
       "license": "LGPL-2.1",
-      "pushed": "2026-10-26",
+      "pushed": "2026-10-29",
       "desc": "MCP server for FreeCAD — 32 tools for AI-assisted 3D CAD modeling",
       "note": "32 个工具的 FreeCAD MCP",
       "form": "mcp",
@@ -2875,7 +2875,7 @@
       "stars": 2,
       "lang": "TypeScript",
       "license": "MIT",
-      "pushed": "2026-10-27",
+      "pushed": "2026-10-29",
       "desc": "Agent-native CAD runtime in TypeScript, powered by occt.ts (OCCT/WASM). Headless, embeddable, in-process: snapshots & rollback, structured errors, headless rendering. Zero Python, just npm i. Plugs into Claude Code, Codex, dsh and any MCP agent.",
       "note": "TypeScript + occt.ts(OCCT/WASM) 的 agent-native 运行时",
       "form": "engine",

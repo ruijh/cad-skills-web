@@ -27,6 +27,17 @@ const QUERIES = [
   ['"agent skill" cad', 1],
   ['topic:mcp-server cad', 1],
   ['mcp cad in:name,description', 1],
+  // 宿主缺口专项（这些查询才会捞到 SolidWorks / Fusion / Rhino / Creo 等分家的实现）
+  ['solidworks mcp', 1],
+  ['fusion 360 mcp', 1],
+  ['catia mcp', 1],
+  ['rhino mcp', 1],
+  ['grasshopper mcp cad', 1],
+  ['creo mcp', 1],
+  ['solid edge mcp', 1],
+  ['cnc mcp cad', 1],
+  ['laser cutting mcp', 1],
+  ['step file mcp cad', 1],
 ];
 
 const LICENSE_SCORE = {
@@ -63,13 +74,21 @@ function tierOf(stars) {
 }
 
 async function fetchCache() {
-  const out = new Map();
+  // 先读既有快照：--fetch 只更新命中项，不丢掉手工补充的候选（Rhino / Creo 等来自额外检索）
+  let prev = [];
+  try { prev = JSON.parse(await readFile(p('data/cache.json'), 'utf8')); } catch { /* 首次运行 */ }
+  const out = new Map(prev.map((r) => [r.full_name, r]));
   for (const [q, pages] of QUERIES) {
     for (let page = 1; page <= pages; page++) {
       const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(q)}`
         + `&sort=stars&order=desc&per_page=10&page=${page}`;
       const res = await fetch(url, {
-        headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'cad-skills-web-builder' },
+        headers: {
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'cad-skills-web-builder',
+          // 有 token 时用认证额度（5000/h、搜索 30/min），否则退化到未认证
+          ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+        },
       });
       if (!res.ok) {
         console.warn(`  ! ${q} p${page} -> HTTP ${res.status}（保留旧缓存数据）`);
@@ -77,6 +96,7 @@ async function fetchCache() {
       }
       const json = await res.json();
       for (const it of json.items ?? []) {
+        // 已有条目只更新可变字段（star / pushed_at / 许可 / topics），保留其余
         out.set(it.full_name, {
           full_name: it.full_name,
           stargazers_count: it.stargazers_count,
@@ -92,7 +112,8 @@ async function fetchCache() {
         });
       }
       console.log(`  · ${q} p${page}: +${json.items?.length ?? 0}`);
-      await new Promise((r) => setTimeout(r, 8000)); // 未认证搜索 10 次/分钟
+      // 未认证搜索 10 次/分钟；有 token 时是 30 次/分钟
+      await new Promise((r) => setTimeout(r, process.env.GITHUB_TOKEN ? 2200 : 8000));
     }
   }
   const merged = [...out.values()].sort((a, b) => b.stargazers_count - a.stargazers_count);
