@@ -80,7 +80,7 @@ cad-skills-web/
 
 ```bash
 node scripts/check.mjs     # 7 项静态检查：字段合法性、内嵌一致性、JS 语法、25 个 id 选择器、配方引用、截断风险
-node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS，断言四大渲染区有内容、离线兜底生效
+node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲染区有内容、详情抽屉模板完整、离线兜底生效
 ```
 
 ### 综合分口径（非官方、非实测）

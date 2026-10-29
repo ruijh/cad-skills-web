@@ -42,6 +42,7 @@ for (const id of IDS) els.set(id, new El(id));
 const get = (id) => els.get(id) ?? (els.set(id, new El(id)), els.get(id));
 
 const timers = [];
+const docListeners = [];
 const sandbox = {
   console, Intl, Math, Date, JSON, Object, Array, String, Number, Boolean, Set, Map, RegExp, Error, Promise,
   setTimeout: (fn) => (timers.push(fn), 0),
@@ -57,7 +58,7 @@ const sandbox = {
     body: { appendChild() {}, removeChild() {} },
     activeElement: { tagName: 'BODY' },
     createElement: () => new El('tmp'),
-    addEventListener() {},
+    addEventListener(type, fn) { docListeners.push([type, fn]); },
     getElementById: (id) => get(id),
     querySelector: (sel) => (sel.startsWith('#') ? get(sel.slice(1)) : null),
     querySelectorAll: () => [],
@@ -99,6 +100,29 @@ for (const [id, re] of EXPECT) {
   const out = el?._html || el?._text || '';
   const pass = re.test(out);
   console.log(`  ${pass ? '✓' : '✗'} #${String(id).padEnd(11)} ${String(out.length).padStart(6)} 字符  ${out.slice(0, 52).replace(/\s+/g, ' ')}`);
+  if (!pass) bad++;
+}
+
+// 通过事件委托打开详情抽屉，验证抽屉模板与复制按钮
+const firstCard = {
+  dataset: { id: 'neka-nat--freecad-mcp' },
+  closest: () => firstCard,
+};
+for (const [type, fn] of docListeners) {
+  if (type === 'click') { try { fn({ target: firstCard }); } catch (e) { console.error(`✗ 点击委托抛错：${e.message}`); process.exit(1); } }
+}
+const drawer = els.get('drawer')?._html ?? '';
+const drawerChecks = [
+  ['综合分拆解', /综合分拆解/],
+  ['评分条', /class="bar"/],
+  ['安装命令', /class="io"/],
+  ['提示词模板', /提示词模板/],
+  ['复制按钮', /class="copy"/],
+  ['仓库链接', /https:\/\/github\.com\/neka-nat\/freecad-mcp/],
+];
+for (const [name, re] of drawerChecks) {
+  const pass = re.test(drawer);
+  console.log(`  ${pass ? '✓' : '✗'} 抽屉·${String(name).padEnd(10)} ${pass ? '' : '缺失'}`);
   if (!pass) bad++;
 }
 
