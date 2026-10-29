@@ -116,6 +116,8 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲�
 
 ## 许可
 
-- 代码（`index.html`、`scripts/`）：MIT
-- 数据（`data/*.json`）：CC BY 4.0
+- 代码（`index.html`、`scripts/`、工作流）：**Apache-2.0**（见 `LICENSE`）
+- 数据（`data/*.json`）：**CC BY 4.0**
 - 各项目名称、描述与商标归其各自所有者
+
+> 收录的各仓库许可各不相同（MIT / Apache / GPL / AGPL 已在图鉴里标注），引用与二次分发请分别遵循其协议。
