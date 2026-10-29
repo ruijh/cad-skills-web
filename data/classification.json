@@ -816,5 +816,128 @@
       "校验"
     ],
     "note": "把 STEP 文件变成 AI 可读的上下文包：精确尺寸、孔位与特征，AGPL-3.0"
+  },
+  {
+    "repo": "jingcheng-chen/rhinomcp",
+    "form": "mcp",
+    "host": "Rhino",
+    "caps": [
+      "建模",
+      "脚本",
+      "渲染"
+    ],
+    "note": "把 Rhino 3D 接到 Agent 的 MCP，Rhino 系 star 最高；面向 Grasshopper/RhinoCommon 脚本化建模"
+  },
+  {
+    "repo": "mcneel/RhinoAI",
+    "form": "mcp",
+    "host": "Rhino",
+    "caps": [
+      "建模",
+      "渲染"
+    ],
+    "note": "McNeel 官方的 Rhino MCP Platform：装插件即可让 AI 在 Rhino 里建与改，厂商自己下场"
+  },
+  {
+    "repo": "always-tinkering/rhinoMcpServer",
+    "form": "mcp",
+    "host": "Rhino",
+    "caps": [
+      "建模",
+      "脚本"
+    ],
+    "note": "Rhino 接 Claude 的 MCP 实现"
+  },
+  {
+    "repo": "tanishqbhattad/rhino-mcp",
+    "form": "mcp",
+    "host": "Rhino",
+    "caps": [
+      "建模",
+      "脚本"
+    ],
+    "note": "面向建筑建模的 Rhino 8 MCP"
+  },
+  {
+    "repo": "veoery/GH_mcp_server",
+    "form": "mcp",
+    "host": "Grasshopper",
+    "caps": [
+      "建模",
+      "脚本"
+    ],
+    "note": "让 LLM 直接操纵 Rhino + Grasshopper 定义"
+  },
+  {
+    "repo": "dongwoosuk/rhino-grasshopper-mcp",
+    "form": "mcp",
+    "host": "Grasshopper",
+    "caps": [
+      "建模",
+      "脚本"
+    ],
+    "note": "Rhino/Grasshopper MCP，带 ML 自动排布"
+  },
+  {
+    "repo": "tylerwagler/SolidEdge-MCP",
+    "form": "mcp",
+    "host": "Solid Edge",
+    "caps": [
+      "建模",
+      "检查"
+    ],
+    "note": "Solid Edge 的 MCP：创建、分析、修改"
+  },
+  {
+    "repo": "520-YM/codex-creo-mcp",
+    "form": "mcp",
+    "host": "Creo",
+    "caps": [
+      "建模",
+      "脚本"
+    ],
+    "note": "把 Creo 接进 Codex 的 MCP（中文项目）"
+  },
+  {
+    "repo": "yangkunyi/creo-mcp",
+    "form": "mcp",
+    "host": "Creo",
+    "caps": [
+      "建模"
+    ],
+    "note": "Creo 的 MCP server（无描述）"
+  },
+  {
+    "repo": "wudahua/MCP_CREO_MechDog",
+    "form": "mcp",
+    "host": "Creo",
+    "caps": [
+      "建模",
+      "图纸",
+      "装配"
+    ],
+    "note": "一句话生成可编辑的原生特征树：草图/拉伸/旋转/孔/钣金/装配/工程图/放样/翼型"
+  },
+  {
+    "repo": "Sam-AEC/aec-model-bridge",
+    "form": "mcp",
+    "host": "Revit",
+    "caps": [
+      "建模",
+      "图纸"
+    ],
+    "note": "开源 Revit MCP：让 AI 读写建筑信息模型（AEC 方向的关键一块）"
+  },
+  {
+    "repo": "eliasaronson/lobole",
+    "form": "engine",
+    "host": "通用",
+    "caps": [
+      "建模",
+      "脚本",
+      "装配",
+      "检查"
+    ],
+    "note": "B-Rep（OCCT）+ Vulkan 视口，同一套命令层给 GUI / Python / AI agent 用；稳定拓扑命名、钣金、弯管、装配冲突检查"
   }
 ]

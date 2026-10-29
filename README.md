@@ -15,12 +15,12 @@ CAD 圈子里的「AI 集成」在 2025–2026 突然长出了一大片：FreeCA
 AutoCAD / SolidWorks / Fusion / Onshape / Inventor / KiCad 各有一套桌面自动化，还有一堆 `SKILL.md` 技能包。
 问题是**它们都叫差不多的名字，却解决完全不同的问题**。
 
-这个图鉴做的事就一件：把 80 个收录项摆到同一张表上，按真正决定成败的维度对比——
+这个图鉴做的事就一件：把 92 个收录项摆到同一张表上，按真正决定成败的维度对比——
 
 | 维度 | 为什么重要 |
 |---|---|
 | **路线**（MCP / Code / App / Skill） | 决定 AI 是「去操作别人的软件」还是「自己产出可编辑模型」，走错方向后面全白费 |
-| **宿主软件** | FreeCAD / OpenSCAD / CadQuery / AutoCAD / SolidWorks / Fusion / Onshape / Inventor / SketchUp / KiCad / AEC… 换宿主 = 换技能栈 |
+| **宿主软件** | FreeCAD / OpenSCAD / CadQuery / AutoCAD / SolidWorks / Fusion / Onshape / Inventor / SketchUp / Rhino / Grasshopper / Creo / Solid Edge / CATIA / KiCad / Revit… 26 个宿主，换宿主 = 换技能栈 |
 | **许可** | 商用与闭源场景，AGPL 和 MIT 是两个世界 |
 | **能力** | 建模 / 脚本 / 导出 / 渲染 / 检查 / 图纸 / 装配 / 打印 / 云端 / 校验 |
 | **最近活跃** | 这个领域三个月不动基本等于弃坑 |
@@ -36,7 +36,7 @@ AutoCAD / SolidWorks / Fusion / Onshape / Inventor / KiCad 各有一套桌面自
 | 首页 · 宿主 × 形态矩阵 | 哪个 CAD 软件已有哪种接法，一格一数字，点格直接筛选 |
 | 技能页 | 形态 / 宿主 / 能力 / 许可四维筛选 + 文本搜索 + 四种排序；卡片带评分环、能力点阵、核读标记 |
 | 详情抽屉 | 综合分逐项拆解、档案（star / 许可 / 最近 push / 核读结论）、安装命令、可复制的提示词模板 |
-| 配方库 | 17 套「宿主 ID」接入配方：安装命令 + 客户端配置片段 + 提示词模板，一键复制 |
+| 配方库 | 18 套「宿主 ID」接入配方：安装命令 + 客户端配置片段 + 提示词模板，一键复制 |
 | 命令面板 | `Ctrl/⌘ K` 或 `/`：搜 skill、搜宿主 ID、跳页面、切主题、清筛选 |
 | 深浅双主题 | `T` 键 / 顶栏按钮切换，写入 `localStorage`，默认跟随系统 |
 | 运行时同步 | 页面加载后尝试从 GitHub 拉最新 `data/skills.json`，失败静默回退内嵌数据 |
@@ -100,7 +100,7 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲�
 ## 诚实的局限
 
 - 本页**没有逐个实跑任何 server**。安装命令与配置片段来自各仓库 README，属于「形态示例」，请以 README 为准。
-- 能力矩阵读自 README / description：未核读的 54 个项目只按描述归类，可能不准；`未提及` 不等于不支持。
+- 能力矩阵读自 README / description：未核读的 62 个项目只按描述归类，可能不准；`未提及` 不等于不支持。
 - star 与活跃度是 GitHub Search API 的快照（未认证抓取），项目会改名、归档、停更。
 - 同名仓库极多（`openscad-mcp` 5 个、`freecad-mcp` 6 个、`cadquery-mcp` 4 个），收录时按 star + 是否 headless + 是否有真实安装路径筛过一轮，但遗漏不可避免。
 

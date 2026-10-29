@@ -150,6 +150,19 @@
     "open_issues_count": 87
   },
   {
+    "full_name": "jingcheng-chen/rhinomcp",
+    "stargazers_count": 1182,
+    "language": "Python",
+    "description": "RhinoMCP connects Rhino 3D to AI Agent through the Model Context Protocol (MCP)",
+    "html_url": "https://github.com/jingcheng-chen/rhinomcp",
+    "pushed_at": "2026-10-16T19:37:16Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 8
+  },
+  {
     "full_name": "flowful-ai/cad-skill",
     "stargazers_count": 704,
     "language": "Python",
@@ -232,6 +245,23 @@
     "fork": false,
     "topics": [],
     "open_issues_count": 1
+  },
+  {
+    "full_name": "mcneel/RhinoAI",
+    "stargazers_count": 384,
+    "language": "C#",
+    "description": "AI features for Rhino",
+    "html_url": "https://github.com/mcneel/RhinoAI",
+    "pushed_at": "2026-10-28T13:12:58Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "agent",
+      "ai",
+      "mcp"
+    ],
+    "open_issues_count": 21
   },
   {
     "full_name": "JiangNanGenius/floe-agent",
@@ -809,6 +839,35 @@
     "open_issues_count": 0
   },
   {
+    "full_name": "Sam-AEC/aec-model-bridge",
+    "stargazers_count": 87,
+    "language": "Python",
+    "description": "Open-source Revit MCP server: let Claude and other AI assistants read and edit BIM models, with human approval on every change.",
+    "html_url": "https://github.com/Sam-AEC/aec-model-bridge",
+    "pushed_at": "2026-10-28T11:56:20Z",
+    "license": "GPL-3.0",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "aec",
+      "ai-agents",
+      "autodesk",
+      "automation",
+      "bim",
+      "claude",
+      "ifc",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "navisworks",
+      "revit",
+      "revit-addin",
+      "revit-api",
+      "rhino"
+    ],
+    "open_issues_count": 18
+  },
+  {
     "full_name": "andrewbartels1/SolidworksMCP-python",
     "stargazers_count": 86,
     "language": "Python",
@@ -959,6 +1018,19 @@
     "html_url": "https://github.com/JustusBraitinger/Autodesk-Fusion-360-MCP-Server",
     "pushed_at": "2026-07-01T12:58:56Z",
     "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 0
+  },
+  {
+    "full_name": "always-tinkering/rhinoMcpServer",
+    "stargazers_count": 57,
+    "language": "C#",
+    "description": "RhinoMCP connects Rhino to Claude AI through the Model Context Protocol (MCP), enabling AI-assisted 3D modeling and architectural design.",
+    "html_url": "https://github.com/always-tinkering/rhinoMcpServer",
+    "pushed_at": "2025-03-23T03:16:31Z",
+    "license": null,
     "archived": false,
     "fork": false,
     "topics": [],
@@ -1140,6 +1212,40 @@
     "open_issues_count": 2
   },
   {
+    "full_name": "tanishqbhattad/rhino-mcp",
+    "stargazers_count": 34,
+    "language": "C#",
+    "description": "Rhino MCP server: AI-assisted architectural modelling in Rhino 8 with Claude, ChatGPT, Codex, Gemini or local Ollama. 128 tools: massing, vaults, arches, drawings, materials, PDF tracing, plus intent validation that catches errors valid geometry hides. Protocol 5.1, no .NET SDK required.",
+    "html_url": "https://github.com/tanishqbhattad/rhino-mcp",
+    "pushed_at": "2026-10-12T21:36:35Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "3d-modeling",
+      "ai",
+      "architecture",
+      "artificial-intelligence",
+      "automation",
+      "bim",
+      "chatgpt",
+      "claude",
+      "computational-design",
+      "generative-design",
+      "grasshopper",
+      "llm",
+      "mcneel",
+      "mcp",
+      "model-context-protocol",
+      "ollama",
+      "rhino-mcp",
+      "rhino3d",
+      "rhino8",
+      "rhinocommon"
+    ],
+    "open_issues_count": 0
+  },
+  {
     "full_name": "leandrodaf/3d-new-era-ai",
     "stargazers_count": 33,
     "language": "Rust",
@@ -1239,6 +1345,19 @@
     "open_issues_count": 1
   },
   {
+    "full_name": "veoery/GH_mcp_server",
+    "stargazers_count": 32,
+    "language": "Python",
+    "description": "This is a MCP Server that allows LLM to interact with Rhino and Grasshopper directly.",
+    "html_url": "https://github.com/veoery/GH_mcp_server",
+    "pushed_at": "2025-10-05T19:33:48Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 2
+  },
+  {
     "full_name": "MakeItEzzz555/Gridline",
     "stargazers_count": 30,
     "language": "Python",
@@ -1293,6 +1412,19 @@
       "simulation",
       "solidworks"
     ],
+    "open_issues_count": 1
+  },
+  {
+    "full_name": "tylerwagler/SolidEdge-MCP",
+    "stargazers_count": 30,
+    "language": "Python",
+    "description": "Solid Edge MCP server for AI-assisted CAD design - create, analyze, modify, and export models",
+    "html_url": "https://github.com/tylerwagler/SolidEdge-MCP",
+    "pushed_at": "2026-09-20T01:00:06Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
     "open_issues_count": 1
   },
   {
@@ -1388,6 +1520,46 @@
     "description": null,
     "html_url": "https://github.com/bertvanbrakel/mcp-cadquery",
     "pushed_at": "2025-04-07T12:15:23Z",
+    "license": null,
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 0
+  },
+  {
+    "full_name": "dongwoosuk/rhino-grasshopper-mcp",
+    "stargazers_count": 17,
+    "language": "Python",
+    "description": "AI-powered Rhino/Grasshopper MCP with ML auto-layout",
+    "html_url": "https://github.com/dongwoosuk/rhino-grasshopper-mcp",
+    "pushed_at": "2026-05-27T00:27:44Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "aec",
+      "anthropic",
+      "architecture",
+      "automation",
+      "claude",
+      "computational-design",
+      "grasshopper",
+      "grasshopper3d",
+      "machine-learning",
+      "mcp",
+      "parametric-design",
+      "python",
+      "rhino3d"
+    ],
+    "open_issues_count": 0
+  },
+  {
+    "full_name": "520-YM/codex-creo-mcp",
+    "stargazers_count": 15,
+    "language": "C",
+    "description": "codex接入creo",
+    "html_url": "https://github.com/520-YM/codex-creo-mcp",
+    "pushed_at": "2026-10-27T08:32:47Z",
     "license": null,
     "archived": false,
     "fork": false,
@@ -1498,6 +1670,32 @@
     "open_issues_count": 20
   },
   {
+    "full_name": "wudahua/MCP_CREO_MechDog",
+    "stargazers_count": 13,
+    "language": "Python",
+    "description": "用 MCP 把 Creo 变成 AI 可直接建模的后端：一句话生成可编辑的原生特征树——草图、拉伸、旋转、孔、钣金、装配、工程图、放样、翼型。官方 Toolkit 驱动，每步保存重载回读验证。Windows，Creo 9/10/12。",
+    "html_url": "https://github.com/wudahua/MCP_CREO_MechDog",
+    "pushed_at": "2026-10-29T05:51:26Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "ai-agents",
+      "cad",
+      "cpp",
+      "creo",
+      "llm",
+      "mcp",
+      "mechanical-engineering",
+      "model-context-protocol",
+      "parametric-modeling",
+      "ptc",
+      "ptc-creo",
+      "python"
+    ],
+    "open_issues_count": 0
+  },
+  {
     "full_name": "alchaincyf/huashu-cad",
     "stargazers_count": 12,
     "language": "Python",
@@ -1592,6 +1790,43 @@
     "description": "An MCP server for rendering STL and PNG from OpenSCAD code.",
     "html_url": "https://github.com/fboldo/openscad-mcp-server",
     "pushed_at": "2026-09-24T23:40:21Z",
+    "license": "MIT",
+    "archived": false,
+    "fork": false,
+    "topics": [],
+    "open_issues_count": 0
+  },
+  {
+    "full_name": "eliasaronson/lobole",
+    "stargazers_count": 8,
+    "language": "C++",
+    "description": "Parametric 3D CAD with assemblies, drawings, FEM and CAM, scriptable from Python and agents over MCP.",
+    "html_url": "https://github.com/eliasaronson/lobole",
+    "pushed_at": "2026-10-26T14:35:17Z",
+    "license": "AGPL-3.0",
+    "archived": false,
+    "fork": false,
+    "topics": [
+      "3d-modeling",
+      "cad",
+      "cam",
+      "cnc",
+      "cpp",
+      "fem",
+      "mcp",
+      "opencascade",
+      "parametric-cad",
+      "vulkan"
+    ],
+    "open_issues_count": 0
+  },
+  {
+    "full_name": "yangkunyi/creo-mcp",
+    "stargazers_count": 8,
+    "language": "Python",
+    "description": null,
+    "html_url": "https://github.com/yangkunyi/creo-mcp",
+    "pushed_at": "2025-07-30T17:13:44Z",
     "license": "MIT",
     "archived": false,
     "fork": false,

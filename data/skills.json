@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T06:25:30.262Z",
+  "generated_at": "2026-10-29T06:48:35.321Z",
   "source": "GitHub Search API（未认证），star 为抓取时快照",
   "scoring": {
     "star": 45,
@@ -10,17 +10,17 @@
     "note": "star 45 · 活跃 15 · 许可 15 · 人工核读 10 · 能力覆盖 15；是公开数据的计算结果，不是实测质量分"
   },
   "counts": {
-    "skills": 80,
-    "stars": 52500,
-    "audited": 26,
-    "hosts": 21,
-    "recipes": 17,
+    "skills": 92,
+    "stars": 54367,
+    "audited": 30,
+    "hosts": 26,
+    "recipes": 18,
     "tierS": 2,
     "forms": {
-      "mcp": 46,
+      "mcp": 57,
       "skill": 22,
       "app": 6,
-      "engine": 6
+      "engine": 7
     }
   },
   "facets": {
@@ -35,16 +35,21 @@
       "build123d",
       "CadQuery",
       "CATIA/NX",
+      "Creo",
       "FreeCAD",
       "Fusion360",
+      "Grasshopper",
       "Inventor",
       "KiCad",
       "KOMPAS3D",
       "Onshape",
       "OpenSCAD",
       "OpenUSD",
+      "Revit",
+      "Rhino",
       "Shapr3D",
       "SketchUp",
+      "Solid Edge",
       "SolidWorks"
     ],
     "caps": [
@@ -64,6 +69,7 @@
       "Apache-2.0",
       "NOASSERTION",
       "AGPL-3.0",
+      "GPL-3.0",
       "MIT-0",
       "LGPL-2.1",
       "未标注",
@@ -336,6 +342,43 @@
         "caps": 0
       },
       "total": 68.3
+    },
+    {
+      "id": "mcneel--rhinoai",
+      "repo": "mcneel/RhinoAI",
+      "name": "RhinoAI",
+      "owner": "mcneel",
+      "url": "https://github.com/mcneel/RhinoAI",
+      "stars": 384,
+      "lang": "C#",
+      "license": "MIT",
+      "pushed": "2026-10-28",
+      "desc": "AI features for Rhino",
+      "note": "McNeel 官方的 Rhino MCP Platform：装插件即可让 AI 在 Rhino 里建与改，厂商自己下场",
+      "form": "mcp",
+      "host": "Rhino",
+      "caps": [
+        "建模",
+        "渲染"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [
+        "agent",
+        "ai",
+        "mcp"
+      ],
+      "audited": true,
+      "auditNote": "仓库自己叫 Rhino MCP Platform，是 McNeel 官方维护的 Rhino MCP 服务端 + 插件，配独立文档站（mcneel.github.io/RhinoAI），最快路径是 Claude Desktop connector。",
+      "install": "见 https://mcneel.github.io/RhinoAI/docs/getting-started/ ：装 Rhino 插件 → 配 MCP connector",
+      "score": {
+        "star": 24.3,
+        "active": 15,
+        "license": 15,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 67.3
     },
     {
       "id": "jhacksman--openscad-mcp-server",
@@ -905,6 +948,40 @@
       "total": 60.5
     },
     {
+      "id": "jingcheng-chen--rhinomcp",
+      "repo": "jingcheng-chen/rhinomcp",
+      "name": "rhinomcp",
+      "owner": "jingcheng-chen",
+      "url": "https://github.com/jingcheng-chen/rhinomcp",
+      "stars": 1182,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-16",
+      "desc": "RhinoMCP connects Rhino 3D to AI Agent through the Model Context Protocol (MCP)",
+      "note": "把 Rhino 3D 接到 Agent 的 MCP，Rhino 系 star 最高；面向 Grasshopper/RhinoCommon 脚本化建模",
+      "form": "mcp",
+      "host": "Rhino",
+      "caps": [
+        "建模",
+        "脚本",
+        "渲染"
+      ],
+      "tier": "A",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 28.9,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 58.9
+    },
+    {
       "id": "eyfel--mcp-server-solidworks",
       "repo": "eyfel/mcp-server-solidworks",
       "name": "mcp-server-solidworks",
@@ -1048,6 +1125,55 @@
         "caps": 0
       },
       "total": 52.5
+    },
+    {
+      "id": "sam-aec--aec-model-bridge",
+      "repo": "Sam-AEC/aec-model-bridge",
+      "name": "aec-model-bridge",
+      "owner": "Sam-AEC",
+      "url": "https://github.com/Sam-AEC/aec-model-bridge",
+      "stars": 87,
+      "lang": "Python",
+      "license": "GPL-3.0",
+      "pushed": "2026-10-28",
+      "desc": "Open-source Revit MCP server: let Claude and other AI assistants read and edit BIM models, with human approval on every change.",
+      "note": "开源 Revit MCP：让 AI 读写建筑信息模型（AEC 方向的关键一块）",
+      "form": "mcp",
+      "host": "Revit",
+      "caps": [
+        "建模",
+        "图纸"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "aec",
+        "ai-agents",
+        "autodesk",
+        "automation",
+        "bim",
+        "claude",
+        "ifc",
+        "mcp",
+        "mcp-server",
+        "model-context-protocol",
+        "navisworks",
+        "revit",
+        "revit-addin",
+        "revit-api",
+        "rhino"
+      ],
+      "audited": true,
+      "auditNote": "Revit 2024–2027 的开源 MCP server + 原生 Revit add-in；默认写操作要先批准计划（plan approval）才落地，只读工具可直接查模型；README 有中/英/西/印地/阿语版本；目前 dev 分支、尚未正式发版。",
+      "install": "git clone https://github.com/Sam-AEC/aec-model-bridge.git && python -m pip install -e packages/mcp-server-revit",
+      "score": {
+        "star": 18.3,
+        "active": 15,
+        "license": 4,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 50.3
     },
     {
       "id": "jzjzzzzzzz--intentforge",
@@ -1508,6 +1634,39 @@
       "total": 46.4
     },
     {
+      "id": "veoery--gh_mcp_server",
+      "repo": "veoery/GH_mcp_server",
+      "name": "GH_mcp_server",
+      "owner": "veoery",
+      "url": "https://github.com/veoery/GH_mcp_server",
+      "stars": 32,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2025-10-05",
+      "desc": "This is a MCP Server that allows LLM to interact with Rhino and Grasshopper directly.",
+      "note": "让 LLM 直接操纵 Rhino + Grasshopper 定义",
+      "form": "mcp",
+      "host": "Grasshopper",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": true,
+      "auditNote": "让 LLM 直接分析 .3dm、操纵 Rhino + Grasshopper 定义；作者明说仍在施工中，需要 Rhino 7/8 并先装 RhinoPython 扩展。",
+      "install": "git clone git@github.com:veoery/GH_mcp_server.git && uv pip install -e .",
+      "score": {
+        "star": 14.3,
+        "active": 4,
+        "license": 15,
+        "audit": 10,
+        "caps": 3
+      },
+      "total": 46.3
+    },
+    {
       "id": "atoi-ming--freecad-mcp",
       "repo": "ATOI-Ming/FreeCAD-MCP",
       "name": "FreeCAD-MCP",
@@ -1605,6 +1764,60 @@
         "caps": 0
       },
       "total": 45.1
+    },
+    {
+      "id": "tanishqbhattad--rhino-mcp",
+      "repo": "tanishqbhattad/rhino-mcp",
+      "name": "rhino-mcp",
+      "owner": "tanishqbhattad",
+      "url": "https://github.com/tanishqbhattad/rhino-mcp",
+      "stars": 34,
+      "lang": "C#",
+      "license": "MIT",
+      "pushed": "2026-10-12",
+      "desc": "Rhino MCP server: AI-assisted architectural modelling in Rhino 8 with Claude, ChatGPT, Codex, Gemini or local Ollama. 128 tools: massing, vaults, arches, drawings, materials, PDF tracing, plus intent validation that catches errors valid geometry hides. Protocol 5.1, no .NET SDK required.",
+      "note": "面向建筑建模的 Rhino 8 MCP",
+      "form": "mcp",
+      "host": "Rhino",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "3d-modeling",
+        "ai",
+        "architecture",
+        "artificial-intelligence",
+        "automation",
+        "bim",
+        "chatgpt",
+        "claude",
+        "computational-design",
+        "generative-design",
+        "grasshopper",
+        "llm",
+        "mcneel",
+        "mcp",
+        "model-context-protocol",
+        "ollama",
+        "rhino-mcp",
+        "rhino3d",
+        "rhino8",
+        "rhinocommon"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 14.5,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 44.5
     },
     {
       "id": "alisamsam--solidworks-mcp",
@@ -1838,6 +2051,85 @@
         "license": 15,
         "audit": 0,
         "caps": 0
+      },
+      "total": 44
+    },
+    {
+      "id": "tylerwagler--solidedge-mcp",
+      "repo": "tylerwagler/SolidEdge-MCP",
+      "name": "SolidEdge-MCP",
+      "owner": "tylerwagler",
+      "url": "https://github.com/tylerwagler/SolidEdge-MCP",
+      "stars": 30,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-09-20",
+      "desc": "Solid Edge MCP server for AI-assisted CAD design - create, analyze, modify, and export models",
+      "note": "Solid Edge 的 MCP：创建、分析、修改",
+      "form": "mcp",
+      "host": "Solid Edge",
+      "caps": [
+        "建模",
+        "检查"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 14,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 44
+    },
+    {
+      "id": "eliasaronson--lobole",
+      "repo": "eliasaronson/lobole",
+      "name": "lobole",
+      "owner": "eliasaronson",
+      "url": "https://github.com/eliasaronson/lobole",
+      "stars": 8,
+      "lang": "C++",
+      "license": "AGPL-3.0",
+      "pushed": "2026-10-26",
+      "desc": "Parametric 3D CAD with assemblies, drawings, FEM and CAM, scriptable from Python and agents over MCP.",
+      "note": "B-Rep（OCCT）+ Vulkan 视口，同一套命令层给 GUI / Python / AI agent 用；稳定拓扑命名、钣金、弯管、装配冲突检查",
+      "form": "engine",
+      "host": "通用",
+      "caps": [
+        "建模",
+        "脚本",
+        "装配",
+        "检查"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "3d-modeling",
+        "cad",
+        "cam",
+        "cnc",
+        "cpp",
+        "fem",
+        "mcp",
+        "opencascade",
+        "parametric-cad",
+        "vulkan"
+      ],
+      "audited": true,
+      "auditNote": "B-Rep 建在 OpenCASCADE 上、视口用 Vulkan；关键点是「同一套命令层被 GUI、Python 脚本和 AI agent 共用」，还有稳定拓扑命名、变量表达式、配置、钣金、弯管、装配 mates 与运动冲突检查；版本 0.1，Linux 优先、Windows 有包、macOS 未测。",
+      "install": "Ubuntu: sudo apt install ./lobole_<version>-1_amd64.deb   # Windows 提供 zip / 安装器",
+      "score": {
+        "star": 9,
+        "active": 15,
+        "license": 4,
+        "audit": 10,
+        "caps": 6
       },
       "total": 44
     },
@@ -2130,6 +2422,53 @@
       "total": 41
     },
     {
+      "id": "wudahua--mcp_creo_mechdog",
+      "repo": "wudahua/MCP_CREO_MechDog",
+      "name": "MCP_CREO_MechDog",
+      "owner": "wudahua",
+      "url": "https://github.com/wudahua/MCP_CREO_MechDog",
+      "stars": 13,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-10-29",
+      "desc": "用 MCP 把 Creo 变成 AI 可直接建模的后端：一句话生成可编辑的原生特征树——草图、拉伸、旋转、孔、钣金、装配、工程图、放样、翼型。官方 Toolkit 驱动，每步保存重载回读验证。Windows，Creo 9/10/12。",
+      "note": "一句话生成可编辑的原生特征树：草图/拉伸/旋转/孔/钣金/装配/工程图/放样/翼型",
+      "form": "mcp",
+      "host": "Creo",
+      "caps": [
+        "建模",
+        "图纸",
+        "装配"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "ai-agents",
+        "cad",
+        "cpp",
+        "creo",
+        "llm",
+        "mcp",
+        "mechanical-engineering",
+        "model-context-protocol",
+        "parametric-modeling",
+        "ptc",
+        "ptc-creo",
+        "python"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 10.8,
+        "active": 15,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 40.8
+    },
+    {
       "id": "alchaincyf--huashu-cad",
       "repo": "alchaincyf/huashu-cad",
       "name": "huashu-cad",
@@ -2196,6 +2535,53 @@
         "caps": 0
       },
       "total": 39
+    },
+    {
+      "id": "dongwoosuk--rhino-grasshopper-mcp",
+      "repo": "dongwoosuk/rhino-grasshopper-mcp",
+      "name": "rhino-grasshopper-mcp",
+      "owner": "dongwoosuk",
+      "url": "https://github.com/dongwoosuk/rhino-grasshopper-mcp",
+      "stars": 17,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2026-05-27",
+      "desc": "AI-powered Rhino/Grasshopper MCP with ML auto-layout",
+      "note": "Rhino/Grasshopper MCP，带 ML 自动排布",
+      "form": "mcp",
+      "host": "Grasshopper",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [
+        "aec",
+        "anthropic",
+        "architecture",
+        "automation",
+        "claude",
+        "computational-design",
+        "grasshopper",
+        "grasshopper3d",
+        "machine-learning",
+        "mcp",
+        "parametric-design",
+        "python",
+        "rhino3d"
+      ],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 11.8,
+        "active": 12,
+        "license": 15,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 38.8
     },
     {
       "id": "dwnmf--kompas-3d-mcp-bin",
@@ -2556,6 +2942,39 @@
       "total": 34.3
     },
     {
+      "id": "520-ym--codex-creo-mcp",
+      "repo": "520-YM/codex-creo-mcp",
+      "name": "codex-creo-mcp",
+      "owner": "520-YM",
+      "url": "https://github.com/520-YM/codex-creo-mcp",
+      "stars": 15,
+      "lang": "C",
+      "license": null,
+      "pushed": "2026-10-27",
+      "desc": "codex接入creo",
+      "note": "把 Creo 接进 Codex 的 MCP（中文项目）",
+      "form": "mcp",
+      "host": "Creo",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 11.3,
+        "active": 15,
+        "license": 8,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 34.3
+    },
+    {
       "id": "joseguiaces--autocad-dotnet-claude-skill",
       "repo": "joseguiaCES/autocad-dotnet-claude-skill",
       "name": "autocad-dotnet-claude-skill",
@@ -2905,6 +3324,39 @@
       "total": 30.3
     },
     {
+      "id": "always-tinkering--rhinomcpserver",
+      "repo": "always-tinkering/rhinoMcpServer",
+      "name": "rhinoMcpServer",
+      "owner": "always-tinkering",
+      "url": "https://github.com/always-tinkering/rhinoMcpServer",
+      "stars": 57,
+      "lang": "C#",
+      "license": null,
+      "pushed": "2025-03-23",
+      "desc": "RhinoMCP connects Rhino to Claude AI through the Model Context Protocol (MCP), enabling AI-assisted 3D modeling and architectural design.",
+      "note": "Rhino 接 Claude 的 MCP 实现",
+      "form": "mcp",
+      "host": "Rhino",
+      "caps": [
+        "建模",
+        "脚本"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 16.6,
+        "active": 4,
+        "license": 8,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 28.6
+    },
+    {
       "id": "idris900323--stepscribe-cad",
       "repo": "idris900323/stepscribe-cad",
       "name": "stepscribe-cad",
@@ -3001,6 +3453,38 @@
         "star": 9,
         "active": 15,
         "license": 4,
+        "audit": 0,
+        "caps": 0
+      },
+      "total": 28
+    },
+    {
+      "id": "yangkunyi--creo-mcp",
+      "repo": "yangkunyi/creo-mcp",
+      "name": "creo-mcp",
+      "owner": "yangkunyi",
+      "url": "https://github.com/yangkunyi/creo-mcp",
+      "stars": 8,
+      "lang": "Python",
+      "license": "MIT",
+      "pushed": "2025-07-30",
+      "desc": "",
+      "note": "Creo 的 MCP server（无描述）",
+      "form": "mcp",
+      "host": "Creo",
+      "caps": [
+        "建模"
+      ],
+      "tier": "B",
+      "archived": false,
+      "topics": [],
+      "audited": false,
+      "auditNote": "",
+      "install": "",
+      "score": {
+        "star": 9,
+        "active": 4,
+        "license": 15,
         "audit": 0,
         "caps": 0
       },
@@ -3382,6 +3866,18 @@
       "snippet": "{\n  \"mcpServers\": {\n    \"catia-v5\": {\n      \"command\": \"python\",\n      \"args\": [\"-m\", \"catia_v5_mcp_server\"]\n    }\n  }\n}",
       "snippetNote": "README 给出 git clone + pip install -e .；入口模块名以仓库的 pyproject 为准。98 个工具，依赖 CATIA V5 桌面会话与 COM。",
       "prompt": "用 catia-v5 这套，在 CATIA 里新建一个 Part：先画 R40 圆草图并 Pad 出 8mm 厚法兰，\n再在 R30 圆上均布 6 个 φ5.5 通孔，最后加 C1 倒角。\n每一步先说要调用哪个工具，等我确认再执行。"
+    },
+    {
+      "id": "rhino-grasshopper",
+      "title": "Rhino / Grasshopper 参数化",
+      "route": "mcp",
+      "host": "Rhino",
+      "repo": "jingcheng-chen/rhinomcp",
+      "when": "形态探索、自由曲面、用 Grasshopper 做算法生成——Rhino 生态的强项，桌面自动化最直接。",
+      "install": "git clone https://github.com/jingcheng-chen/rhinomcp && 按 README 装 Python 侧依赖与 Rhino 内脚本",
+      "snippet": "{\n  \"mcpServers\": {\n    \"rhino\": {\n      \"command\": \"uvx\",\n      \"args\": [\"rhinomcp\"]\n    }\n  }\n}",
+      "snippetNote": "启动方式以仓库 README 为准；Rhino 需运行并允许脚本执行，MCP 才能操作当前文档。",
+      "prompt": "用 rhino-grasshopper 这套，在 Rhino 里生成一个参数化外壳：\n基础曲面由 3 条轮廓线放样，再用 40 个六边形做镂空，板厚 2mm，倒角 R1。\n先把 Grasshopper 定义的结构说清楚，再执行。"
     },
     {
       "id": "inventor-param",

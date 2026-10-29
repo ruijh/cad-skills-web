@@ -45,12 +45,17 @@ const timers = [];
 const docListeners = [];
 const sandbox = {
   console, Intl, Math, Date, JSON, Object, Array, String, Number, Boolean, Set, Map, RegExp, Error, Promise,
+  URLSearchParams, URL,
   setTimeout: (fn) => (timers.push(fn), 0),
   requestAnimationFrame: (fn) => (timers.push(fn), 0),
   matchMedia: () => ({ matches: false, addEventListener() {} }),
   localStorage: { _d: new Map(), getItem(k) { return this._d.get(k) ?? null; }, setItem(k, v) { this._d.set(k, v); } },
   location: { hash: '', href: 'file:///index.html' },
-  history: { replaceState() {} },
+  history: {
+    replaceState(_state, _title, url) {
+      if (typeof url === 'string') sandbox.location.hash = url.startsWith('#') ? url : '#' + url;
+    },
+  },
   navigator: { clipboard: { writeText: async () => {} } },
   fetch: async () => { throw new Error('offline'); },
   document: {
@@ -65,10 +70,11 @@ const sandbox = {
   },
   window: {
     scrollTo() {},
+    addEventListener(type, fn) { docListeners.push(['window:' + type, fn]); },
   },
 };
 sandbox.globalThis = sandbox;
-sandbox.window = { ...sandbox.window, ...{ scrollTo() {} } };
+sandbox.window = { ...sandbox.window, scrollTo() {}, addEventListener(type, fn) { docListeners.push(['window:' + type, fn]); } };
 
 try {
   vm.runInContext(JS, vm.createContext(sandbox), { filename: 'inline.js' });
@@ -125,6 +131,12 @@ for (const [name, re] of drawerChecks) {
   console.log(`  ${pass ? '✓' : '✗'} 抽屉·${String(name).padEnd(10)} ${pass ? '' : '缺失'}`);
   if (!pass) bad++;
 }
+
+// URL 状态：抽屉打开后 hash 应带上 skill=<id>
+const hashAfterOpen = sandbox.location.hash;
+const urlOk = /^#[a-z]+\?.*skill=neka-nat--freecad-mcp/.test(hashAfterOpen);
+console.log(`  ${urlOk ? '✓' : '✗'} URL 状态  ${hashAfterOpen || '(空)'}`);
+if (!urlOk) bad++;
 
 const grid = els.get('skillGrid')?._html ?? '';
 const cards = (grid.match(/class="card skill"/g) || []).length;

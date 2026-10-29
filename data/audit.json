@@ -129,5 +129,25 @@
     "read": true,
     "note": "用「数字」而不是「图片」自检，省 token 且能抓住渲染看不出的错；建模围绕真实可买的零件（标准螺丝长度、螺母、垫圈、轴承、齿轮、电机）与标准孔径。",
     "install": "npx skills add pthompson8594/openscad-skill --skill openscad"
+  },
+  "mcneel/RhinoAI": {
+    "read": true,
+    "note": "仓库自己叫 Rhino MCP Platform，是 McNeel 官方维护的 Rhino MCP 服务端 + 插件，配独立文档站（mcneel.github.io/RhinoAI），最快路径是 Claude Desktop connector。",
+    "install": "见 https://mcneel.github.io/RhinoAI/docs/getting-started/ ：装 Rhino 插件 → 配 MCP connector"
+  },
+  "eliasaronson/lobole": {
+    "read": true,
+    "note": "B-Rep 建在 OpenCASCADE 上、视口用 Vulkan；关键点是「同一套命令层被 GUI、Python 脚本和 AI agent 共用」，还有稳定拓扑命名、变量表达式、配置、钣金、弯管、装配 mates 与运动冲突检查；版本 0.1，Linux 优先、Windows 有包、macOS 未测。",
+    "install": "Ubuntu: sudo apt install ./lobole_<version>-1_amd64.deb   # Windows 提供 zip / 安装器"
+  },
+  "Sam-AEC/aec-model-bridge": {
+    "read": true,
+    "note": "Revit 2024–2027 的开源 MCP server + 原生 Revit add-in；默认写操作要先批准计划（plan approval）才落地，只读工具可直接查模型；README 有中/英/西/印地/阿语版本；目前 dev 分支、尚未正式发版。",
+    "install": "git clone https://github.com/Sam-AEC/aec-model-bridge.git && python -m pip install -e packages/mcp-server-revit"
+  },
+  "veoery/GH_mcp_server": {
+    "read": true,
+    "note": "让 LLM 直接分析 .3dm、操纵 Rhino + Grasshopper 定义；作者明说仍在施工中，需要 Rhino 7/8 并先装 RhinoPython 扩展。",
+    "install": "git clone git@github.com:veoery/GH_mcp_server.git && uv pip install -e ."
   }
 }

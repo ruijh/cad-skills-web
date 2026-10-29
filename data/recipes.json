@@ -132,6 +132,18 @@
     "prompt": "用 catia-v5 这套，在 CATIA 里新建一个 Part：先画 R40 圆草图并 Pad 出 8mm 厚法兰，\n再在 R30 圆上均布 6 个 φ5.5 通孔，最后加 C1 倒角。\n每一步先说要调用哪个工具，等我确认再执行。"
   },
   {
+    "id": "rhino-grasshopper",
+    "title": "Rhino / Grasshopper 参数化",
+    "route": "mcp",
+    "host": "Rhino",
+    "repo": "jingcheng-chen/rhinomcp",
+    "when": "形态探索、自由曲面、用 Grasshopper 做算法生成——Rhino 生态的强项，桌面自动化最直接。",
+    "install": "git clone https://github.com/jingcheng-chen/rhinomcp && 按 README 装 Python 侧依赖与 Rhino 内脚本",
+    "snippet": "{\n  \"mcpServers\": {\n    \"rhino\": {\n      \"command\": \"uvx\",\n      \"args\": [\"rhinomcp\"]\n    }\n  }\n}",
+    "snippetNote": "启动方式以仓库 README 为准；Rhino 需运行并允许脚本执行，MCP 才能操作当前文档。",
+    "prompt": "用 rhino-grasshopper 这套，在 Rhino 里生成一个参数化外壳：\n基础曲面由 3 条轮廓线放样，再用 40 个六边形做镂空，板厚 2mm，倒角 R1。\n先把 Grasshopper 定义的结构说清楚，再执行。"
+  },
+  {
     "id": "inventor-param",
     "title": "Inventor 参数驱动",
     "route": "mcp",
