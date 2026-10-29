@@ -1,3 +1,6 @@
+> **状态：已发布** → https://github.com/ruijh/cad-skills-web · 站点 https://ruijh.github.io/cad-skills-web/
+> Pages 用「Deploy from a branch：main / root」；CI 工作流暂放 `docs/ci/`，启用方法见 `docs/ci/README.md`。
+
 # 发布到 GitHub 的三种方式
 
 项目本身已经完整：`git log` 有 4 个提交，`node scripts/check.mjs` 与 `node scripts/smoke.mjs` 全绿。
