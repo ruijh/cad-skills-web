@@ -184,6 +184,20 @@ try {
   bad++;
 }
 
+/* 维护块：文案与复制按钮都在，且落在首页里 */
+const home = HTML.slice(HTML.indexOf('id="maintain"'), HTML.indexOf('id="maintain"') + 7000);
+const maintOk = /id="maintain"/.test(home)
+  && /refresh\.sh/.test(home)
+  && /deploy-pages\.sh/.test(home)
+  && /gh-pages/.test(home);
+console.log(`  ${maintOk ? '✓' : '✗'} 维护块        ${maintOk ? '检索 / 自检 / 发布三步都在首页' : '维护块缺内容'}`);
+if (!maintOk) bad++;
+
+const maintCopies = ((home.match(/class="copy" data-copy=/g) || []).length);
+const copiesOk = maintCopies >= 2;
+console.log(`  ${copiesOk ? '✓' : '✗'} 维护块·复制   ${maintCopies} 个静态复制按钮（期望 ≥2）`);
+if (!copiesOk) bad++;
+
 const grid = els.get('skillGrid')?._html ?? '';
 const cards = (grid.match(/class="card skill"/g) || []).length;
 console.log(`  · 技能卡片 ${cards} 张，统计块 ${((els.get('stats')?._html ?? '').match(/class="stat"/g) || []).length} 个`);

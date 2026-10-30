@@ -43,6 +43,7 @@ AutoCAD / SolidWorks / Fusion / Onshape / Inventor / KiCad 各有一套桌面自
 | 命令面板 | `Ctrl/⌘ K` 或 `/`：搜 skill、搜宿主 ID、跳页面、切主题、清筛选 |
 | 深浅双主题 | `T` 键 / 顶栏按钮切换，写入 `localStorage`，默认跟随系统 |
 | 运行时同步 | 页面加载后尝试从 GitHub 拉最新 `data/skills.json`，失败静默回退内嵌数据 |
+| 首页 · 维护 | 「它每周自己长一遍」：检索 → 重建 → 差集报告 → 自检的四步，加 `gh-pages` 发布流程与踩过的坑 |
 
 ## 直接打开
 
@@ -57,11 +58,32 @@ python -m http.server 8642
 ## 数据与构建
 
 ```bash
-node scripts/build-data.mjs                  # 用已提交的 data/cache.json 重新生成
-node scripts/build-data.mjs --fetch           # 先用 GitHub Search API 刷新 cache.json（未认证，10 次/分钟）
+GITHUB_TOKEN=xxx ./scripts/refresh.sh    # 检索 → 重建 → 差集报告 → 自检（一条命令，约 1 分钟）
+./scripts/refresh.sh --no-fetch          # 不联网，只用已提交的快照重建
 ```
 
+`refresh.sh` 只做准备，不提交也不部署。它的第一步是：
+
+```bash
+node scripts/build-data.mjs                  # 用已提交的 data/cache.json 重新生成
+node scripts/build-data.mjs --fetch           # 先用 GitHub Search API 刷新 cache.json
+```
+
+带 `GITHUB_TOKEN` 时搜索额度 30 次/分钟（9 条检索式约 1 分钟），未认证是 10 次/分钟（约 3 分钟）。
+
 产物：`data/skills.json`（供运行时同步）+ 同一份数据内嵌进 `index.html`。
+
+### 定期刷新：数字归脚本，收录归人
+
+| 谁 | 干什么 |
+|---|---|
+| `build-data.mjs --fetch` | 重跑检索式，刷新 `data/cache.json` 里每个仓库的 star / pushed_at / 许可 / 归档标记 |
+| `report.mjs` | 拿快照和图鉴做差集，写 `data/candidates.json`：还没收录的候选、已归档的、超 18 个月没 push 的 |
+| 人 | 只决定「收不收」：新仓库补进 `data/classification.json`（形态 / 宿主 / 能力 / 点评） |
+| `build-data.mjs` | 重算综合分与排名，把结果内嵌回 `index.html` |
+
+现成的每周工作流在 `docs/ci/weekly-refresh.yml`（周一 03:00 UTC，开 PR 到 `chore/weekly-data-refresh`），
+启用方法见 `PUBLISH.md`；不启用就本地每周跑一次 `refresh.sh`，效果一样。
 
 ```
 cad-skills-web/
@@ -72,10 +94,14 @@ cad-skills-web/
 │   ├── audit.json            # 人工核读记录：README 里核对到的事实 + 真实安装命令
 │   ├── recipes.json          # 18 套接入配方（宿主 ID）
 │   ├── featured.json         # 9 个精选项目：封面母题 + 一句话 + 入选理由
+│   ├── candidates.json       # report.mjs 的产物：未收录候选 / 已归档 / 超半年没动
 │   └── skills.json           # 构建产物
 └── scripts/
     ├── build-data.mjs        # 合并 + 评分 + 内嵌（幂等，可重复跑）
+    ├── refresh.sh            # 一条命令：检索 → 重建 → 报告 → 自检
+    ├── report.mjs            # 快照 vs 图鉴的差集报告（候选 / 归档 / 停更）
     ├── discover.mjs          # 只跑检索、打印候选仓库（人工分类的输入）
+    ├── deploy-pages.sh       # 把 main 镜像到 gh-pages（线上才更新）
     ├── check.mjs             # 提交前自检：schema / 内嵌一致 / 选择器 / 引用完整性
     └── smoke.mjs             # 无浏览器时的渲染冒烟测试（最小 DOM 桩）
 ```
@@ -83,7 +109,7 @@ cad-skills-web/
 ### 自检
 
 ```bash
-node scripts/check.mjs     # 8 项静态检查：字段合法性、内嵌一致性、JS 语法、30 个 id 选择器、配方引用、精选自洽、截断风险
+node scripts/check.mjs     # 7 项静态检查：字段合法性、内嵌一致性、JS 语法、30 个 id 选择器、配方引用、精选自洽、维护脚本存在
 node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：九大渲染区有内容、详情抽屉模板完整、精选封面与大图开关、离线兜底生效
 ```
 
@@ -105,7 +131,7 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：九大渲�
 
 - 本页**没有逐个实跑任何 server**。安装命令与配置片段来自各仓库 README，属于「形态示例」，请以 README 为准。
 - 能力矩阵读自 README / description：未核读的 62 个项目只按描述归类，可能不准；`未提及` 不等于不支持。
-- star 与活跃度是 GitHub Search API 的快照（未认证抓取），项目会改名、归档、停更。
+- star 与活跃度是 GitHub Search API 的快照，靠 `refresh.sh` 定期刷新；两次刷新之间数字是旧的，项目也会改名、归档、停更。
 - **精选是本页的人工阅读建议，不是排名**。顺序按「现在想动手先装哪个」排，分量不代表质量；数据排名看下面的「综合分 Top 6」。
 - 精选封面是**按仓库公开信息生成的示意图**（内联 SVG 线稿），不是仓库截图，也不代表项目界面长相。
 - 同名仓库极多（`openscad-mcp` 5 个、`freecad-mcp` 6 个、`cadquery-mcp` 4 个），收录时按 star + 是否 headless + 是否有真实安装路径筛过一轮，但遗漏不可避免。
@@ -138,6 +164,9 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：九大渲�
 ```bash
 ./scripts/deploy-pages.sh        # 等价于 git push origin main:gh-pages --force
 ```
+
+只推 `main` 不镜像 `gh-pages`，线上不会有任何变化。网络只放行 `api.github.com` 时 `git push`
+会超时，改用 Git Data API 提交（方法见 `PUBLISH.md`）。
 
 > 为什么从 `gh-pages` 发布而不是「分支根目录 / Actions」：建仓用的 fine-grained token 只有
 > `Contents: read/write`，没有 `Pages` 与 `workflows` 权限，建不了 Pages 配置、也推不了

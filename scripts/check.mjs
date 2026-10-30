@@ -8,12 +8,13 @@
  *  3. 内联 JS 语法正确；选择器 $('…') 引用的 id 在 HTML 里真实存在
  *  4. 配方引用的 repo / 宿主都能在图鉴里对上
  *  5. 精选模块：引用真实、字段自洽、封面母题在白名单里
- *  5. 内嵌数据里没有会截断 <script> 的字符序列
+ *  6. 内嵌数据里没有会截断 <script> 的字符序列
+ *  7. 维护块与维护脚本：页面说到的命令、脚本、候选报告都真实存在
  *
  * 用法：node scripts/check.mjs
  */
 
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -138,6 +139,28 @@ if (!errors) ok(`${data.featured.length} 个精选项目字段自洽，母题与
 /* 6. 内嵌数据安全性 */
 if (embedded && /<\\\/?script/i.test(embedded[1])) fail('内嵌数据里出现了 </script 序列（会被截断）');
 else ok('内嵌数据无 </script 截断风险');
+
+/* 7. 维护块与维护脚本 */
+const mBlock = html.slice(html.indexOf('id="maintain"'), html.indexOf('id="maintain"') + 9000);
+if (!html.includes('id="maintain"')) fail('首页缺「维护与部署」块（id="maintain"）');
+else {
+  for (const needle of ['scripts/refresh.sh', 'deploy-pages.sh', 'gh-pages', 'report.mjs', 'data/candidates.json']) {
+    if (!mBlock.includes(needle)) fail(`维护块里没提到 ${needle}`);
+  }
+  ok('维护块点名了 refresh.sh / report.mjs / deploy-pages.sh');
+}
+for (const f of ['scripts/refresh.sh', 'scripts/report.mjs']) {
+  try {
+    const st = await stat(p(f));
+    if (!st.size) fail(`${f} 是空文件`);
+    if (f.endsWith('.sh') && !(st.mode & 0o111)) fail(`${f} 没有执行权限（chmod +x）`);
+  } catch { fail(`页面说到的 ${f} 不存在`); }
+}
+try {
+  const cand = JSON.parse(await readFile(p('data/candidates.json'), 'utf8'));
+  if (!Array.isArray(cand.candidates)) fail('data/candidates.json 结构异常');
+  else ok(`候选报告可解析（${cand.candidates.length} 个相关候选）`);
+} catch { fail('data/candidates.json 缺失或不是合法 JSON（跑 node scripts/report.mjs）'); }
 
 console.log(errors ? `\n✗ 自检失败：${errors} 个问题` : '\n✓ 全部自检通过');
 process.exit(errors ? 1 : 0);

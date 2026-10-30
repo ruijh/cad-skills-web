@@ -1,0 +1,558 @@
+{
+  "generated_at": "2026-10-30T06:06:04.716Z",
+  "fetch_requires": "node scripts/build-data.mjs --fetch（先刷新 cache.json）",
+  "totals": {
+    "cache": 156,
+    "catalog": 92,
+    "candidates": 51,
+    "weak": 13
+  },
+  "note": "candidates 是命中 CAD 关键词的；weak 只计数，多半是检索式带出来的通用 agent 项目",
+  "candidates": [
+    {
+      "repo": "autonomous-ai/openharness",
+      "stars": 1390,
+      "license": "MIT",
+      "pushed": "2026-10-29",
+      "days_since_push": 1,
+      "lang": "TypeScript",
+      "desc": "The ultimate harness for coding agents and beyond. All your agents. All your machines. One command center. Start with code, then follow your curiosity and build across disciplines: CAD, circuits, robots, games and music.",
+      "url": "https://github.com/autonomous-ai/openharness"
+    },
+    {
+      "repo": "chisomobanzi/Serpentine3D",
+      "stars": 114,
+      "license": "MIT",
+      "pushed": "2026-10-26",
+      "days_since_push": 4,
+      "lang": "Python",
+      "desc": "Open-source NURBS surface modeller — a Rhino-style freeform modeller on the OpenCASCADE kernel, with AI-native MCP integration",
+      "url": "https://github.com/chisomobanzi/Serpentine3D"
+    },
+    {
+      "repo": "ajhcs/cameo-mcp-bridge",
+      "stars": 51,
+      "license": "MIT",
+      "pushed": "2026-09-04",
+      "days_since_push": 55,
+      "lang": "Python",
+      "desc": "MCP server bridging AI assistants to CATIA Magic / Cameo Systems Modeler for SysML/UML model creation, querying, and manipulation",
+      "url": "https://github.com/ajhcs/cameo-mcp-bridge"
+    },
+    {
+      "repo": "0xlillith/solidcraft-rover",
+      "stars": 45,
+      "license": "Apache-2.0",
+      "pushed": "2026-10-17",
+      "days_since_push": 13,
+      "lang": "Python",
+      "desc": "Scientific rover built through SolidCraft MCP: editable CAD, website and splash artwork, videos, and a reproducible performance workload.",
+      "url": "https://github.com/0xlillith/solidcraft-rover"
+    },
+    {
+      "repo": "chenlei-gh/mcp-catia",
+      "stars": 45,
+      "license": null,
+      "pushed": "2026-07-08",
+      "days_since_push": 114,
+      "lang": "Python",
+      "desc": "CATIA automation REST API · Modular modeling · AI-driven design · Swagger docs · JWT auth · Async tasks",
+      "url": "https://github.com/chenlei-gh/mcp-catia"
+    },
+    {
+      "repo": "Joelalbon/Fusion-MCP-Server",
+      "stars": 41,
+      "license": "MIT",
+      "pushed": "2025-06-12",
+      "days_since_push": 505,
+      "lang": "Python",
+      "desc": "Remote control solution for Fusion 360 using client-server architecture. Features JSON socket communication, modular design with Python server and client library, plus Fusion 360 add-in. Enables command monitoring, remote execution, and model data retrieval for automation workflows.",
+      "url": "https://github.com/Joelalbon/Fusion-MCP-Server"
+    },
+    {
+      "repo": "leandrodaf/3d-new-era-ai",
+      "stars": 33,
+      "license": "Apache-2.0",
+      "pushed": "2026-10-28",
+      "days_since_push": 1,
+      "lang": "Rust",
+      "desc": "Open-source home design and floor plan editor in Rust (a Sweet Home 3D alternative) with a built-in MCP server: your AI agent draws walls, furnishes rooms, checks lighting and ergonomics, and renders photos — live, on your own machine.",
+      "url": "https://github.com/leandrodaf/3d-new-era-ai"
+    },
+    {
+      "repo": "limo-cad/Limo-CAD",
+      "stars": 33,
+      "license": "LGPL-2.1",
+      "pushed": "2026-10-29",
+      "days_since_push": 1,
+      "lang": "Rust",
+      "desc": "Local-first, open-source mechanical CAD",
+      "url": "https://github.com/limo-cad/Limo-CAD"
+    },
+    {
+      "repo": "just1step/solidworks-mcp",
+      "stars": 31,
+      "license": "MIT",
+      "pushed": "2026-04-10",
+      "days_since_push": 203,
+      "lang": "C#",
+      "desc": " A Model Context Protocol (MCP) server for SolidWorks, enabling AI assistants to interact with CAD models, automate design workflows, and bridge LLMs with SolidWorks API. 基于 Model Context Protocol (MCP) 的 SolidWorks 适配器，使 AI 助手能够直接操作、分析和自动化 SolidWorks 建模流程。",
+      "url": "https://github.com/just1step/solidworks-mcp"
+    },
+    {
+      "repo": "Xuan-BOMS/soildworks-mcp",
+      "stars": 30,
+      "license": "MIT",
+      "pushed": "2026-04-24",
+      "days_since_push": 189,
+      "lang": "Python",
+      "desc": "Packaged SolidWorks MCP server for Codex and local stdio deployment",
+      "url": "https://github.com/Xuan-BOMS/soildworks-mcp"
+    },
+    {
+      "repo": "reer-ide/rhino_mcp",
+      "stars": 29,
+      "license": "MIT",
+      "pushed": "2026-04-05",
+      "days_since_push": 207,
+      "lang": "Python",
+      "desc": "",
+      "url": "https://github.com/reer-ide/rhino_mcp"
+    },
+    {
+      "repo": "moellere/WireStudio",
+      "stars": 26,
+      "license": "MIT",
+      "pushed": "2026-10-26",
+      "days_since_push": 4,
+      "lang": "Python",
+      "desc": "Agent-driven design studio for ESPHome-compatible (e.g. ESP32/ESP8266, RP2040) + LoRaWAN devices: generates ESPHome YAML, KiCad schematic/PCB, 3D-printable enclosures, and builds/flashes/provisions LoRaWAN firmware (ChirpStack + Home Assistant).",
+      "url": "https://github.com/moellere/WireStudio"
+    },
+    {
+      "repo": "jaskirat1616/fusion360-mcp",
+      "stars": 21,
+      "license": "MIT",
+      "pushed": "2025-10-12",
+      "days_since_push": 383,
+      "lang": "Python",
+      "desc": "fusion360-mcp",
+      "url": "https://github.com/jaskirat1616/fusion360-mcp"
+    },
+    {
+      "repo": "TheKingHippopotamus/GOLEM-3DMCP-Rhino-",
+      "stars": 14,
+      "license": "MIT",
+      "pushed": "2026-08-23",
+      "days_since_push": 68,
+      "lang": "Python",
+      "desc": "MCP server giving AI agents (Claude, Cursor, Windsurf) full control over Rhinoceros 3D v8 — 105 tools for geometry, surfaces, booleans, Grasshopper, viewport capture, and script execution",
+      "url": "https://github.com/TheKingHippopotamus/GOLEM-3DMCP-Rhino-"
+    },
+    {
+      "repo": "rahayesj/ClaudeFusion360MCP",
+      "stars": 13,
+      "license": "MIT",
+      "pushed": "2025-12-17",
+      "days_since_push": 316,
+      "lang": "Python",
+      "desc": "We taught Claude how to drive Fusion 360. Sketches, extrusions, assemblies, exports—all through natural language. The hard part wasn't the code, it was getting Claude to understand where things go in 3D space. The skill files capture everything we figured out so it just works.",
+      "url": "https://github.com/rahayesj/ClaudeFusion360MCP"
+    },
+    {
+      "repo": "tongriyaotxt/catia-mcp",
+      "stars": 10,
+      "license": null,
+      "pushed": "2026-09-01",
+      "days_since_push": 59,
+      "lang": "Python",
+      "desc": "connection to",
+      "url": "https://github.com/tongriyaotxt/catia-mcp"
+    },
+    {
+      "repo": "pouyabagheri2005-sudo/CATIA-mcp-ai-automation",
+      "stars": 9,
+      "license": "MIT",
+      "pushed": "2026-07-02",
+      "days_since_push": 120,
+      "lang": "Python",
+      "desc": "AI-powered CATIA V5 automation using Model Context Protocol (MCP). Connect Claude Desktop to CATIA and generate 3D CAD models from natural language instructions.",
+      "url": "https://github.com/pouyabagheri2005-sudo/CATIA-mcp-ai-automation"
+    },
+    {
+      "repo": "ShuiYinMaster/PDPS_TxTools",
+      "stars": 9,
+      "license": "MIT",
+      "pushed": "2026-10-28",
+      "days_since_push": 2,
+      "lang": "C#",
+      "desc": "C# plugins for Siemens Tecnomatix Process Simulate (PDPS): robotic welding, path planning, reachability checks, CATIA/Excel export, AI agent and MCP. 机器人焊接仿真与二次开发插件集。",
+      "url": "https://github.com/ShuiYinMaster/PDPS_TxTools"
+    },
+    {
+      "repo": "ShuiYinMaster/OpenTxAgent",
+      "stars": 6,
+      "license": "MIT",
+      "pushed": "2026-10-26",
+      "days_since_push": 4,
+      "lang": "C#",
+      "desc": "AI agent for Siemens Tecnomatix Process Simulate (PDPS): scene tools, C#/Python automation, robot reachability, BASE0 checks, reusable recipes and CATIA/Excel workflows. 进程内 AI 助手与工程自动化。",
+      "url": "https://github.com/ShuiYinMaster/OpenTxAgent"
+    },
+    {
+      "repo": "bringfire/Rook",
+      "stars": 6,
+      "license": "MIT",
+      "pushed": "2026-10-24",
+      "days_since_push": 6,
+      "lang": "Python",
+      "desc": "AI-powered bridge for Rhino 3D and Grasshopper via the Model Context Protocol",
+      "url": "https://github.com/bringfire/Rook"
+    },
+    {
+      "repo": "lachlanchen/AgInTi-LabCanvas",
+      "stars": 5,
+      "license": null,
+      "pushed": "2026-10-28",
+      "days_since_push": 2,
+      "lang": "Python",
+      "desc": "AgInTi LabCanvas: agentic studio for editable scientific figures, CAD devices, and experiment design.",
+      "url": "https://github.com/lachlanchen/AgInTi-LabCanvas"
+    },
+    {
+      "repo": "jgsystemsconsulting/jgs-magic-sysmlv1-mcp",
+      "stars": 4,
+      "license": "NOASSERTION",
+      "pushed": "2026-09-27",
+      "days_since_push": 33,
+      "lang": "Python",
+      "desc": "Bring Claude Code and any MCP agent to your live SysML v1 models in CATIA Magic: 130+ tools to query, audit, and edit the real model over a local, air-gapped connection. No cloud, no export. FREE / PRO / ENTERPRISE.",
+      "url": "https://github.com/jgsystemsconsulting/jgs-magic-sysmlv1-mcp"
+    },
+    {
+      "repo": "rweisssieker-xp/GBL-CREO-WINDCHILL-MCP",
+      "stars": 4,
+      "license": "MIT",
+      "pushed": "2025-12-06",
+      "days_since_push": 328,
+      "lang": "TypeScript",
+      "desc": "MCP Server for Creo and Windchill",
+      "url": "https://github.com/rweisssieker-xp/GBL-CREO-WINDCHILL-MCP"
+    },
+    {
+      "repo": "poirotzheng/creo-hub",
+      "stars": 4,
+      "license": "Apache-2.0",
+      "pushed": "2026-10-21",
+      "days_since_push": 9,
+      "lang": "C",
+      "desc": "Plugin host and management plane for Creo Parametric 6.0. Mount, update and roll back Pro/TOOLKIT plugins at runtime; every capability is a schema-validated, risk-gated command with audit, plus an MCP bridge for AI assistants. Unofficial, Apache-2.0.",
+      "url": "https://github.com/poirotzheng/creo-hub"
+    },
+    {
+      "repo": "jgsystemsconsulting/jgs-magic-sysmlv1-read-skills",
+      "stars": 3,
+      "license": "NOASSERTION",
+      "pushed": "2026-09-27",
+      "days_since_push": 33,
+      "lang": "Python",
+      "desc": "18 free, read-only SysML v1 analysis skills for CATIA Magic (MSOSA): navigate, inspect, audit, and report via /jgs-v1 over the jgs-magic-sysmlv1-mcp bridge. Works with ZCode, Claude Code, Codex, Gemini CLI, Copilot, and Cursor.",
+      "url": "https://github.com/jgsystemsconsulting/jgs-magic-sysmlv1-read-skills"
+    },
+    {
+      "repo": "kbangaru-cyber/Rhino-mcp",
+      "stars": 3,
+      "license": "MIT",
+      "pushed": "2026-08-24",
+      "days_since_push": 67,
+      "lang": "Python",
+      "desc": "MCP server for Rhino 3D: 105 tools for AI-driven 3D modelling, analysis, diagnostics and Grasshopper integration. Use with Claude.",
+      "url": "https://github.com/kbangaru-cyber/Rhino-mcp"
+    },
+    {
+      "repo": "adamclark64/creo-mcp",
+      "stars": 3,
+      "license": null,
+      "pushed": "2026-05-23",
+      "days_since_push": 160,
+      "lang": "Python",
+      "desc": "MCP bridge for PTC Creo Parametric via Creoson + creopyson",
+      "url": "https://github.com/adamclark64/creo-mcp"
+    },
+    {
+      "repo": "jhy-ai/creo-mcp-bridge",
+      "stars": 3,
+      "license": null,
+      "pushed": "2026-08-28",
+      "days_since_push": 63,
+      "lang": "C",
+      "desc": "",
+      "url": "https://github.com/jhy-ai/creo-mcp-bridge"
+    },
+    {
+      "repo": "maxk2222/cadx",
+      "stars": 2,
+      "license": "AGPL-3.0",
+      "pushed": "2026-10-26",
+      "days_since_push": 3,
+      "lang": "Python",
+      "desc": "Local-first multimodal CAD agent: photos, sketches & text in — verified, parametric, manufacturing-ready 3D models out (build123d, voxel FEM, topology optimization, MCP). Self-hosted, AGPLv3.",
+      "url": "https://github.com/maxk2222/cadx"
+    },
+    {
+      "repo": "jeremylongworth-source/AgentCADCAM",
+      "stars": 2,
+      "license": "MIT",
+      "pushed": "2026-09-19",
+      "days_since_push": 41,
+      "lang": "Python",
+      "desc": "Vendor-neutral AgentSkills for CAD/CAM review, manufacturing planning, and evidence-backed handoffs across CNC milling, FDM printing, and laser cutting with explicit safety and human-review gates.",
+      "url": "https://github.com/jeremylongworth-source/AgentCADCAM"
+    },
+    {
+      "repo": "TRMachinist/MailStudio-AI-Email-Client",
+      "stars": 2,
+      "license": "MIT",
+      "pushed": "2026-10-22",
+      "days_since_push": 8,
+      "lang": "C#",
+      "desc": "Open-source AI email client for Windows – Outlook alternative with STEP, DXF/DWG, PDF, Office & CNC viewers, local AI (Ollama) and MCP",
+      "url": "https://github.com/TRMachinist/MailStudio-AI-Email-Client"
+    },
+    {
+      "repo": "Mfrostbutter/claude-skills",
+      "stars": 1,
+      "license": "MIT",
+      "pushed": "2026-10-26",
+      "days_since_push": 4,
+      "lang": "Python",
+      "desc": "Reusable Claude Code skills for builders: Figma MCP design/build, Fusion 360 CAD, LangGraph agents, LangSmith evals, After Effects ExtendScript.",
+      "url": "https://github.com/Mfrostbutter/claude-skills"
+    },
+    {
+      "repo": "hov172/rhino_mcp",
+      "stars": 1,
+      "license": "MIT",
+      "pushed": "2026-10-05",
+      "days_since_push": 25,
+      "lang": "Python",
+      "desc": "Control Rhino 3D from Claude, Cursor, Codex — 358 tools: geometry, Grasshopper, V-Ray, Enscape, BIM, AI generation",
+      "url": "https://github.com/hov172/rhino_mcp"
+    },
+    {
+      "repo": "preetamnegi7/Creoson_Claude_Creo_MCP",
+      "stars": 1,
+      "license": null,
+      "pushed": "2026-08-04",
+      "days_since_push": 86,
+      "lang": "Python",
+      "desc": "Connect PTC Creo to Claude using Creoson",
+      "url": "https://github.com/preetamnegi7/Creoson_Claude_Creo_MCP"
+    },
+    {
+      "repo": "yunlong-wang11111/cae-lanes",
+      "stars": 1,
+      "license": "MIT",
+      "pushed": "2026-10-13",
+      "days_since_push": 17,
+      "lang": "Python",
+      "desc": "Verified automation lanes for AI agents to drive COMSOL, Abaqus & Creo — Python + MCP, built-in guardrails, judge keywords and smoke tests.",
+      "url": "https://github.com/yunlong-wang11111/cae-lanes"
+    },
+    {
+      "repo": "thalisantunes/mcp-openscad",
+      "stars": 1,
+      "license": "MIT",
+      "pushed": "2026-10-18",
+      "days_since_push": 12,
+      "lang": "Python",
+      "desc": "MCP server for OpenSCAD — generate, render and export parametric CAD for laser cutting, 3D printing and CNC",
+      "url": "https://github.com/thalisantunes/mcp-openscad"
+    },
+    {
+      "repo": "OverDrive1g/openclaw-cad",
+      "stars": 1,
+      "license": "MIT",
+      "pushed": "2026-10-18",
+      "days_since_push": 12,
+      "lang": "Python",
+      "desc": "A practical FreeCAD + MCP pipeline for parametric 3D design: code-built models, geometry verification, and DfAM/DFM checks for 3D printing, CNC, and laser cutting.",
+      "url": "https://github.com/OverDrive1g/openclaw-cad"
+    },
+    {
+      "repo": "Giltsch/cadtokens",
+      "stars": 1,
+      "license": "Apache-2.0",
+      "pushed": "2026-10-14",
+      "days_since_push": 16,
+      "lang": "Python",
+      "desc": "Read and check the GD&T (semantic PMI) in STEP AP242 files: inspection characteristic lists, ballooned PDF reports, MCP server. Pure Python, fully local.",
+      "url": "https://github.com/Giltsch/cadtokens"
+    },
+    {
+      "repo": "contentasoftware/contentasoft-cad-converter-plugin",
+      "stars": 1,
+      "license": "MIT",
+      "pushed": "2026-10-26",
+      "days_since_push": 4,
+      "lang": "JavaScript",
+      "desc": "3D CAD Converter MCP server + skill for AI agents (Cursor, Claude Code, Codex, VS Code...) on Windows: convert STEP, IGES, STL, OBJ, glTF on local files",
+      "url": "https://github.com/contentasoftware/contentasoft-cad-converter-plugin"
+    },
+    {
+      "repo": "KaenBlaze/cad-solver",
+      "stars": 1,
+      "license": "NOASSERTION",
+      "pushed": "2026-08-14",
+      "days_since_push": 76,
+      "lang": "JavaScript",
+      "desc": "An AI Native MCP Plugin lean JavaScript CAD kernel. It parses STEP (ISO 10303 / AP203) and STL files, tessellates analytic surfaces (planes, cylinders, cones, spheres, tori, B-spline/NURBS patches) into triangle meshes, and exports watertight STL. Node.js with no CAD dependencies.",
+      "url": "https://github.com/KaenBlaze/cad-solver"
+    },
+    {
+      "repo": "sandraschi/democraft-mcp",
+      "stars": 1,
+      "license": null,
+      "pushed": "2026-10-29",
+      "days_since_push": 1,
+      "lang": "Python",
+      "desc": "Watch the 13 ArtCraft apps build for real: one page per Craft app, every demo streams live CLI steps into real artifacts (DXF/PDF, DOCX, XLSX, MP4, WAV) with an optional local-LLM step. Hands-in playback, hands-out files. MCP server + webapp.",
+      "url": "https://github.com/sandraschi/democraft-mcp"
+    },
+    {
+      "repo": "JayKay-soft/CAD-Bench-Claude-Skill",
+      "stars": 0,
+      "license": "MIT",
+      "pushed": "2026-09-14",
+      "days_since_push": 46,
+      "lang": "Python",
+      "desc": "",
+      "url": "https://github.com/JayKay-soft/CAD-Bench-Claude-Skill"
+    },
+    {
+      "repo": "NESDUB/rhino-cad-mcp",
+      "stars": 0,
+      "license": null,
+      "pushed": "2026-09-24",
+      "days_since_push": 35,
+      "lang": "Python",
+      "desc": "MCP server for live Rhino 8 and Grasshopper interaction via rhinocode CLI — runtime ops, viewport capture, GH definition management, type compatibility",
+      "url": "https://github.com/NESDUB/rhino-cad-mcp"
+    },
+    {
+      "repo": "rokibul-mist/rhino-mcp",
+      "stars": 0,
+      "license": "MIT",
+      "pushed": "2026-09-09",
+      "days_since_push": 51,
+      "lang": "Python",
+      "desc": "Unified Rhino 8 & Grasshopper MCP Server combining 540+ parametric CAD tools, dual-engine Win32/RhinoCode fallback, and native C# bridge plugin.",
+      "url": "https://github.com/rokibul-mist/rhino-mcp"
+    },
+    {
+      "repo": "Piibo/rhino-ai-cad-assistant",
+      "stars": 0,
+      "license": "MIT",
+      "pushed": "2026-10-06",
+      "days_since_push": 24,
+      "lang": "Python",
+      "desc": "Code zur Masterarbeit „Entwerfen mit Künstlicher Intelligenz: Ein KI-gestützter Workflow für den iterativen Möbelentwurf“ – Rhino-8-Plugin (React/TypeScript + FastAPI + Anthropic API) und MCP-Server.",
+      "url": "https://github.com/Piibo/rhino-ai-cad-assistant"
+    },
+    {
+      "repo": "elvislin8633-blip/CreoMCP",
+      "stars": 0,
+      "license": null,
+      "pushed": "2026-10-02",
+      "days_since_push": 28,
+      "lang": null,
+      "desc": "",
+      "url": "https://github.com/elvislin8633-blip/CreoMCP"
+    },
+    {
+      "repo": "torpix/pixcam-showcase",
+      "stars": 0,
+      "license": "MIT",
+      "pushed": "2026-10-21",
+      "days_since_push": 8,
+      "lang": "Rust",
+      "desc": "Open-source CNC manufacturing intelligence, feature inspection and parametric cycles for SolidCraft.",
+      "url": "https://github.com/torpix/pixcam-showcase"
+    },
+    {
+      "repo": "FabworksHQ/fabworks-plugin",
+      "stars": 0,
+      "license": "MIT",
+      "pushed": "2026-09-25",
+      "days_since_push": 35,
+      "lang": null,
+      "desc": "Create online laser cutting quotes for sheet metal and tube parts from STEP files through the Fabworks MCP server",
+      "url": "https://github.com/FabworksHQ/fabworks-plugin"
+    },
+    {
+      "repo": "Willianvdv/cad-render-mcp",
+      "stars": 0,
+      "license": "Apache-2.0",
+      "pushed": "2026-10-22",
+      "days_since_push": 8,
+      "lang": "Rust",
+      "desc": "Turn STEP, BREP and IGES files into drawings, photorealistic renders, animations and videos, from Claude or any MCP client.",
+      "url": "https://github.com/Willianvdv/cad-render-mcp"
+    },
+    {
+      "repo": "sa-xebit3d/onshape-ai-builder",
+      "stars": 0,
+      "license": null,
+      "pushed": "2026-08-13",
+      "days_since_push": 78,
+      "lang": "JavaScript",
+      "desc": "Natural-language CAD: describe a model (or drop a STEP file) and AI builds it in Onshape via the Onshape MCP server",
+      "url": "https://github.com/sa-xebit3d/onshape-ai-builder"
+    },
+    {
+      "repo": "makepartsnow/makepartsnow-claude",
+      "stars": 0,
+      "license": "NOASSERTION",
+      "pushed": "2026-10-15",
+      "days_since_push": 14,
+      "lang": null,
+      "desc": "Make Parts Now (MakePartsNow.com) plugin for Claude: instant 3D printing and CNC machining quotes and orders from your CAD files (STL, STEP).",
+      "url": "https://github.com/makepartsnow/makepartsnow-claude"
+    }
+  ],
+  "weak_examples": [
+    "microsoft/Resource2Skill",
+    "JiangNanGenius/floe-agent",
+    "LunarWerxs/SageThumbs-2k",
+    "unnir/CadenceSKILL-Python",
+    "LARi-UQAC/ResearchTools"
+  ],
+  "archived_in_catalog": [],
+  "missing_from_cache": [],
+  "stale_in_catalog": [
+    {
+      "repo": "bonninr/freecad_mcp",
+      "days_since_push": 589
+    },
+    {
+      "repo": "always-tinkering/rhinoMcpServer",
+      "days_since_push": 586
+    },
+    {
+      "repo": "bertvanbrakel/mcp-cadquery",
+      "days_since_push": 571
+    }
+  ],
+  "featured_repos": [
+    "neka-nat/freecad-mcp",
+    "mixelpixx/KiCAD-MCP-Server",
+    "pascalorg/editor",
+    "tangency-labs/solidcraft",
+    "wzyn20051216/solidworks-automation-skill",
+    "flowful-ai/cad-skill",
+    "jingcheng-chen/rhinomcp",
+    "ReshefElisha/jarvis-onshape-mcp",
+    "daiemon12/catia-v5-mcp-server"
+  ],
+  "catalog_size_note": "92 个已上图鉴（含 0 个已归档）"
+}

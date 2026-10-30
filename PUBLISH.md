@@ -1,69 +1,91 @@
-> **状态：已发布** → https://github.com/ruijh/cad-skills-web · 站点 https://ruijh.github.io/cad-skills-web/（200）
-> Pages 源是 `gh-pages` 分支根目录（推送该分支自动启用）；改完 `main` 跑 `./scripts/deploy-pages.sh`。
-> CI 工作流暂放 `docs/ci/`，启用方法见 `docs/ci/README.md`；仓库简介/topics 需 `Administration` 权限才能改。
+> **状态：已上线** → https://github.com/ruijh/cad-skills-web · 站点 https://ruijh.github.io/cad-skills-web/
+> Pages 的源是 `gh-pages` 分支根目录。改完 `main` 必须跑 `./scripts/deploy-pages.sh`，线上的才会变。
 
-# 发布到 GitHub 的三种方式
+# 维护与发布
 
-项目本身已经完整：`git log` 有 4 个提交，`node scripts/check.mjs` 与 `node scripts/smoke.mjs` 全绿。
-剩下的只有「推到 GitHub」这一步，它需要凭据。任选一条路：
+这份文档只讲两件事：**数据怎么保持新鲜**、**改完怎么上到线上**。两件事都是一条命令。
 
 ---
 
-## 方式 A · 给我一枚 PAT（最省事，我全程代做）
+## 一、数据从哪来
 
-1. 打开 <https://github.com/settings/tokens> → **Generate new token**
-   - *fine-grained*：Repository access 选 All（或新建后单独授权），权限勾
-     **Contents: Read and write**、**Pages: Read and write**、**Administration: Read and write**
-   - 或 *classic*：勾 `repo` + `workflow`
-2. 把 token 和你的 GitHub 用户名发我，我执行：
+页面里的 star、最近 push、许可、是否归档，没有一个是手抄的：
+
+| 文件 | 谁写的 | 说明 |
+| --- | --- | --- |
+| `data/classification.json` | **人** | 92 个仓库的形态 / 宿主 / 能力 / 一句话点评。新增仓库得手动加。 |
+| `data/cache.json` | `build-data.mjs --fetch` | GitHub 检索结果的原始快照（156 个仓库的最新数字）。 |
+| `data/skills.json` | `build-data.mjs` | 由上面两份算出综合分、排名、统计，并内嵌回 `index.html`。 |
+| `data/candidates.json` | `report.mjs` | 检索到但还没收录的候选、已归档的、半年没动的。 |
+
+所以分工是：**数字由脚本刷，收录由人决定**。脚本不会自己往图鉴里加项目——那需要判断形态和宿主，判断错了整页结论都错。
 
 ```bash
-GITHUB_TOKEN=<token> ./scripts/publish.sh <你的用户名> cad-skills-web
+GITHUB_TOKEN=xxx ./scripts/refresh.sh     # 检索 → 重建 → 差集报告 → 自检（约 1 分钟）
+./scripts/refresh.sh --no-fetch          # 不联网，只用已提交的快照重建
 ```
 
-它会：建公开仓库 → 推 `main` → 开启 Pages（GitHub Actions 源）→ 打印地址。
-之后我会把 `repo_url` 写回数据、重新构建、二次提交，并验证 Pages 返回 200。
+`refresh.sh` 跑完会打印候选表（按 star 排）、已归档仓库、超过 18 个月没 push 的仓库，以及这次数据改了多少。**它不提交、不部署**——看完再决定。
 
-> token 用完建议在设置里撤销。
+### 定期自动跑
+
+现成的工作流在 `docs/ci/weekly-refresh.yml`：每周一 03:00 UTC 跑 `build-data.mjs --fetch`，自检通过就开一个 PR 到 `chore/weekly-data-refresh` 分支。
+
+要启用：
+
+1. 把这个文件复制到 `.github/workflows/weekly-refresh.yml`；
+2. 给 token 加 **Workflows: Read and write**（fine-grained 没有这个权限就推不进 `.github/workflows/`，这也是它现在还在 `docs/ci/` 的原因）；
+3. 仓库 Settings → Actions → General 里允许 GitHub Actions 创建 PR。
+
+不启用也没关系：本地每周跑一次 `refresh.sh` 效果一样，只是要人记得。
 
 ---
 
-## 方式 B · 你自己推（不接触任何凭据）
+## 二、发布
+
+```
+main      ← 你改代码、跑脚本、提交
+gh-pages  ← 线上真正服务的内容（Pages 源，分支根目录）
+```
+
+改完 `main` 之后：
 
 ```bash
-# 1. 先在网页上建一个空的公开仓库：https://github.com/new  → 名字 cad-skills-web，不要勾 README
-cd cad-skills-web
-git remote add origin git@github.com:<你的用户名>/cad-skills-web.git   # 或 https://github.com/<你的用户名>/cad-skills-web.git
-git push -u origin main
+./scripts/deploy-pages.sh
+# 等价于：git push origin refs/heads/main:refs/heads/gh-pages --force
 ```
 
-然后开 Pages：仓库 → **Settings → Pages → Source 选「GitHub Actions」**，`main` 一推 CI 就跑起来了。
+推完 30–60 秒生效，地址 <https://ruijh.github.io/cad-skills-web/>。仓库里有 `.nojekyll`，否则 Jekyll 会吞掉 `_` 开头的文件。
 
-最后记得让页面知道自己的仓库地址（运行时同步要用）：
+> **最常见的坑**：只 `git push origin main`，以为就发布了。`gh-pages` 没动，线上一个字都不会变，而本地 `file://` 打开又是新的——于是开始怀疑缓存。先确认 `git ls-remote origin gh-pages` 的 SHA 和你 `main` 的一致。
+
+### 网络受限时（`github.com:443` 被挡）
+
+有些环境只放行 `api.github.com`，`git push` 会 `SSL connection timeout` 或 `CONNECT tunnel failed, response 502`。这时用 Git Data API 提交，一个 commit 同时更新两个分支：
 
 ```bash
-CAD_SKILLS_REPO_URL=https://github.com/<你的用户名>/cad-skills-web node scripts/build-data.mjs
-git commit -am "chore: 写入仓库地址" && git push
+# 1. 取本地 HEAD 的树，和远端 main 的树对比
+# 2. 只把差异文件的 blob 通过 POST /repos/<owner>/<repo>/git/trees 内联上传
+# 3. POST /git/commits 建 commit，PATCH /git/refs/heads/main（非强推）
+# 4. 再 PATCH /git/refs/heads/gh-pages 指向同一个 commit（强推）
 ```
 
-README 顶部那行线上链接也顺手替换成 `https://<你的用户名>.github.io/cad-skills-web/`。
+这需要一枚 `Contents: Read and write` 的 token（`GITHUB_TOKEN=… node /tmp/push-api.py`）。本仓库的「精选」与「维护」两次更新就是这样推上去的。**用完记得撤销 token**——它一旦进过聊天记录或 shell history 就该作废。
 
 ---
 
-## 方式 C · 网页上传（不想碰命令行）
+## 三、发布后自检
 
-1. 解压 `cad-skills-web-publish.zip`（与本文件同级目录）
-2. 新建仓库后点 **uploading an existing file**，把解压出的所有文件（含 `.github/`、`.nojekyll`、`data/`、`scripts/`）拖进去
-3. Commit → Settings → Pages → Source 选 GitHub Actions
-
-⚠️ 网页上传会把 `.github/workflows/pages.yml` 也带上去，这是开启自动部署的前提，别漏。
+- [ ] `git ls-remote origin main gh-pages` 两个分支 SHA 相同
+- [ ] 站点首页有：精选 9 张、Top 6、宿主 × 形态、维护块
+- [ ] `https://ruijh.github.io/cad-skills-web/data/skills.json` 能打开，`generated_at` 是这次构建的时间
+- [ ] 断网打开也是完整页面（数据内嵌在 `index.html` 里）
+- [ ] `node scripts/check.mjs` 与 `node scripts/smoke.mjs` 都绿
 
 ---
 
-## 发布后自检清单
+## 四、仓库设置（需要在网页上点，token 权限不够）
 
-- [ ] `https://github.com/<owner>/cad-skills-web` 能打开，README 渲染正常（封面图显示）
-- [ ] Actions 里 `Deploy to GitHub Pages` 是绿色
-- [ ] `https://<owner>.github.io/cad-skills-web/` 打开后首页有 5 个统计块、Top 6、宿主矩阵
-- [ ] 右上角徽章显示「已同步 GitHub 最新数据」（说明运行时 fetch 通了）
-- [ ] `data/skills.json` 能直接访问（`https://<owner>.github.io/cad-skills-web/data/skills.json`）
+- **About**：简介写「CAD × Agent 图鉴：92 个能让 AI 真正干活的 CAD 项目」；Homepage 填站点地址；Topics 建议 `cad` `mcp` `ai-agents` `claude-skills` `freecad` `openscad` `kicad` `awesome-list`。
+- **Settings → Pages**：Source 保持 `Deploy from a branch` → `gh-pages` → `/ (root)`。
+- 若想让 Actions 工作流能推送，额外开 **Workflows** 权限（见上文）。
