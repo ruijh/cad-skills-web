@@ -7,6 +7,7 @@
  *  2. index.html 内嵌的 REG 与 data/skills.json 完全一致（防止忘记重新构建）
  *  3. 内联 JS 语法正确；选择器 $('…') 引用的 id 在 HTML 里真实存在
  *  4. 配方引用的 repo / 宿主都能在图鉴里对上
+ *  5. 精选模块：引用真实、字段自洽、封面母题在白名单里
  *  5. 内嵌数据里没有会截断 <script> 的字符序列
  *
  * 用法：node scripts/check.mjs
@@ -107,7 +108,34 @@ const recipeIds = new Set(data.recipes.map((r) => r.id));
 if (recipeIds.size !== data.recipes.length) fail('recipe id 有重复');
 if (!errors) ok(`${data.recipes.length} 套配方引用完整，snippet 均为合法 JSON`);
 
-/* 5. 内嵌数据安全性 */
+/* 5. 精选模块 */
+const MOTIFS = new Set(['port', 'pcb', 'window', 'cube', 'draft', 'param', 'surface', 'cloud', 'assembly']);
+const byRepo = new Map(data.skills.map((s) => [s.repo, s]));
+const featIds = new Set();
+for (const it of data.featured ?? []) {
+  const tag = `featured ${it.repo || '(缺 repo)'}`;
+  const src = byRepo.get(it.repo);
+  if (!src) { fail(`${tag} 不在图鉴里`); continue; }
+  if (featIds.has(src.id)) fail(`${tag} 重复入选`);
+  featIds.add(src.id);
+  if (!MOTIFS.has(it.motif)) fail(`${tag} 的封面母题未知：${it.motif}`);
+  if (!it.headline || it.headline.length < 8) fail(`${tag} 缺一句话说明（headline）`);
+  if (!Array.isArray(it.why) || it.why.length < 2) fail(`${tag} 至少要两条入选理由`);
+  if (it.why?.some((w) => !w || w.length < 4)) fail(`${tag} 有空的入选理由`);
+  if (it.stars !== src.stars) fail(`${tag} 的 star 与图鉴不一致`);
+  if (it.url !== src.url) fail(`${tag} 的仓库链接与图鉴不一致`);
+  if (it.total !== src.total) fail(`${tag} 的综合分与图鉴不一致`);
+  if (it.form !== src.form) fail(`${tag} 的形态与图鉴不一致`);
+  if (it.audited !== src.audited) fail(`${tag} 的核读标记与图鉴不一致`);
+  if (!it.install && src.install) fail(`${tag} 漏了安装命令`);
+}
+if (!(data.featured ?? []).length) fail('featured 为空');
+else if (data.counts?.featured !== data.featured.length) fail(`counts.featured=${data.counts?.featured} 与 featured 条数 ${data.featured.length} 不一致`);
+if (!data.featured_note) fail('缺 featured_note（封面为生成图的说明）');
+else if (!/生成|示意/.test(data.featured_note)) fail('featured_note 必须说明封面是生成图');
+if (!errors) ok(`${data.featured.length} 个精选项目字段自洽，母题与图鉴对得上`);
+
+/* 6. 内嵌数据安全性 */
 if (embedded && /<\\\/?script/i.test(embedded[1])) fail('内嵌数据里出现了 </script 序列（会被截断）');
 else ok('内嵌数据无 </script 截断风险');
 

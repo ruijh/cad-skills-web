@@ -23,7 +23,14 @@ class El {
   constructor(id) {
     this.id = id; this._html = ''; this._text = ''; this._val = '';
     this.dataset = {}; this.style = {};
-    this.classList = { add() {}, remove() {}, toggle() {}, contains: () => false };
+    const self = this;
+    this._cls = new Set();
+    this.classList = {
+      add: (...c) => c.forEach((x) => self._cls.add(x)),
+      remove: (...c) => c.forEach((x) => self._cls.delete(x)),
+      toggle: (c, on) => (on === undefined ? (self._cls.has(c) ? self._cls.delete(c) : self._cls.add(c)) : on ? self._cls.add(c) : self._cls.delete(c)),
+      contains: (c) => self._cls.has(c),
+    };
   }
   set innerHTML(v) { this._html = String(v); }
   get innerHTML() { return this._html; }
@@ -35,7 +42,12 @@ class El {
   appendChild() {} remove() {} focus() {} select() {} blur() {}
   setAttribute(k, v) { this[k] = v; } getAttribute(k) { return this[k] ?? null; }
   scrollIntoView() {} animate() {} closest() { return null; } matches() { return false; }
-  querySelector() { return null; } querySelectorAll() { return []; }
+  querySelector(sel) {
+    this._q ??= new Map();
+    if (!this._q.has(sel)) this._q.set(sel, new El(sel));
+    return this._q.get(sel);
+  }
+  querySelectorAll() { return []; }
   getBoundingClientRect() { return { top: 0, left: 0, width: 0, height: 0 }; }
 }
 for (const id of IDS) els.set(id, new El(id));
@@ -98,6 +110,8 @@ const EXPECT = [
   ['matrix', /<table class="mx">/],
   ['fHost', /<option value="/],
   ['count', /^\d+ \/ \d+$/],
+  ['featGrid', /class="feat/],
+  ['featNote', /生成|示意/],
 ];
 
 let bad = 0;
@@ -137,6 +151,38 @@ const hashAfterOpen = sandbox.location.hash;
 const urlOk = /^#[a-z]+\?.*skill=neka-nat--freecad-mcp/.test(hashAfterOpen);
 console.log(`  ${urlOk ? '✓' : '✗'} URL 状态  ${hashAfterOpen || '(空)'}`);
 if (!urlOk) bad++;
+
+// 精选：卡片数量、封面是 inline SVG、大图开关
+const FEATURED = (await (await import('node:fs/promises')).readFile(join(ROOT, 'data/skills.json'), 'utf8'));
+const featData = JSON.parse(FEATURED).featured ?? [];
+const featHtml = els.get('featGrid')?._html ?? '';
+const featCards = (featHtml.match(/class="feat( lead)?"/g) || []).length;
+const svgs = (featHtml.match(/<svg class="art"/g) || []).length;
+const featOk = featCards === featData.length && svgs === featData.length;
+console.log(`  ${featOk ? '✓' : '✗'} 精选·封面      ${featCards} 张卡片 / ${svgs} 张生成封面（期望 ${featData.length}）`);
+if (!featOk) bad++;
+const leadOk = /class="feat lead"/.test(featHtml);
+console.log(`  ${leadOk ? '✓' : '✗'} 精选·首图      ${leadOk ? '第一张走大卡版式' : '缺少 lead 版式'}`);
+if (!leadOk) bad++;
+const noteOk = /非仓库截图|生成/.test(els.get('featNote')?._text ?? '');
+console.log(`  ${noteOk ? '✓' : '✗'} 精选·免责说明  ${noteOk ? '' : '缺「封面为生成图」说明'}`);
+if (!noteOk) bad++;
+
+try {
+  sandbox.openArt(0);
+  const modal = els.get('artModal');
+  const body = modal.querySelector('.am-body')._html;
+  const zoomOk = modal.classList.contains('open') && /<svg class="art"/.test(body) && featData[0] && body.includes(featData[0].name);
+  console.log(`  ${zoomOk ? '✓' : '✗'} 精选·大图      ${zoomOk ? '点击封面可放大' : '大图未打开'}`);
+  if (!zoomOk) bad++;
+  for (const [type, fn] of docListeners) if (type === 'keydown') fn({ key: 'Escape', target: { tagName: 'BODY' } });
+  const closedOk = !modal.classList.contains('open');
+  console.log(`  ${closedOk ? '✓' : '✗'} 精选·Esc 关闭  ${closedOk ? '' : '大图没关上'}`);
+  if (!closedOk) bad++;
+} catch (e) {
+  console.error(`  ✗ 精选·大图      抛错：${e.message}`);
+  bad++;
+}
 
 const grid = els.get('skillGrid')?._html ?? '';
 const cards = (grid.match(/class="card skill"/g) || []).length;

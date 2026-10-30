@@ -33,6 +33,7 @@ AutoCAD / SolidWorks / Fusion / Onshape / Inventor / KiCad 各有一套桌面自
 | 区块 | 内容 |
 |---|---|
 | 首页 · Hero | 收录数 / 合计 star / 人工核读数 / 宿主数 / 配方数，胶囊直达筛选 |
+| 首页 · 精选 | 9 个人工挑的代表性项目，每个配一张**本站生成的封面**（内联 SVG，非仓库截图）；首图大卡、点封面可放大 |
 | 首页 · 路线问题 | MCP 路线 vs Code 路线 的对比与代价，四步决策树 |
 | 首页 · Top 6 | 综合分前六，点开看拆解 |
 | 首页 · 宿主 × 形态矩阵 | 哪个 CAD 软件已有哪种接法，一格一数字，点格直接筛选 |
@@ -56,7 +57,7 @@ python -m http.server 8642
 ## 数据与构建
 
 ```bash
-node scripts/data/../build-data.mjs           # 用已提交的 data/cache.json 重新生成
+node scripts/build-data.mjs                  # 用已提交的 data/cache.json 重新生成
 node scripts/build-data.mjs --fetch           # 先用 GitHub Search API 刷新 cache.json（未认证，10 次/分钟）
 ```
 
@@ -69,7 +70,8 @@ cad-skills-web/
 │   ├── cache.json            # GitHub 元数据快照（star / 许可 / pushed_at / topics）
 │   ├── classification.json   # 人工分类：形态 / 宿主 / 能力 / 中文说明
 │   ├── audit.json            # 人工核读记录：README 里核对到的事实 + 真实安装命令
-│   ├── recipes.json          # 16 套接入配方（宿主 ID）
+│   ├── recipes.json          # 18 套接入配方（宿主 ID）
+│   ├── featured.json         # 9 个精选项目：封面母题 + 一句话 + 入选理由
 │   └── skills.json           # 构建产物
 └── scripts/
     ├── build-data.mjs        # 合并 + 评分 + 内嵌（幂等，可重复跑）
@@ -81,8 +83,8 @@ cad-skills-web/
 ### 自检
 
 ```bash
-node scripts/check.mjs     # 7 项静态检查：字段合法性、内嵌一致性、JS 语法、25 个 id 选择器、配方引用、截断风险
-node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲染区有内容、详情抽屉模板完整、离线兜底生效
+node scripts/check.mjs     # 8 项静态检查：字段合法性、内嵌一致性、JS 语法、30 个 id 选择器、配方引用、精选自洽、截断风险
+node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：九大渲染区有内容、详情抽屉模板完整、精选封面与大图开关、离线兜底生效
 ```
 
 ### 综合分口径（非官方、非实测）
@@ -104,6 +106,8 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲�
 - 本页**没有逐个实跑任何 server**。安装命令与配置片段来自各仓库 README，属于「形态示例」，请以 README 为准。
 - 能力矩阵读自 README / description：未核读的 62 个项目只按描述归类，可能不准；`未提及` 不等于不支持。
 - star 与活跃度是 GitHub Search API 的快照（未认证抓取），项目会改名、归档、停更。
+- **精选是本页的人工阅读建议，不是排名**。顺序按「现在想动手先装哪个」排，分量不代表质量；数据排名看下面的「综合分 Top 6」。
+- 精选封面是**按仓库公开信息生成的示意图**（内联 SVG 线稿），不是仓库截图，也不代表项目界面长相。
 - 同名仓库极多（`openscad-mcp` 5 个、`freecad-mcp` 6 个、`cadquery-mcp` 4 个），收录时按 star + 是否 headless + 是否有真实安装路径筛过一轮，但遗漏不可避免。
 
 ## 参与贡献
@@ -111,6 +115,7 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲�
 发现漏收、错标、或某个 README 已经更新（尤其是安装命令）——欢迎开 issue 或 PR：
 
 1. 改 `data/classification.json`（分类与说明）或 `data/audit.json`（核读结论与安装命令）；
+   想调整首页「精选」，改 `data/featured.json`（`repo` 必须在图鉴里，`motif` 取九种封面母题之一，`why` 至少两条）；
 2. 跑 `node scripts/build-data.mjs`；
 3. 提交 `data/` 与 `index.html` 的改动。
 

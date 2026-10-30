@@ -1,0 +1,87 @@
+{
+  "_readme": "首页「精选」的人工挑选清单。repo 必须是 data/skills.json 里已存在的条目；motif 决定封面母题（生成描线，不是仓库截图）；why 是两条「为什么值得先看」，全部来自仓库描述 / README 摘要 / 本站核读记录，不写实测结论。数组顺序 = 推荐阅读顺序，不是评分排名。",
+  "note": "封面是按仓库公开信息生成的示意图，不是仓库截图。顺序是阅读建议，不是排名；数据排名看下方「综合分 Top 6」。",
+  "items": [
+    {
+      "repo": "neka-nat/freecad-mcp",
+      "motif": "port",
+      "headline": "FreeCAD MCP 的参照实现：生态里被引用最多，示例也最全。",
+      "why": [
+        "建模型、改模型、跑任意 Python 脚本、检视文档，还能做 FEM 分析",
+        "文档站有法兰、玩具车、从 2D 图纸建模的完整示例，照着改成自己的任务最快"
+      ]
+    },
+    {
+      "repo": "mixelpixx/KiCAD-MCP-Server",
+      "motif": "pcb",
+      "headline": "电子 CAD 方向社区最认的 MCP：能直接改原理图和 PCB。",
+      "why": [
+        "带 Freerouting 自动布线集成（Java / Docker / Podman），布线这种体力活能交给 Agent",
+        "README 已指向重写版 Konnect（Rust、KiCad 10 IPC、171 个工具、AGPL-3.0）：现在能用，也要留意迁移动向"
+      ]
+    },
+    {
+      "repo": "pascalorg/editor",
+      "motif": "window",
+      "headline": "全站 star 最高：3D 建筑编辑器，自带本地 CLI 与 MCP 工具。",
+      "why": [
+        "人和 Agent 共用同一套工作流，不是两套界面各干各的",
+        "AEC 方向少见的「应用自己就是 Agent 宿主」，适合先跑通再谈定制"
+      ]
+    },
+    {
+      "repo": "tangency-labs/solidcraft",
+      "motif": "cube",
+      "headline": "纯 Rust 参数化 3D CAD，桌面 / Web 双端，MCP 暴露自动化。",
+      "why": [
+        "同一份模型两端都能开，做演示和做交付不用换工具链",
+        "Apache-2.0：商用与二次开发都没有 GPL 那层顾虑"
+      ]
+    },
+    {
+      "repo": "wzyn20051216/solidworks-automation-skill",
+      "motif": "draft",
+      "headline": "Skill + MCP 双形态，还给结果加了一层「验证」。",
+      "why": [
+        "作者原文：工具调用成功不等于任务真的完成 —— Review 类任务会先验证结果再交付",
+        "支持 Codex / Claude / Cursor；桌面 CAD 自动化与 DWG/DXF 都在射程内"
+      ]
+    },
+    {
+      "repo": "flowful-ai/cad-skill",
+      "motif": "param",
+      "headline": "代码路线里好入门的一个：CadQuery 直接产出可 3D 打印的件。",
+      "why": [
+        "每次产出 4 视角预览图，模型对不对一眼就能看出来，不用盲信文字回复",
+        "MagSafe 支架、手机壳、Gridfinity 收纳盒都已发布在 MakerWorld，作者写过完整方法文"
+      ]
+    },
+    {
+      "repo": "jingcheng-chen/rhinomcp",
+      "motif": "surface",
+      "headline": "Rhino 系 star 最高的 MCP：把 Rhino 接到 Agent 上。",
+      "why": [
+        "面向 Grasshopper / RhinoCommon 的脚本化建模，复杂曲面和参数化造型是主场",
+        "Rhino 在工业设计与 AEC 都常见，缺 MCP 的团队可以先用它试水"
+      ]
+    },
+    {
+      "repo": "ReshefElisha/jarvis-onshape-mcp",
+      "motif": "cloud",
+      "headline": "驱动云端 Onshape：改动回结构化真值 + 多视图 PNG。",
+      "why": [
+        "草图、拉伸、圆角、配合、变量表参数迭代、自定义 FeatureScript 都在工具面里",
+        "变更类工具会返回「改了什么 / 再生警告 / 下一步提示」，Agent 不用靠猜"
+      ]
+    },
+    {
+      "repo": "daiemon12/catia-v5-mcp-server",
+      "motif": "assembly",
+      "headline": "CATIA V5 侧少见的补位：98 个工具，走 COM。",
+      "why": [
+        "文档/装配、2D 草图、Part Design（Pad/Pocket/Fillet/Pattern）、GSD 曲面、工程图导出都有",
+        "自称 CATIA V5 第一个开源 MCP：star 不多，但这条生态本来就没别的可选"
+      ]
+    }
+  ]
+}

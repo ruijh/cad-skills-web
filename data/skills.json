@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T02:42:47.426Z",
+  "generated_at": "2026-10-30T05:14:32.336Z",
   "source": "GitHub Search API（未认证），star 为抓取时快照",
   "scoring": {
     "star": 45,
@@ -15,6 +15,7 @@
     "audited": 30,
     "hosts": 26,
     "recipes": 18,
+    "featured": 9,
     "tierS": 2,
     "forms": {
       "mcp": 57,
@@ -3950,6 +3951,207 @@
       "snippet": "{\n  \"skills\": [\"usd-convert-cad\"]\n}",
       "snippetNote": "NVIDIA 官方 skill，README 给出 pip 安装命令；转换能力随版本变化。",
       "prompt": "用 usd-pipeline 这套，把我这批 STEP 文件批量转成 USD，\n保留装配层级与材质命名，输出到 ./usd/，最后给我一份转换报告（失败项与原因）。"
+    }
+  ],
+  "featured_note": "封面是按仓库公开信息生成的示意图，不是仓库截图。顺序是阅读建议，不是排名；数据排名看下方「综合分 Top 6」。",
+  "featured": [
+    {
+      "id": "neka-nat--freecad-mcp",
+      "repo": "neka-nat/freecad-mcp",
+      "name": "freecad-mcp",
+      "owner": "neka-nat",
+      "host": "FreeCAD",
+      "form": "mcp",
+      "stars": 3107,
+      "license": "MIT",
+      "tier": "A",
+      "audited": true,
+      "url": "https://github.com/neka-nat/freecad-mcp",
+      "install": "git clone https://github.com/neka-nat/freecad-mcp.git",
+      "caps": 5,
+      "total": 80.4,
+      "motif": "port",
+      "headline": "FreeCAD MCP 的参照实现：生态里被引用最多，示例也最全。",
+      "why": [
+        "建模型、改模型、跑任意 Python 脚本、检视文档，还能做 FEM 分析",
+        "文档站有法兰、玩具车、从 2D 图纸建模的完整示例，照着改成自己的任务最快"
+      ]
+    },
+    {
+      "id": "mixelpixx--kicad-mcp-server",
+      "repo": "mixelpixx/KiCAD-MCP-Server",
+      "name": "KiCAD-MCP-Server",
+      "owner": "mixelpixx",
+      "host": "KiCad",
+      "form": "mcp",
+      "stars": 3011,
+      "license": "MIT",
+      "tier": "A",
+      "audited": true,
+      "url": "https://github.com/mixelpixx/KiCAD-MCP-Server",
+      "install": "git clone https://github.com/mixelpixx/KiCAD-MCP-Server && pip install -r requirements.txt",
+      "caps": 4,
+      "total": 78.8,
+      "motif": "pcb",
+      "headline": "电子 CAD 方向社区最认的 MCP：能直接改原理图和 PCB。",
+      "why": [
+        "带 Freerouting 自动布线集成（Java / Docker / Podman），布线这种体力活能交给 Agent",
+        "README 已指向重写版 Konnect（Rust、KiCad 10 IPC、171 个工具、AGPL-3.0）：现在能用，也要留意迁移动向"
+      ]
+    },
+    {
+      "id": "pascalorg--editor",
+      "repo": "pascalorg/editor",
+      "name": "editor",
+      "owner": "pascalorg",
+      "host": "AEC",
+      "form": "app",
+      "stars": 25186,
+      "license": "MIT",
+      "tier": "S",
+      "audited": false,
+      "url": "https://github.com/pascalorg/editor",
+      "install": "",
+      "caps": 3,
+      "total": 71.4,
+      "motif": "window",
+      "headline": "全站 star 最高：3D 建筑编辑器，自带本地 CLI 与 MCP 工具。",
+      "why": [
+        "人和 Agent 共用同一套工作流，不是两套界面各干各的",
+        "AEC 方向少见的「应用自己就是 Agent 宿主」，适合先跑通再谈定制"
+      ]
+    },
+    {
+      "id": "tangency-labs--solidcraft",
+      "repo": "tangency-labs/solidcraft",
+      "name": "solidcraft",
+      "owner": "tangency-labs",
+      "host": "通用",
+      "form": "app",
+      "stars": 11788,
+      "license": "Apache-2.0",
+      "tier": "S",
+      "audited": false,
+      "url": "https://github.com/tangency-labs/solidcraft",
+      "install": "",
+      "caps": 4,
+      "total": 68.3,
+      "motif": "cube",
+      "headline": "纯 Rust 参数化 3D CAD，桌面 / Web 双端，MCP 暴露自动化。",
+      "why": [
+        "同一份模型两端都能开，做演示和做交付不用换工具链",
+        "Apache-2.0：商用与二次开发都没有 GPL 那层顾虑"
+      ]
+    },
+    {
+      "id": "wzyn20051216--solidworks-automation-skill",
+      "repo": "wzyn20051216/solidworks-automation-skill",
+      "name": "solidworks-automation-skill",
+      "owner": "wzyn20051216",
+      "host": "SolidWorks",
+      "form": "skill",
+      "stars": 1585,
+      "license": "MIT",
+      "tier": "A",
+      "audited": true,
+      "url": "https://github.com/wzyn20051216/solidworks-automation-skill",
+      "install": "npx github:wzyn20051216/solidworks-automation-skill --target claude",
+      "caps": 5,
+      "total": 77.6,
+      "motif": "draft",
+      "headline": "Skill + MCP 双形态，还给结果加了一层「验证」。",
+      "why": [
+        "作者原文：工具调用成功不等于任务真的完成 —— Review 类任务会先验证结果再交付",
+        "支持 Codex / Claude / Cursor；桌面 CAD 自动化与 DWG/DXF 都在射程内"
+      ]
+    },
+    {
+      "id": "flowful-ai--cad-skill",
+      "repo": "flowful-ai/cad-skill",
+      "name": "cad-skill",
+      "owner": "flowful-ai",
+      "host": "CadQuery",
+      "form": "skill",
+      "stars": 704,
+      "license": "NOASSERTION",
+      "tier": "A",
+      "audited": true,
+      "url": "https://github.com/flowful-ai/cad-skill",
+      "install": "git clone https://github.com/flowful-ai/cad-skill ~/.claude/skills/parametric-3d-printing",
+      "caps": 4,
+      "total": 65.8,
+      "motif": "param",
+      "headline": "代码路线里好入门的一个：CadQuery 直接产出可 3D 打印的件。",
+      "why": [
+        "每次产出 4 视角预览图，模型对不对一眼就能看出来，不用盲信文字回复",
+        "MagSafe 支架、手机壳、Gridfinity 收纳盒都已发布在 MakerWorld，作者写过完整方法文"
+      ]
+    },
+    {
+      "id": "jingcheng-chen--rhinomcp",
+      "repo": "jingcheng-chen/rhinomcp",
+      "name": "rhinomcp",
+      "owner": "jingcheng-chen",
+      "host": "Rhino",
+      "form": "mcp",
+      "stars": 1182,
+      "license": "MIT",
+      "tier": "A",
+      "audited": false,
+      "url": "https://github.com/jingcheng-chen/rhinomcp",
+      "install": "",
+      "caps": 3,
+      "total": 58.9,
+      "motif": "surface",
+      "headline": "Rhino 系 star 最高的 MCP：把 Rhino 接到 Agent 上。",
+      "why": [
+        "面向 Grasshopper / RhinoCommon 的脚本化建模，复杂曲面和参数化造型是主场",
+        "Rhino 在工业设计与 AEC 都常见，缺 MCP 的团队可以先用它试水"
+      ]
+    },
+    {
+      "id": "reshefelisha--jarvis-onshape-mcp",
+      "repo": "ReshefElisha/jarvis-onshape-mcp",
+      "name": "jarvis-onshape-mcp",
+      "owner": "ReshefElisha",
+      "host": "Onshape",
+      "form": "skill",
+      "stars": 175,
+      "license": "NOASSERTION",
+      "tier": "A",
+      "audited": true,
+      "url": "https://github.com/ReshefElisha/jarvis-onshape-mcp",
+      "install": "git clone https://github.com/ReshefElisha/jarvis-onshape-mcp   # 按 README 配 API Key",
+      "caps": 2,
+      "total": 50.1,
+      "motif": "cloud",
+      "headline": "驱动云端 Onshape：改动回结构化真值 + 多视图 PNG。",
+      "why": [
+        "草图、拉伸、圆角、配合、变量表参数迭代、自定义 FeatureScript 都在工具面里",
+        "变更类工具会返回「改了什么 / 再生警告 / 下一步提示」，Agent 不用靠猜"
+      ]
+    },
+    {
+      "id": "daiemon12--catia-v5-mcp-server",
+      "repo": "daiemon12/catia-v5-mcp-server",
+      "name": "catia-v5-mcp-server",
+      "owner": "daiemon12",
+      "host": "CATIA/NX",
+      "form": "mcp",
+      "stars": 146,
+      "license": "MIT",
+      "tier": "A",
+      "audited": true,
+      "url": "https://github.com/daiemon12/catia-v5-mcp-server",
+      "install": "git clone https://github.com/daiemon12/catia-v5-mcp-server.git && pip install -e .",
+      "caps": 2,
+      "total": 63.4,
+      "motif": "assembly",
+      "headline": "CATIA V5 侧少见的补位：98 个工具，走 COM。",
+      "why": [
+        "文档/装配、2D 草图、Part Design（Pad/Pocket/Fillet/Pattern）、GSD 曲面、工程图导出都有",
+        "自称 CATIA V5 第一个开源 MCP：star 不多，但这条生态本来就没别的可选"
+      ]
     }
   ],
   "repo_url": "https://github.com/ruijh/cad-skills-web"

@@ -127,6 +127,7 @@ async function main() {
   const cache = JSON.parse(await readFile(p('data/cache.json'), 'utf8'));
   const classification = JSON.parse(await readFile(p('data/classification.json'), 'utf8'));
   const recipes = JSON.parse(await readFile(p('data/recipes.json'), 'utf8'));
+  const featuredSrc = JSON.parse(await readFile(p('data/featured.json'), 'utf8'));
   let audit = {};
   try {
     audit = JSON.parse(await readFile(p('data/audit.json'), 'utf8'));
@@ -184,6 +185,33 @@ async function main() {
 
   skills.sort((x, y) => y.total - x.total || y.stars - x.stars);
 
+  /* 精选：人工清单 × 图鉴数据。只补充展示字段，不改动评分。 */
+  const featured = (featuredSrc.items ?? []).map((it) => {
+    const s = skills.find((x) => x.repo === it.repo);
+    if (!s) throw new Error(`data/featured.json 引用的 repo 不在图鉴里：${it.repo}`);
+    if (!it.headline) throw new Error(`精选 ${it.repo} 缺 headline`);
+    if (!Array.isArray(it.why) || it.why.length < 2) throw new Error(`精选 ${it.repo} 的 why 至少两条`);
+    return {
+      id: s.id,
+      repo: s.repo,
+      name: s.name,
+      owner: s.owner,
+      host: s.host,
+      form: s.form,
+      stars: s.stars,
+      license: s.license ?? '未标注',
+      tier: s.tier,
+      audited: s.audited,
+      url: s.url,
+      install: s.install ?? '',
+      caps: s.caps.length,
+      total: s.total,
+      motif: it.motif || 'port',
+      headline: it.headline,
+      why: it.why,
+    };
+  });
+
   const hosts = [...new Set(skills.map((s) => s.host))].sort((a, b) => a.localeCompare(b, 'zh'));
   const capsAll = [...new Set(skills.flatMap((s) => s.caps))];
   const data = {
@@ -199,12 +227,15 @@ async function main() {
       audited: skills.filter((s) => s.audited).length,
       hosts: hosts.length,
       recipes: recipes.length,
+      featured: featured.length,
       tierS: skills.filter((s) => s.tier === 'S').length,
       forms: Object.fromEntries([...new Set(skills.map((s) => s.form))].map((f) => [f, skills.filter((s) => s.form === f).length])),
     },
     facets: { hosts, caps: capsAll, licenses: [...new Set(skills.map((s) => s.license ?? '未标注'))] },
     skills,
     recipes,
+    featured_note: featuredSrc.note ?? '',
+    featured,
   };
 
   data.repo_url = process.env.CAD_SKILLS_REPO_URL || data.repo_url || '';
