@@ -69,7 +69,7 @@ node scripts/build-data.mjs                  # 用已提交的 data/cache.json �
 node scripts/build-data.mjs --fetch           # 先用 GitHub Search API 刷新 cache.json
 ```
 
-带 `GITHUB_TOKEN` 时搜索额度 30 次/分钟（9 条检索式约 1 分钟），未认证是 10 次/分钟（约 3 分钟）。
+带 `GITHUB_TOKEN` 时搜索额度 30 次/分钟（19 条检索式约 1 分钟），未认证是 10 次/分钟（约 2–3 分钟）。
 
 产物：`data/skills.json`（供运行时同步）+ 同一份数据内嵌进 `index.html`。
 

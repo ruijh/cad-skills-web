@@ -25,7 +25,7 @@ done
 if [ -n "${GITHUB_TOKEN:-}" ]; then
   echo "· 认证抓取：搜索额度 30 次/分钟"
 elif [ "$NO_FETCH" = 0 ]; then
-  echo "· 未认证抓取：搜索额度 10 次/分钟，9 条检索式大约 3 分钟；设 GITHUB_TOKEN 可提速并避免 403"
+  echo "· 未认证抓取：搜索额度 10 次/分钟，19 条检索式大约 2–3 分钟；设 GITHUB_TOKEN 可提速并避免 403"
 fi
 
 start=$(date +%s)
