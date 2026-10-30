@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T09:19:39.794Z",
+  "generated_at": "2026-10-30T02:27:57.169Z",
   "source": "GitHub Search API（未认证），star 为抓取时快照",
   "scoring": {
     "star": 45,
@@ -3952,5 +3952,5 @@
       "prompt": "用 usd-pipeline 这套，把我这批 STEP 文件批量转成 USD，\n保留装配层级与材质命名，输出到 ./usd/，最后给我一份转换报告（失败项与原因）。"
     }
   ],
-  "repo_url": ""
+  "repo_url": "https://github.com/ruijh/cad-skills-web"
 }

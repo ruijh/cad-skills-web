@@ -1,5 +1,7 @@
 # CAD Skills 图鉴 · cad-skills-web
 
+**在线访问**：https://ruijh.github.io/cad-skills-web/ · **仓库**：https://github.com/ruijh/cad-skills-web
+
 ![CAD Skills 图鉴](assets/cover.svg)
 
 > 收录 GitHub 上**能让 AI Agent 真正干活的 CAD 项目**——MCP server、`SKILL.md` 技能包、以及自带 MCP 的 CAD 应用。
