@@ -216,7 +216,11 @@ async function main() {
   const html = await readFile(p('index.html'), 'utf8');
   const RE = /\/\*__REG_JSON__\*\/[\s\S]*?\/\*__END_REG__\*\//;
   if (!RE.test(html)) throw new Error('index.html 里找不到数据占位符 /*__REG_JSON__*/…/*__END_REG__*/');
-  await writeFile(p('index.html'), html.replace(RE, '/*__REG_JSON__*/' + payload + '/*__END_REG__*/'));
+  let out = html.replace(RE, '/*__REG_JSON__*/' + payload + '/*__END_REG__*/');
+  // 运行时同步的 raw / jsDelivr 地址需要 owner/repo；从 repo_url 推导，推导不出就保留占位符（代码会跳过该源）
+  const slug = (data.repo_url || '').match(/github\.com\/([^/]+\/[^/?#]+)/)?.[1];
+  if (slug) out = out.replaceAll('REPO_PLACEHOLDER', slug.replace(/\.git$/, ''));
+  await writeFile(p('index.html'), out);
 
   console.log(`✓ ${skills.length} 个 skill · ${recipes.length} 套配方 · 合计 ${data.counts.stars} star`);
   console.log(`✓ 已写入 data/skills.json 并内嵌进 index.html（${(payload.length / 1024).toFixed(1)} KB）`);

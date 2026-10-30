@@ -1,5 +1,6 @@
-> **状态：已发布** → https://github.com/ruijh/cad-skills-web · 站点 https://ruijh.github.io/cad-skills-web/
-> Pages 用「Deploy from a branch：main / root」；CI 工作流暂放 `docs/ci/`，启用方法见 `docs/ci/README.md`。
+> **状态：已发布** → https://github.com/ruijh/cad-skills-web · 站点 https://ruijh.github.io/cad-skills-web/（200）
+> Pages 源是 `gh-pages` 分支根目录（推送该分支自动启用）；改完 `main` 跑 `./scripts/deploy-pages.sh`。
+> CI 工作流暂放 `docs/ci/`，启用方法见 `docs/ci/README.md`；仓库简介/topics 需 `Administration` 权限才能改。
 
 # 发布到 GitHub 的三种方式
 

@@ -123,3 +123,19 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：七大渲�
 - 各项目名称、描述与商标归其各自所有者
 
 > 收录的各仓库许可各不相同（MIT / Apache / GPL / AGPL 已在图鉴里标注），引用与二次分发请分别遵循其协议。
+
+## 发布与部署
+
+- 站点：**https://ruijh.github.io/cad-skills-web/**（GitHub Pages，从 `gh-pages` 分支根目录发布）
+- 仓库：**https://github.com/ruijh/cad-skills-web**（工作分支 `main`）
+- 改完 `main` 后同步上线：
+
+```bash
+./scripts/deploy-pages.sh        # 等价于 git push origin main:gh-pages --force
+```
+
+> 为什么从 `gh-pages` 发布而不是「分支根目录 / Actions」：建仓用的 fine-grained token 只有
+> `Contents: read/write`，没有 `Pages` 与 `workflows` 权限，建不了 Pages 配置、也推不了
+> `.github/workflows/`。`gh-pages` 分支推送会让 GitHub 自动启用 Pages，绕开了这个限制。
+> 拿回 `Pages: write` 权限后，可在 Settings → Pages 把 Source 改成 `main` 并删掉 `gh-pages`。
+> CI 工作流放在 `docs/ci/`，启用方法见 `docs/ci/README.md`。
