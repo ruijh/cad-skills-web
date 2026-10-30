@@ -599,7 +599,7 @@ footer{border-top:1px solid var(--line-soft); padding:26px 20px 40px; color:var(
         <ul>
           <li><b>只推 main、忘了镜像 gh-pages</b>：线上一个字都不会变，本地怎么刷新都是旧的——最常见的“我明明改了”。</li>
           <li><b>出口网络只放行 api.github.com</b> 时，<code>git push</code> 会 SSL timeout / CONNECT 502；这种情况改用 Git Data API 提交，命令写在 README 里。</li>
-          <li><b>每周自动跑</b>：现成的工作流在 <code>docs/ci/weekly-refresh.yml</code>（每周一 03:00 UTC），要启用得把 token 的 <code>Workflows</code> 权限打开、文件搬进 <code>.github/workflows/</code>。</li>
+          <li><b>每周自动跑</b>：<code>.github/workflows/weekly-refresh.yml</code> 每周一 03:00 UTC 刷新数据并开 PR；它只改 <code>main</code>，合并后仍要自己跑一次 <code>deploy-pages.sh</code>。</li>
           <li>未认证的搜索接口 10 次/分钟，19 条检索式约 2–3 分钟；带 token 30 次/分钟，约 1 分钟且不撞 403。</li>
           <li>精选、Top 6、宿主矩阵都由同一份 <code>data/skills.json</code> 计算：数据一改，三处一起变，不存在“某一处忘了同步”。</li>
         </ul>

@@ -157,6 +157,14 @@ for (const f of ['scripts/refresh.sh', 'scripts/report.mjs']) {
   } catch { fail(`页面说到的 ${f} 不存在`); }
 }
 try {
+  const wf = await readFile(p('.github/workflows/weekly-refresh.yml'), 'utf8');
+  if (!/cron:\s*'0 3 \* \* 1'/.test(wf)) fail('weekly-refresh.yml 的 cron 不是周一 03:00 UTC');
+  if (!/report\.mjs/.test(wf)) fail('weekly-refresh.yml 没跑 report.mjs（候选报告会断更）');
+  if (!/create-pull-request/.test(wf)) fail('weekly-refresh.yml 没有开 PR 的步骤');
+  else ok('每周工作流存在：周一 03:00 UTC，刷新 → 报告 → 自检 → 开 PR');
+} catch { fail('缺 .github/workflows/weekly-refresh.yml（定期刷新就断了）'); }
+
+try {
   const cand = JSON.parse(await readFile(p('data/candidates.json'), 'utf8'));
   if (!Array.isArray(cand.candidates)) fail('data/candidates.json 结构异常');
   else ok(`候选报告可解析（${cand.candidates.length} 个相关候选）`);

@@ -29,15 +29,14 @@ GITHUB_TOKEN=xxx ./scripts/refresh.sh     # 检索 → 重建 → 差集报告 �
 
 ### 定期自动跑
 
-现成的工作流在 `docs/ci/weekly-refresh.yml`：每周一 03:00 UTC 跑 `build-data.mjs --fetch`，自检通过就开一个 PR 到 `chore/weekly-data-refresh` 分支。
+`.github/workflows/weekly-refresh.yml`：每周一 03:00 UTC（北京时间 11:00）跑 `build-data.mjs --fetch` → `report.mjs` → 自检，有变化就开 PR 到 `chore/weekly-data-refresh`；也可以在 Actions 页面手动 Run workflow。
 
-要启用：
+注意两点：
 
-1. 把这个文件复制到 `.github/workflows/weekly-refresh.yml`；
-2. 给 token 加 **Workflows: Read and write**（fine-grained 没有这个权限就推不进 `.github/workflows/`，这也是它现在还在 `docs/ci/` 的原因）；
-3. 仓库 Settings → Actions → General 里允许 GitHub Actions 创建 PR。
+- 它只改 `main`。**合并 PR 后仍要 `./scripts/deploy-pages.sh` 才会到线上。**
+- 它是 `GITHUB_TOKEN` 开的 PR，不会触发其它工作流；要跑 Pages 部署就得手动镜像分支（见下一节）。
 
-不启用也没关系：本地每周跑一次 `refresh.sh` 效果一样，只是要人记得。
+不想等 CI 就本地跑一次 `refresh.sh`，效果一样，只是要人记得。
 
 ---
 
@@ -88,4 +87,4 @@ gh-pages  ← 线上真正服务的内容（Pages 源，分支根目录）
 
 - **About**：简介写「CAD × Agent 图鉴：92 个能让 AI 真正干活的 CAD 项目」；Homepage 填站点地址；Topics 建议 `cad` `mcp` `ai-agents` `claude-skills` `freecad` `openscad` `kicad` `awesome-list`。
 - **Settings → Pages**：Source 保持 `Deploy from a branch` → `gh-pages` → `/ (root)`。
-- 若想让 Actions 工作流能推送，额外开 **Workflows** 权限（见上文）。
+- **Actions**：`Weekly data refresh` 可手动触发；跑完生成的 PR 需要人工合并再镜像发布。

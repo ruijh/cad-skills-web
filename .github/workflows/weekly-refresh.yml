@@ -1,0 +1,58 @@
+name: Weekly data refresh
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'   # 每周一 03:00 UTC（北京时间 11:00）
+  workflow_dispatch:        # 想立刻跑一次：Actions → Weekly data refresh → Run workflow
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 刷新 GitHub 元数据（19 条检索式）
+        env:
+          # 用内置 token 走认证额度（30 次/分钟），否则 10 次/分钟会明显变慢
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/build-data.mjs --fetch
+
+      - name: 差集报告（谁还没收录 / 谁已归档 / 谁停更）
+        run: node scripts/report.mjs
+
+      - name: 自检
+        run: node scripts/check.mjs && node scripts/smoke.mjs
+
+      - name: 有变化就开 PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore(data): 每周自动刷新 star / 活跃度快照'
+          title: 'chore(data): 每周自动刷新 star / 活跃度快照'
+          body: |
+            自动跑了一遍 `scripts/refresh.sh` 的前两步：刷新 `data/cache.json`（star / pushed_at / 许可 / 归档）、
+            重建 `data/skills.json` 并内嵌回 `index.html`，再写一份 `data/candidates.json` 差集报告。
+
+            合并前请做三件事：
+
+            1. 抽查几条 star / pushed_at 变化是否合理（`git diff data/cache.json`）；
+            2. 看 `data/candidates.json` 里有没有值得新收的项目 —— **脚本不会自己加**，收录与否要人决定；
+            3. 确认 `node scripts/check.mjs` 与 `node scripts/smoke.mjs` 是绿的（本 PR 已跑过一遍）。
+
+            合并到 `main` 后记得镜像发布：`./scripts/deploy-pages.sh`（详见 `PUBLISH.md`）。
+          branch: chore/weekly-data-refresh
+          delete-branch: true
+          add-paths: |
+            data/
+            index.html

@@ -82,8 +82,8 @@ node scripts/build-data.mjs --fetch           # 先用 GitHub Search API 刷新 
 | 人 | 只决定「收不收」：新仓库补进 `data/classification.json`（形态 / 宿主 / 能力 / 点评） |
 | `build-data.mjs` | 重算综合分与排名，把结果内嵌回 `index.html` |
 
-现成的每周工作流在 `docs/ci/weekly-refresh.yml`（周一 03:00 UTC，开 PR 到 `chore/weekly-data-refresh`），
-启用方法见 `PUBLISH.md`；不启用就本地每周跑一次 `refresh.sh`，效果一样。
+每周一 03:00 UTC 由 `.github/workflows/weekly-refresh.yml` 自动跑一遍（刷新 → 报告 → 自检 → 开 PR 到
+`chore/weekly-data-refresh`），人抽查后合并；不想等 CI 就本地跑 `refresh.sh`，效果一样。
 
 ```
 cad-skills-web/
@@ -172,4 +172,4 @@ node scripts/smoke.mjs     # 用最小 DOM 桩真跑一遍内联 JS：九大渲�
 > `Contents: read/write`，没有 `Pages` 与 `workflows` 权限，建不了 Pages 配置、也推不了
 > `.github/workflows/`。`gh-pages` 分支推送会让 GitHub 自动启用 Pages，绕开了这个限制。
 > 拿回 `Pages: write` 权限后，可在 Settings → Pages 把 Source 改成 `main` 并删掉 `gh-pages`。
-> CI 工作流放在 `docs/ci/`，启用方法见 `docs/ci/README.md`。
+> 每周数据刷新由 `.github/workflows/weekly-refresh.yml` 自动开 PR，说明见 `docs/ci/README.md`。
